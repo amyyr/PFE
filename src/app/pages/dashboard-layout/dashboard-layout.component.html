@@ -1,0 +1,21 @@
+
+<div class="sidebar">
+    <!-- <a routerLinkActive="active" routerLink="/dashboard" [routerLinkActiveOptions]="{'exact': true}">Dashboard</a> -->
+    
+    <!-- Should Be Manager -->
+    <a routerLinkActive="active" routerLink="/dashboard/add-team">Add Team</a>
+    <a routerLinkActive="active" routerLink="/dashboard/all-teams">All Teams</a>
+    <a routerLinkActive="active" routerLink="/dashboard/add-match">Add Match</a>
+    <a routerLinkActive="active" routerLink="/dashboard/all-matches">All Matches</a>
+    <a routerLinkActive="active" routerLink="/dashboard/add-player">Add Player</a>
+    <a routerLinkActive="active" routerLink="/dashboard/all-players">All Players</a>
+   
+
+    <!-- Should Be Admin -->
+    <a routerLinkActive="active" routerLink="/dashboard/manager">Manager</a>
+    <a routerLinkActive="active" routerLink="/dashboard/add-manager">Add Manager</a>
+</div>
+
+<div class="content">
+    <router-outlet></router-outlet>
+</div>

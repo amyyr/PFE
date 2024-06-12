@@ -1,0 +1,5 @@
+.positioned {
+    position: sticky;
+    top: 30px;
+    left: 70px;
+  }

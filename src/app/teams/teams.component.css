@@ -1,0 +1,73 @@
+
+.team-details img {
+  margin-bottom: 15px;
+  max-width: 50px; /* Adjust the max-width to make the logo smaller */
+  height: 50px; /* Ensure the logo maintains its size */
+  border-radius: 50%; /* Make the logo circular */
+  object-fit: cover; /* Ensure the image fits within the circle */
+}
+
+.mat-expansion-panel-header img {
+  max-width: 30px; /* Adjust the max-width to make the logo smaller */
+  height: 30px; /* Ensure the logo maintains its size */
+  border-radius: 50%; /* Make the logo circular */
+  object-fit: cover; /* Ensure the image fits within the circle */
+  margin-right: 10px; /* Space between the logo and text */
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h3 img {
+  margin-right: 10px;
+  max-width: 20px; /* Adjust the max-width to make the logo smaller */
+  height: 20px; /* Ensure the logo maintains its size */
+  border-radius: 50%; /* Make the logo circular */
+  object-fit: cover; /* Ensure the image fits within the circle */
+}
+
+.scrollable-box {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .team-vs {
+    flex-direction: column;
+  }
+
+  .team-details {
+    margin-bottom: 20px;
+  }
+}
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mr-2 {
+  margin-right: 0.5rem; /* Adjust as needed for spacing */
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem; /* Adjust as needed for spacing */
+}
+
+.btn-lg {
+  padding: 10px 20px; /* Adjust padding for larger button */
+  font-size: 1.25rem;  /* Adjust font size for larger text */
+}

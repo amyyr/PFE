@@ -1,0 +1,13 @@
+/* add-match.component.css */
+.error {
+  color: red;
+  font-size: 0.8em;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  margin-top: 1rem;
+}

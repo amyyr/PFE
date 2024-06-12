@@ -1,0 +1,56 @@
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <form [formGroup]="updateManagerForm" (ngSubmit)="updateManager()">
+
+                    <div class="form-group">
+                        <label for="firstName">FirstName</label>
+                        <input type="text" formControlName="firstName" class="form-control" placeholder="firstName" />
+                        <div *ngIf="f?.['firstName']?.['touched'] && f?.['firstName']?.['errors']?.['required']"
+                            class="alert alert-danger">
+                            firstName is required.
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lastName">LastName</label>
+                        <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" />
+                        <div *ngIf="f?.['lastName']?.['touched'] && f?.['lastName']?.['errors']?.['required']"
+                            class="alert alert-danger">
+                            lastName is required.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" formControlName="email" class="form-control"
+                            placeholder="Email" />
+                        <div *ngIf="f?.['formationYear']?.touched && f?.['email']?.errors?.['required']"
+                            class="alert alert-danger">
+                            Email year is required.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control"
+                            placeholder="Home Stadium" />
+                        <div *ngIf="f?.['homeStadium']?.touched && f?.['password']?.errors?.['required']"
+                            class="alert alert-danger">
+                            password stadium is required.
+                        </div>
+                    </div>
+
+
+                   
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success py-3 px-5">Update Manager</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

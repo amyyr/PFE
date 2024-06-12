@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Match Statistics</h2>
+<mat-dialog-content>
+  <div *ngIf="data">
+    <p><strong>Home Team:</strong> {{ data.event_home_team }}</p>
+    <p><strong>Away Team:</strong> {{ data.event_away_team }}</p>
+    <p><strong>Date:</strong> {{ data.event_date }}</p>
+    <p><strong>Time:</strong> {{ data.event_time }}</p>
+    <p><strong>Final Score:</strong> {{ data.event_final_result }}</p>
+    <p><strong>Stadium:</strong> {{ data.event_stadium }}</p>
+    <p><strong>Referee:</strong> {{ data.event_referee }}</p>
+    <!-- Add more statistics as needed -->
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

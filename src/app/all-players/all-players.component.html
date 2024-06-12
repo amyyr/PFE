@@ -1,0 +1,24 @@
+<section class="mt-5">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let player of players">
+                <td>{{player.firstName}}</td>
+                <td>{{player.lastName}}</td>
+                <td>
+                    <button class="btn btn-warning" (click)="updatePlayer(player.id)">Update</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" (click)="deletePlayer(player.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

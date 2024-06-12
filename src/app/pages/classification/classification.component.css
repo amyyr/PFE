@@ -1,0 +1,86 @@
+.team-info {
+  display: flex;
+  align-items: center;
+}
+
+.team-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.team-name {
+  color: rgb(70, 202, 147); 
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #007af3;
+  background-color: transparent;
+}
+
+.custom-table th, .custom-table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #ff0101;
+}
+
+.custom-table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #e20000;
+}
+
+.custom-table tbody + tbody {
+  border-top: 2px solid #ff0000;
+}
+
+.fixture {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fixture .team-logo {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+}
+
+.fixture-results {
+  flex-grow: 1;
+  margin-left: 20px;
+  max-width: 50%;
+}
+
+.demo-inline-calendar-card {
+  width: 250px;
+  margin: 0 auto; /* Center the calendar */
+}
+
+.mat-calendar {
+  width: 100%; /* Ensure the calendar fits within the card */
+  font-size: 0.875rem; /* Reduce font size */
+}
+
+.mat-calendar-table {
+  width: 100%; /* Ensure the table fits within the card */
+}
+
+.mat-calendar-body-cell {
+  height: 2.5rem; /* Reduce cell height */
+  line-height: 2.5rem; /* Center text vertically */
+}
+
+.mat-calendar-body-label {
+  font-size: 0.875rem; /* Reduce label font size */
+}
+
+.mat-calendar-body {
+  min-height: auto; /* Remove minimum height */
+}

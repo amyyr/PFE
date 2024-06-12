@@ -1,0 +1,107 @@
+.live-scores-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .score-item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .league-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .league-logo {
+    width: 50px;
+    height: auto;
+  }
+  
+  .league-name {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .match-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .match-time {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .teams {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .team {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .team-logo {
+    width: 30px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .scores {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .home-score, .away-score {
+    margin: 0 10px;
+  }
+  
+  .match-status {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .load-more-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .load-more-button:hover {
+    background-color: #0056b3;
+  }
+  

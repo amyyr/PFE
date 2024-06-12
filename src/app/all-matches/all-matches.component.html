@@ -1,0 +1,24 @@
+<section class="mt-5">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Home Team</th>
+                <th scope="col">Away Team</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let match of matches">
+                <td>{{match.homeTeam.name}}</td>
+                <td>{{match.awayTeam.name}}</td>
+                <td>
+                    <button class="btn btn-warning" (click)="updateMatch(match.id)">Update</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" (click)="deleteMatch(match.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

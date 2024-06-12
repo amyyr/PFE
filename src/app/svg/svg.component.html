@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="left-pane">
+    <h3>Upload SVG</h3>
+    <input type="file" (change)="onFileSelected($event)" accept=".svg" multiple />
+
+    <h3>Uploaded SVGs</h3>
+    <ul>
+      <li *ngFor="let svg of svgs" (click)="addSvg(svg)" [class.selected]="selectedSvgs.includes(svg)">
+        {{ svg.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="svg-list">
+    <div *ngFor="let svg of svgs" class="svg-item">
+      <button (click)="addSvg(svg)">{{ svg.name }}</button>
+    </div>
+  </div>
+  
+  <div class="svg-edit-box"></div>
+  
+</div>

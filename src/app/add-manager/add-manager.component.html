@@ -1,0 +1,63 @@
+<!-- <app-banner title="Add Team"></app-banner> -->
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <form [formGroup]="addManagerForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" type="text" formControlName="firstName" class="form-control"
+                            placeholder="First Name" />
+                        <div *ngIf="f?.['firstName']?.['touched'] && f?.['firstName']?.['errors']?.['required']"
+                            class="alert alert-danger">
+                            First Name is required.
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" type="text" formControlName="lastName" class="form-control"
+                            placeholder="Last Name" />
+                        <div *ngIf="f?.['lastName']?.['touched'] && f?.['lastName']?.['errors']?.['required']"
+                            class="alert alert-danger">
+                            Last Name is required.
+                        </div>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label" for="email">Your Email</label>
+                        <input type="email" formControlName="email" id="email" class="form-control form-control-lg" />
+                        <div *ngIf="f?.['email']?.touched && f?.['email']?.errors?.['required']" class="error">
+                          Email is required.
+                        </div>
+                        <div *ngIf="f?.['email']?.touched && f?.['email']?.errors?.['email']" class="error">
+                          Email should be valid
+                        </div>
+                      </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" id="password"
+                            class="form-control form-control-lg" placeholder="password"/>
+                        <div *ngIf="f?.['password']?.touched && f?.['password']?.errors?.['required']" class="alert alert-danger">
+                            Password is required.
+                        </div>
+                        <div *ngIf="f?.['password']?.touched && f?.['password']?.errors?.['minlength']" class="alert alert-danger">
+                            Password is should be 6 length at least.
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger" *ngIf="loginError">
+                        {{loginError}}
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success py-3 px-5">Add Manager</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

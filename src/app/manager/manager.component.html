@@ -1,0 +1,27 @@
+<section class="mt-5">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">firstName</th>
+                <th scope="col">lastName</th>
+                <th scope="col">email</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let manager of managers">
+                <td>{{manager.firstName}}</td>
+                <td>{{manager.lastName}}</td>
+                <td>{{manager.email}}</td>
+                
+                <td>
+                    <button class="btn btn-warning" (click)="updateManager(manager.id)">Update</button>
+                </td>
+                <td>
+                 -- <button class="btn btn-danger" (click)="deleteManager(manager.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

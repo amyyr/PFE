@@ -1,0 +1,99 @@
+<app-banner title="Add Match"></app-banner>
+ <div class="match-details">
+    <div class="match-header">
+      <div class="team-info">
+        <img [src]="matchDetails.home_team_logo" alt="{{ matchDetails.event_home_team }} Logo" class="team-logo">
+        <div class="team-name">{{ matchDetails.event_home_team }}</div>
+      </div>
+      <div class="match-info">
+        <div class="match-date">{{ matchDetails.event_date }}</div>
+        <div class="match-time">{{ matchDetails.event_time }}</div>
+        <div class="match-score">{{ matchDetails.event_final_result }}</div>
+        <div class="match-league">
+          <img [src]="matchDetails.league_logo" alt="{{ matchDetails.league_name }} Logo" class="league-logo">
+          <div>{{ matchDetails.league_name }}</div>
+        </div>
+      </div>
+      <div class="team-info">
+        <img [src]="matchDetails.away_team_logo" alt="{{ matchDetails.event_away_team }} Logo" class="team-logo">
+        <div class="team-name">{{ matchDetails.event_away_team }}</div>
+      </div>
+    </div>
+  
+    <div class="match-statistics">
+      <h2>Statistics</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>{{ matchDetails.event_home_team }}</th>
+            <th>{{ matchDetails.event_away_team }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stat of statistics">
+            <td>{{ stat.type }}</td>
+            <td>{{ stat.home }}</td>
+            <td>{{ stat.away }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="match-cards" *ngIf="cards.length">
+      <h2>Cards</h2>
+      <ul>
+        <li *ngFor="let card of cards">
+          {{ card.time }} - {{ card.player_name }} ({{ card.card_type }})
+        </li>
+      </ul>
+    </div>
+  
+    <div class="match-goal-scorers" *ngIf="goalScorers.length">
+      <h2>Goal Scorers</h2>
+      <ul>
+        <li *ngFor="let scorer of goalScorers">
+          {{ scorer.time }} - {{ scorer.player_name }} ({{ scorer.goal_type }})
+        </li>
+      </ul>
+    </div>
+  
+    <div class="match-substitutes" *ngIf="substitutes.length">
+      <h2>Substitutes</h2>
+      <ul>
+        <li *ngFor="let sub of substitutes">
+          {{ sub.time }} - {{ sub.player_in }} for {{ sub.player_out }}
+        </li>
+      </ul>
+    </div>
+  
+    <div class="match-lineups" *ngIf="lineups.length">
+      <h2>Lineups</h2>
+      <div class="lineup">
+        <h3>{{ matchDetails.event_home_team }}</h3>
+        <ul>
+          <li *ngFor="let player of lineups.home">
+            {{ player }}
+          </li>
+        </ul>
+      </div>
+      <div class="lineup">
+        <h3>{{ matchDetails.event_away_team }}</h3>
+        <ul>
+          <li *ngFor="let player of lineups.away">
+            {{ player }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="match-vars" *ngIf="vars.length">
+      <h2>VAR Decisions</h2>
+      <ul>
+        <li *ngFor="let varDecision of vars">
+          {{ varDecision.time }} - {{ varDecision.decision }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

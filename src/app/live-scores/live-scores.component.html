@@ -1,0 +1,53 @@
+
+<div class="live-scores-container">
+  <div *ngFor="let score of displayScores" class="score-item">
+    <div class="league-info">
+      <img [src]="score.league_logo" class="league-logo" alt="League Logo">
+      <div class="league-name">{{ score.league_name }}</div>
+      <div class="notes">Notes Sofascore</div>
+    </div>
+    <div class="match-info">
+      <div class="match-time">
+        <ng-container *ngIf="score.event_status === 'Live'; else notLive">
+          {{ score.event_time }} - Live
+        </ng-container>
+        <ng-template #notLive>
+          <ng-container *ngIf="score.event_status === 'Upcoming'; else finished">
+            {{ score.event_time }} - Upcoming
+          </ng-container>
+          <ng-template #finished>
+            {{ score.event_time }} - Finished
+          </ng-template>
+        </ng-template>
+      </div>
+      <div class="teams">
+        <div class="team">
+          <img [src]="score.home_team_logo" class="team-logo" alt="Home Team Logo">
+          {{ score.event_home_team }}
+        </div>
+        <div class="team">
+          <img [src]="score.away_team_logo" class="team-logo" alt="Away Team Logo">
+          {{ score.event_away_team }}
+        </div>
+      </div>
+      <div class="scores" *ngIf="score.event_status === 'Live' || score.event_status === 'Finished'">
+        <div class="home-score">{{ score.event_final_result.split(' - ')[0] }}</div>
+        <div class="away-score">{{ score.event_final_result.split(' - ')[1] }}</div>
+      </div>
+    </div>
+    <div class="match-status">
+      <ng-container *ngIf="score.event_status === 'Live'; else notLiveStatus">
+        En Direct
+      </ng-container>
+      <ng-template #notLiveStatus>
+        <ng-container *ngIf="score.event_status === 'Upcoming'; else finishedStatus">
+          À venir
+        </ng-container>
+        <ng-template #finishedStatus>
+          Terminé
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+  <button *ngIf="showButton" (click)="loadMore()" class="load-more-button">Afficher tous les matches</button>
+</div>
