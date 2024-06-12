@@ -18,7 +18,7 @@ export class TeamService {
     }
   }
 
-  addTeam(team: any): Observable<any> {
+  addTeam(team: any): Observable<any> {  
     const headers = this.getHeaders();
     return this.http.post<any>('https://back.aitacticalanalysis.com/api/team/add', team, { headers });
   }
