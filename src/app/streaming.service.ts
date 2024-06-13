@@ -17,4 +17,8 @@ export class StreamingService {
     const streamsUrl = `${this.apiUrl}/player_api.php?username=${this.username}&password=${this.password}&action=get_live_streams`;
     return this.http.get(streamsUrl).pipe(map(response => response));
   }
+
+  getStreamUrl(streamId: string): string {
+    return `${this.apiUrl}/live/${this.username}/${this.password}/${streamId}.m3u8`;
+  }
 }

@@ -5,7 +5,7 @@
       <div class="row">
         <div *ngFor="let channel of channels" class="col-md-4 mb-4">
           <div class="card">
-            <img [src]="channel.image" class="card-img-top" [alt]="channel.name">
+            <img [src]="channel.stream_icon" class="card-img-top" [alt]="channel.name">
             <div class="card-body">
               <h5 class="card-title">{{ channel.name }}</h5>
               <button class="btn btn-primary" (click)="openModal(channel)">Regarder</button>

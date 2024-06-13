@@ -22,8 +22,20 @@ export class StreamComponent implements OnInit {
     this.streamingService.getStreams().subscribe(
       data => {
         this.channels = data.map((channel: any) => ({
-          ...channel,
-          videoUrl: `${this.streamingService.apiUrl}/live/${this.streamingService.username}/${this.streamingService.password}/${channel.stream_id}.m3u8`
+          num: channel.num,
+          name: channel.name,
+          stream_type: channel.stream_type,
+          stream_id: channel.stream_id,
+          stream_icon: channel.stream_icon,
+          epg_channel_id: channel.epg_channel_id,
+          added: channel.added,
+          is_adult: channel.is_adult,
+          category_id: channel.category_id,
+          custom_sid: channel.custom_sid,
+          tv_archive: channel.tv_archive,
+          direct_source: channel.direct_source,
+          tv_archive_duration: channel.tv_archive_duration,
+          videoUrl: this.streamingService.getStreamUrl(channel.stream_id)
         }));
       },
       error => {
