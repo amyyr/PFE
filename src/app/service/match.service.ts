@@ -83,11 +83,14 @@ export class MatchService {
     console.error('Full error response:', errorMessage);
     return throwError(() => new Error(errorMessage));
   }
-  getPlayersByIdMatch(id: string): Observable<any> {
+  getPlayersByIdMatch(id: number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`http://localhost:8080/api/match/${id}/players`, { headers })
+    return this.http.get<any>(`${this.apiUrl}/${id}/players`, { headers })
       .pipe(
-        catchError(this.handleError)
+        catchError(error => {
+          console.error('An error occurred:', error);
+          return throwError(() => error);
+        })
       );
   }
   getMatchByNames(name:string): Observable<any> { 
