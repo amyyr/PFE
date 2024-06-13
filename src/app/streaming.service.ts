@@ -7,16 +7,14 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class StreamingService {
-  private apiUrl = 'http://ASMi@tvd.naam.ro:2082/player_api.php';
-  private username = '123456789';
-  private password = '987654321';
+  apiUrl = 'http://ASMi@tvd.naam.ro:2082';
+  username = '123456789';
+  password = '987654321';
 
   constructor(private http: HttpClient) {}
 
   getStreams(): Observable<any> {
-    const url = `${this.apiUrl}?username=${this.username}&password=${this.password}&action=get_live_streams`;
-    return this.http.get<any[]>(url).pipe(
-      map(response => response || [])
-    );
+    const streamsUrl = `${this.apiUrl}/player_api.php?username=${this.username}&password=${this.password}&action=get_live_streams`;
+    return this.http.get(streamsUrl).pipe(map(response => response));
   }
 }

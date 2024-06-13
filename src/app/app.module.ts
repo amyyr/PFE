@@ -64,7 +64,7 @@ import { SvgComponent } from './svg/svg.component';  // Ensure correct import pa
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StatisticComponent } from './statistic/statistic.component';
 import { StreamComponent } from './stream/stream.component';
-
+import { StreamModalComponent } from './stream-modal/stream-modal.component';
 
 @NgModule({
   declarations: [
@@ -109,9 +109,7 @@ import { StreamComponent } from './stream/stream.component';
     SvgComponent,
     StatisticComponent,
     StreamComponent,
-    
-    
-
+    StreamModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -134,12 +132,8 @@ import { StreamComponent } from './stream/stream.component';
     MatToolbarModule,
     MatSidenavModule,
     MatTableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
     VgControlsModule,
     DragDropModule,
-    
   ],
   providers: [MatchService, TeamService],
   bootstrap: [AppComponent]
