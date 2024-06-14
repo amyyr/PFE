@@ -7,7 +7,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./stream-modal.component.css']
 })
 export class StreamModalComponent implements OnInit, OnDestroy {
-
   videoUrl!: string;
   errorMessage!: string;
 

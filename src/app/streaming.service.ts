@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class StreamingService {
-  apiUrl = 'http://ASMi@tvd.naam.ro:2082';
+  apiUrl = '/api'; // Use proxy
   username = '123456789';
   password = '987654321';
 
@@ -15,6 +15,7 @@ export class StreamingService {
 
   getStreams(): Observable<any> {
     const streamsUrl = `${this.apiUrl}/player_api.php?username=${this.username}&password=${this.password}&action=get_live_streams`;
+
     return this.http.get(streamsUrl).pipe(map(response => response));
   }
 
