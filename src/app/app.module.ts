@@ -65,6 +65,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StatisticComponent } from './statistic/statistic.component';
 import { StreamComponent } from './stream/stream.component';
 import { StreamModalComponent } from './stream-modal/stream-modal.component';
+import { ConditionsGeneralesComponent } from './conditions-generales/conditions-generales.component';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -110,6 +113,7 @@ import { StreamModalComponent } from './stream-modal/stream-modal.component';
     StatisticComponent,
     StreamComponent,
     StreamModalComponent,
+    ConditionsGeneralesComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +139,7 @@ import { StreamModalComponent } from './stream-modal/stream-modal.component';
     VgControlsModule,
     DragDropModule,
   ],
-  providers: [MatchService, TeamService],
+  providers: [MatchService, TeamService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

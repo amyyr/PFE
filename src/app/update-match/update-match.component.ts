@@ -25,48 +25,62 @@ export class UpdateMatchComponent {
     private datePipe: DatePipe,
   ) {
     this.updateMatchForm = this.formBuilder.group({
-      firstTeamResult: ['', Validators.required],
-      secondTeamResult: ['', Validators.required],
       date: ['', Validators.required],
       referee: ['', Validators.required],
       attendance: ['', Validators.required],
-      /* homeTeam: ['', Validators.required],
-      awayTeam: ['', Validators.required] */
+      homeTeam: ['', Validators.required],
+      awayTeam: ['', Validators.required],
+      result: ['', Validators.required]
     });
+    this.matchId = this.route.snapshot.params['id'];
   }
 
   ngOnInit(): void {
-    this.matchId = this.route.snapshot.params['id'];  // Get match ID from route
     this.getTeamsByManager();
     this.loadMatchDetails();
   }
 
 
   
-  loadMatchDetails() {
+  loadMatchDetails(): void {
     this.matchService.getMatchById(this.matchId).subscribe(match => {
-      const formattedDate = this.datePipe.transform(match.date, 'yyyy-MM-dd');
+      // Transforming the date to the correct format for the input type "datetime-local"
+      const formattedDate = this.datePipe.transform(match.date, 'yyyy-MM-ddTHH:mm');
       this.updateMatchForm.patchValue({
         date: formattedDate,
         referee: match.referee,
         attendance: match.attendance,
-        /* homeTeam: match.homeTeam.id,
-        awayTeam: match.awayTeam.id */
+        homeTeam: match.homeTeam.id,
+        awayTeam: match.awayTeam.id,
+        result: match.result
       });
     });
   }
 
   updateMatch(): void {
-    const formattedDate = this.datePipe.transform(this.updateMatchForm.value.date, 'yyyy-MM-dd\'T\'HH:mm:ss');
-    const updatedValue = {...this.updateMatchForm.value, date: formattedDate, result: `${this.updateMatchForm.value.firstTeamResult}-${this.updateMatchForm.value.secondTeamResult}`};
     if (this.updateMatchForm.valid) {
-      this.matchService.updateMatch(this.matchId, updatedValue).subscribe(() => {
-        console.log('Match updated successfully');
-        this.router.navigate(['/dashboard/all-matches']);
-      });
+      const dateValue = this.updateMatchForm.get('date')?.value;
+      const formattedDate = this.datePipe.transform(dateValue, 'yyyy-MM-ddTHH:mm:ss');
+      const updatedMatch = {
+        date: formattedDate,
+        referee: this.updateMatchForm.get('referee')?.value,
+        attendance: this.updateMatchForm.get('attendance')?.value,
+        homeTeam: { id: this.updateMatchForm.get('homeTeam')?.value },
+        awayTeam: { id: this.updateMatchForm.get('awayTeam')?.value },
+        result: this.updateMatchForm.get('result')?.value
+      };
+
+      this.matchService.updateMatch(this.matchId, updatedMatch).subscribe(
+        () => {
+          console.log('Match updated successfully');
+          this.router.navigate(['/dashboard/all-matches']);
+        },
+        error => {
+          console.error('Error updating match:', error);
+        }
+      );
     }
   }
-
   getTeamsByManager(): void {
     this.teamService.getTeamByManager().subscribe(
       data => {
