@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "http://ASMi@tvd.naam.ro:2082",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

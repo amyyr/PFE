@@ -45,6 +45,12 @@ export class StreamComponent implements OnInit {
   }
 
   openModal(channel: Channel): void {
+    // Log the video URL
+    console.log('Opening modal with video URL:', channel.videoUrl);
+
+    // Store session in local storage
+    localStorage.setItem('session', JSON.stringify({ username: '123456789', password: '987654321' }));
+
     this.dialog.open(StreamModalComponent, {
       data: { url: channel.videoUrl }
     });
