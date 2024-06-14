@@ -1,59 +1,51 @@
 <div class="site-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7">
-         <!-- <form [formGroup]="updateMatchForm" (ngSubmit)="updateMatch()">-->
-            <!-- Repeat form groups from AddMatchComponent -->
-            <!-- Add additional form controls or modify existing ones as needed -->
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" id="date" formControlName="date" class="form-control" placeholder="Date">
-                <span *ngIf="updateMatchForm.get('date')?.invalid && updateMatchForm.get('date')?.touched" class="error">Date is required</span>
-              </div>
-            
-              <div class="form-group">
-                <label for="referee">Referee</label>
-                <input type="text" id="referee" formControlName="referee" class="form-control" placeholder="Referee">
-                <span *ngIf="updateMatchForm.get('referee')?.invalid && updateMatchForm.get('referee')?.touched" class="error">Referee is required</span>
-              </div>
-            
-              <div class="form-group">
-                <label for="attendance">Attendance</label>
-                <input type="text" id="attendance" formControlName="attendance" class="form-control" placeholder="Attendance">
-                <span *ngIf="updateMatchForm.get('attendance')?.invalid && updateMatchForm.get('attendance')?.touched" class="error">Attendance is required</span>
-              </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <form [formGroup]="updateMatchForm" (ngSubmit)="updateMatch()">
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="datetime-local" id="date" formControlName="date" class="form-control" placeholder="Date">
+            <span *ngIf="updateMatchForm.get('date')?.invalid && updateMatchForm.get('date')?.touched" class="error">Date is required</span>
+          </div>
 
-              <div class="form-group">
-                <label for="firstTeamResult">Team Home Result</label>
-                <input type="number" id="firstTeamResult" formControlName="firstTeamResult" class="form-control" placeholder="Team Home Result">
-                <span *ngIf="updateMatchForm.get('firstTeamResult')?.invalid && updateMatchForm.get('firstTeamResult')?.touched" class="error">Team Home Result is required</span>
-              </div>
-            
-    
-              <div class="form-group">
-                <label for="secondTeamResult">Team Away Result</label>
-                <input type="number" id="secondTeamResult" formControlName="secondTeamResult" class="form-control" placeholder="Team Away Result">
-                <span *ngIf="updateMatchForm.get('secondTeamResult')?.invalid && updateMatchForm.get('secondTeamResult')?.touched" class="error">Team Away Result is required</span>
-              </div>
-            
-<!--               <div class="form-group">
-                <label for="homeTeam">TEAM HOME</label>
-                <select id="homeTeam" formControlName="homeTeam" class="form-select">
-                  <option value="" selected>Select Team Home</option>
-                  <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
-                </select>
-              </div>
-            
-              <div class="form-group">
-                <label for="awayTeam">TEAM AWAY</label>
-                <select id="awayTeam" formControlName="awayTeam" class="form-select">
-                  <option value="" selected>Select Team Away</option>
-                  <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
-                </select>
-              </div> -->
-            <button type="submit" class="btn btn-success">Update Match</button>
-         <!-- </form>-->
-        </div>
+          <div class="form-group">
+            <label for="referee">Referee</label>
+            <input type="text" id="referee" formControlName="referee" class="form-control" placeholder="Referee">
+            <span *ngIf="updateMatchForm.get('referee')?.invalid && updateMatchForm.get('referee')?.touched" class="error">Referee is required</span>
+          </div>
+
+          <div class="form-group">
+            <label for="attendance">Attendance</label>
+            <input type="text" id="attendance" formControlName="attendance" class="form-control" placeholder="Attendance">
+            <span *ngIf="updateMatchForm.get('attendance')?.invalid && updateMatchForm.get('attendance')?.touched" class="error">Attendance is required</span>
+          </div>
+
+          <div class="form-group">
+            <label for="homeTeam">TEAM HOME</label>
+            <select id="homeTeam" formControlName="homeTeam" class="form-select">
+              <option value="" selected>Select Team Home</option>
+              <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="awayTeam">TEAM AWAY</label>
+            <select id="awayTeam" formControlName="awayTeam" class="form-select">
+              <option value="" selected>Select Team Away</option>
+              <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="result">Result</label>
+            <input type="text" id="result" formControlName="result" class="form-control" placeholder="Result">
+            <span *ngIf="updateMatchForm.get('result')?.invalid && updateMatchForm.get('result')?.touched" class="error">Result is required</span>
+          </div>
+
+          <button type="submit" class="btn btn-success">Update Match</button>
+        </form>
       </div>
     </div>
   </div>
+</div>

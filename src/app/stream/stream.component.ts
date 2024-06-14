@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Stream } from '../stream';
+import { MatDialog } from '@angular/material/dialog';
+import { Channel } from '../models/channel';
 import { StreamingService } from '../streaming.service';
+import { StreamModalComponent } from '../stream-modal/stream-modal.component';
 
 @Component({
   selector: 'app-stream',
@@ -9,37 +10,43 @@ import { StreamingService } from '../streaming.service';
   styleUrls: ['./stream.component.css']
 })
 export class StreamComponent implements OnInit {
-  streamingData: any[] = [];
+  channels: Channel[] = [];
 
-  constructor(private streamingService: StreamingService) {}
+  constructor(private streamingService: StreamingService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.streamingService.getStreams().subscribe(data => {
-      this.streamingData = data.map((stream: Stream) => ({
-        name: stream.name,
-        thumbnail_url: stream.stream_icon || 'https://via.placeholder.com/150',
-        stream_url: `http://ASMi@tvd.naam.ro:2082/live/123456789/987654321/${stream.stream_id}.m3u8`
-      }));
-    });
+    this.fetchChannels();
   }
 
-  openModal(stream: any): void {
-    const modalElement = document.getElementById('videoModal');
-    if (modalElement) {
-      const videoSourceElement = modalElement.querySelector('#video-source') as HTMLSourceElement;
-      const modalTitleElement = modalElement.querySelector('.modal-title') as HTMLElement;
-
-      if (videoSourceElement && modalTitleElement) {
-        modalTitleElement.textContent = stream.name;
-        videoSourceElement.src = stream.stream_url;
-
-        const player = videojs('my-video');
-        player.src({ type: 'application/x-mpegURL', src: stream.stream_url });
-        player.load();
-
-        (window as any).$ = (window as any).jQuery; // Ensure jQuery is available globally
-        $(modalElement).modal('show');
+  fetchChannels(): void {
+    this.streamingService.getStreams().subscribe(
+      data => {
+        this.channels = data.map((channel: any) => ({
+          num: channel.num,
+          name: channel.name,
+          stream_type: channel.stream_type,
+          stream_id: channel.stream_id,
+          stream_icon: channel.stream_icon,
+          epg_channel_id: channel.epg_channel_id,
+          added: channel.added,
+          is_adult: channel.is_adult,
+          category_id: channel.category_id,
+          custom_sid: channel.custom_sid,
+          tv_archive: channel.tv_archive,
+          direct_source: channel.direct_source,
+          tv_archive_duration: channel.tv_archive_duration,
+          videoUrl: this.streamingService.getStreamUrl(channel.stream_id)
+        }));
+      },
+      error => {
+        console.error('Error fetching channels', error);
       }
-    }
+    );
+  }
+
+  openModal(channel: Channel): void {
+    this.dialog.open(StreamModalComponent, {
+      data: { url: channel.videoUrl }
+    });
   }
 }

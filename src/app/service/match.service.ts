@@ -9,33 +9,29 @@ import { catchError } from 'rxjs/operators';
 })
 export class MatchService {
   private apiUrl = 'https://back.aitacticalanalysis.com/api/match';
+  private actionApiUrl = 'https://back.aitacticalanalysis.com/api/action';
 
   constructor(private http: HttpClient) {}
   
 
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    if (token) {
-      return new HttpHeaders({ Authorization: `Bearer ${token}` });
-    } else {
-      return new HttpHeaders();
-    }
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
-  addMatch(match: Match): Observable<any> { 
-    const headers = this.getHeaders(); 
-    return this.http.post<any>('https://back.aitacticalanalysis.com/api/match/add', match, {headers}); 
-  } 
+  addMatch(match: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.apiUrl}/add`, match, { headers })
+      .pipe(catchError(this.handleError));
+  }
 
-  getMatchById(id: any): Observable<any> { 
+  getMatchById(id: any): Observable<any> {
     const headers = this.getHeaders(); 
     return this.http.get<any>(`https://back.aitacticalanalysis.com/api/match/${id}`,{headers}); 
-  } 
+  }
 
-  getPlayerById(id: string): Observable<any> { 
-    const headers = this.getHeaders(); 
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/match/${id}`,{headers}); 
-  } 
+
+  
 
   getAll(): Observable<any> { 
     const headers = this.getHeaders(); 
@@ -52,10 +48,11 @@ export class MatchService {
     return this.http.delete<any>(`https://back.aitacticalanalysis.com/api/match/${id}`,{headers}); 
   } 
 
-  updateMatch(id: any,match: Match): Observable<any> { 
-    const headers = this.getHeaders(); 
-    return this.http.put<any>(`https://back.aitacticalanalysis.com/api/match/${id}`, match, { headers }); 
-  } 
+  updateMatch(id: any, match: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.apiUrl}/${id}`, match, { headers })
+      .pipe(catchError(this.handleError));
+  }
 
   getAllTeam(): Observable<any> { 
     const headers = this.getHeaders(); 
@@ -74,34 +71,39 @@ export class MatchService {
     console.error('Error occurred:', error);
     let errorMessage = 'Something went wrong; please try again later.';
     if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred.
       errorMessage = `An error occurred: ${error.error.message}`;
     } else {
-      // The backend returned an unsuccessful response code.
       errorMessage = `Backend returned code ${error.status}, body was: ${JSON.stringify(error.error)}`;
     }
-    console.error('Full error response:', errorMessage);
     return throwError(() => new Error(errorMessage));
   }
-  getPlayersByIdMatch(id: string): Observable<any> {
+  getPlayersByIdMatch(id: number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`http://localhost:8080/api/match/${id}/players`, { headers })
+    return this.http.get<any>(`${this.apiUrl}/${id}/players`, { headers })
       .pipe(
-        catchError(this.handleError)
+        catchError(error => {
+          console.error('An error occurred:', error);
+          return throwError(() => error);
+        })
       );
   }
   getMatchByNames(name:string): Observable<any> { 
     const headers = this.getHeaders(); 
-    return this.http.get<any>(`http://localhost:8080/api/match/names${name}`,{headers}); 
+    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/match/names${name}`,{headers}); 
   } 
 
 
 
   getMatchByIdNames(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`http://localhost:8080/api/match/id/names`, { headers })
+    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/match/id/names`, { headers })
       .pipe(
         catchError(this.handleError)
       );
+  }
+  addAction(action: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.actionApiUrl}/add`, action, { headers })
+      .pipe(catchError(this.handleError));
   }
 }

@@ -13,11 +13,7 @@ export class PlayerService {
 
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    if (token) {
-      return new HttpHeaders({ Authorization: `Bearer ${token}` });
-    } else {
-      return new HttpHeaders();
-    }
+    return token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
   }
 
   addPlayer(player: any): Observable<any> {
@@ -29,28 +25,26 @@ export class PlayerService {
 
   getPlayerById(id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/${id}`, { headers }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
     console.error('Error occurred:', error);
-    let errorMessage = 'Something went wrong; please try again later.';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `An error occurred: ${error.error.message}`;
-    } else {
-      errorMessage = `Backend returned code ${error.status}, body was: ${JSON.stringify(error.error)}`;
-    }
+    const errorMessage = error.error instanceof ErrorEvent ?
+      `An error occurred: ${error.error.message}` :
+      `Backend returned code ${error.status}, body was: ${JSON.stringify(error.error)}`;
     return throwError(() => new Error(errorMessage));
   }
-
   getAllPlayer(): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get(`${this.apiUrl}`, { headers });
   }
 
-  getAllPlayerByManger(): Observable<any> {
+  getAllPlayerByManager(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get("https://back.aitacticalanalysis.com/api/team/manager", { headers });
+    return this.http.get(`${this.apiUrl}/manager`, { headers });
   }
 
   deletePlayer(id: any): Observable<any> {
@@ -60,13 +54,14 @@ export class PlayerService {
 
   updatePlayer(body: any, id: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.put<any>(`${this.apiUrl}/${id}`, body, { headers });
+    return this.http.put<any>(`${this.apiUrl}/${id}`, body, { headers }).pipe(
+      catchError(this.handleError)
+    );
   }
   getPlayersByIdMatch(matchId: number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`http://localhost:8080/api/match/id/players`, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.get<any>(`${this.apiUrl}/match/id/players`, { headers }).pipe(
+      catchError(this.handleError)
+    );
   }
 }

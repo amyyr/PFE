@@ -21,7 +21,7 @@ export class AllPlayersComponent {
   }
 
   getAllPlayers() {
-    this.servicePlayer.getAllPlayerByManger().subscribe((data) => {
+    this.servicePlayer.getAllPlayerByManager().subscribe((data) => {
       this.players = data;
       console.log(data);
     })

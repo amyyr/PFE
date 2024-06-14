@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Lecture du Flux</h1>
+<div mat-dialog-content>
+  <div class="embed-responsive embed-responsive-16by9">
+    <video id="my-video" class="video-js embed-responsive-item" controls preload="auto" data-setup='{}'>
+      <source [src]="videoUrl" type="application/x-mpegURL" (error)="handleError($event)">
+    </video>
+  </div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Fermer</button>
+</div>

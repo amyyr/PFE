@@ -1,38 +1,16 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-12">
-      <h1>Bienvenue</h1>
       <h2>Liste des Flux IPTV</h2>
       <div class="row">
-        <div *ngFor="let stream of streamingData" class="col-md-4 mb-4">
+        <div *ngFor="let channel of channels" class="col-md-4 mb-4">
           <div class="card">
-            <img [src]="stream.thumbnail_url" class="card-img-top" [alt]="stream.name">
+            <img [src]="channel.stream_icon" class="card-img-top" [alt]="channel.name">
             <div class="card-body">
-              <h5 class="card-title">{{ stream.name }}</h5>
-              <button class="btn btn-primary" (click)="openModal(stream)">Regarder</button>
+              <h5 class="card-title">{{ channel.name }}</h5>
+              <button class="btn btn-primary" (click)="openModal(channel)">Regarder</button>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="videoModalLabel">Lecture du Flux</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="embed-responsive embed-responsive-16by9">
-          <video id="my-video" class="video-js embed-responsive-item" controls preload="auto" data-setup='{}'>
-            <source id="video-source" src="" type="application/x-mpegURL">
-          </video>
         </div>
       </div>
     </div>

@@ -6,19 +6,15 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class TeamService {
-  private apiUrl = 'https://back.aitacticalanalysis.com';
+  private apiUrl = 'https://back.aitacticalanalysis.com/api/team';
   constructor(private http: HttpClient) { }
 
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    if (token) {
-      return new HttpHeaders({ Authorization: `Bearer ${token}` });
-    } else {
-      return new HttpHeaders();
-    }
+    return token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
   }
 
-  addTeam(team: any): Observable<any> {  
+  addTeam(team: any): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>('https://back.aitacticalanalysis.com/api/team/add', team, { headers });
   }
@@ -34,7 +30,8 @@ export class TeamService {
   }
   getTeamByManager(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/team/manager`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/manager`, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   getAllCountries(): Observable<any> {
@@ -80,6 +77,11 @@ export class TeamService {
       errorMessage = `An error occurred: ${error.error.message}`;
     } else {
       errorMessage = `Backend returned code ${error.status}, body was: ${JSON.stringify(error.error)}`;
+      // Log more details
+      console.error(`Error details: status=${error.status}, message=${error.message}`);
+      if (error.status === 0) {
+        errorMessage = 'Network error or CORS issue. Please check your backend server and CORS settings.';
+      }
     }
     return throwError(() => new Error(errorMessage));
   }

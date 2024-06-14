@@ -29,6 +29,7 @@ import { LiveScoresComponent } from './live-scores/live-scores.component';
 import { SvgComponent } from './svg/svg.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { StreamComponent } from './stream/stream.component';
+import { ConditionsGeneralesComponent } from './conditions-generales/conditions-generales.component';
 
 
 
@@ -52,6 +53,7 @@ const routes: Routes = [
       {"path":"match",component:MatchComponent},
       {"path":"matchDetails",component: MatchDetailsComponent},
       {"path":"statistic",component:StatisticComponent},
+      {"path":"conditions-generales",component:ConditionsGeneralesComponent},
     ]
   },   {"path":"stream",component:StreamComponent},
    
