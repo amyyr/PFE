@@ -11,7 +11,7 @@ export class TeamService {
 
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
   }
 
   addTeam(team: any): Observable<any> {

@@ -1,86 +1,79 @@
 <div class="site-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7">
-                <form [formGroup]="updatePlayerForm" (ngSubmit)="updatePlayer()">
-                    <div class="form-group">
-                        <label for="firstName">FirstName</label>
-                        <input type="text" formControlName="firstName" class="form-control" required placeholder="First Name" />
-                        <div *ngIf="f?.['firstName']?.touched && f?.['firstName']?.errors?.['required']" class="alert alert-danger">
-                          First name is required.
-                        </div>
-                      </div>
-            
-                      <div class="form-group">
-                        <label for="lastName">LastName</label>
-                        <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" />
-                        <div *ngIf="f?.['lastName']?.touched && f?.['lastName']?.errors?.['required']" class="alert alert-danger">
-                          Last name is required.
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="position">Position</label>
-                        <input type="text" formControlName="position" id="position" name="position" class="form-control"
-                          placeholder="Position" />
-                        <div *ngIf="f?.['position']?.touched && f?.['position']?.errors?.['required']" class="alert alert-danger">
-                          Position is required.
-                        </div>
-                      </div>
-            
-                      <div class="form-group">
-                        <label for="dateOfBirthday">Date Of Birthday</label>
-                        <input type="date" id="dateOfBirthday" formControlName="dateOfBirthday" class="form-control" />
-                        <div *ngIf="f?.['dateOfBirthday']?.touched && f?.['dateOfBirthday']?.errors?.['required']" class="alert alert-danger">
-                          Date Of Birthday is required.
-                        </div>
-                      </div>
-            
-                      <div class="form-group">
-                        <label for="nationality">Nationality</label>
-                        <input type="text" id="nationality" formControlName="nationality" class="form-control" />
-                        <div *ngIf="f?.['nationality']?.touched && f?.['nationality']?.errors?.['required']" class="alert alert-danger">
-                          Nationality is required.
-                        </div>
-                      </div>
-            
-                      <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" formControlName="location" class="form-control" />
-                        <div *ngIf="f?.['location']?.touched && f?.['location']?.errors?.['required']" class="alert alert-danger">
-                          Location is required.
-                        </div>
-                      </div>
-            
-            
-            
-                      <div class="form-group">
-                        <label for="height">Height</label>
-                        <input type="text" formControlName="height" name="height" class="form-control" />
-                        <div *ngIf="f?.['height']?.touched && f?.['height']?.errors?.['required']" class="alert alert-danger">
-                          Height is required.
-                        </div>
-                      </div>
-            
-                      <div class="form-group">
-                        <label for="width">Width</label>
-                        <input type="text" formControlName="width" name="width" class="form-control" />
-                        <div *ngIf="f?.['width']?.touched && f?.['width']?.errors?.['required']" class="alert alert-danger">
-                          Width is required.
-                        </div>
-                      </div>
-            
-                      <div class="form-group">
-                        <label for="numberOfPlayer">Number</label>
-                        <input type="number" id="numberOfPlayer" formControlName="number" name="number" class="form-control" />
-                        <div *ngIf="f?.['number']?.touched && f?.['number']?.errors?.['required']" class="alert alert-danger">
-                          Player number is required.
-                        </div>
-                      </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success py-3 px-5">Update Player</button>
-                    </div>
-                </form>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <form [formGroup]="updatePlayerForm" (ngSubmit)="updatePlayer()">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" required placeholder="First Name">
+            <div *ngIf="f?.['firstName']?.touched && f?.['firstName']?.errors?.['required']" class="alert alert-danger">
+              First name is required.
             </div>
-        </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name">
+            <div *ngIf="f?.['lastName']?.touched && f?.['lastName']?.errors?.['required']" class="alert alert-danger">
+              Last name is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="position">Position</label>
+            <input type="text" formControlName="position" id="position" name="position" class="form-control" placeholder="Position">
+            <div *ngIf="f?.['position']?.touched && f?.['position']?.errors?.['required']" class="alert alert-danger">
+              Position is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dateOfBirthday">Date Of Birthday</label>
+            <input type="date" id="dateOfBirthday" formControlName="dateOfBirthday" class="form-control">
+            <div *ngIf="f?.['dateOfBirthday']?.touched && f?.['dateOfBirthday']?.errors?.['required']" class="alert alert-danger">
+              Date Of Birthday is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nationality">Nationality</label>
+            <input type="text" id="nationality" formControlName="nationality" class="form-control">
+            <div *ngIf="f?.['nationality']?.touched && f?.['nationality']?.errors?.['required']" class="alert alert-danger">
+              Nationality is required.
+            </div>
+          </div>
+
+          
+
+          <div class="form-group">
+            <label for="height">Height</label>
+            <input type="text" formControlName="height" name="height" class="form-control">
+            <div *ngIf="f?.['height']?.touched && f?.['height']?.errors?.['required']" class="alert alert-danger">
+              Height is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="width">Width</label>
+            <input type="text" formControlName="width" name="width" class="form-control">
+            <div *ngIf="f?.['width']?.touched && f?.['width']?.errors?.['required']" class="alert alert-danger">
+              Width is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="numberOfPlayer">Number</label>
+            <input type="number" id="numberOfPlayer" formControlName="number" name="number" class="form-control">
+            <div *ngIf="f?.['number']?.touched && f?.['number']?.errors?.['required']" class="alert alert-danger">
+              Player number is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-success py-3 px-5">Update Player</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerService } from '../service/player.service';
@@ -8,7 +8,7 @@ import { PlayerService } from '../service/player.service';
   templateUrl: './update-player.component.html',
   styleUrls: ['./update-player.component.css']
 })
-export class UpdatePlayerComponent {
+export class UpdatePlayerComponent implements OnInit {
   updatePlayerForm!: FormGroup;
   id!: string;
 
@@ -22,7 +22,7 @@ export class UpdatePlayerComponent {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id']; // Get id from route
     this.initializeForm();
-     this.loadPlayerData();
+    this.loadPlayerData();
   }
 
   initializeForm(): void {
@@ -32,11 +32,11 @@ export class UpdatePlayerComponent {
       position: ['', [Validators.required]],
       dateOfBirthday: ['', [Validators.required]],
       nationality: ['', [Validators.required]],
-      location: ['', [Validators.required]],
-      foot: [''],
+      foot: ['', [Validators.required]],
       number: ['', [Validators.required]],
       height: ['', [Validators.required]],
-      width: ['', [Validators.required]]
+      width: ['', [Validators.required]],
+      team: ['', [Validators.required]] // Assuming team is required
     });
   }
 
@@ -50,7 +50,7 @@ export class UpdatePlayerComponent {
     if (this.updatePlayerForm.valid) {
       this.playerService.updatePlayer(this.updatePlayerForm.value, this.id).subscribe(() => {
         console.log('Player updated:', this.updatePlayerForm.value);
-        this.router.navigate(['/dashboard/all-players'])
+        this.router.navigate(['/dashboard/all-players']);
       });
     } else {
       this.updatePlayerForm.markAllAsTouched();

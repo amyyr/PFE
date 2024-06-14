@@ -38,13 +38,7 @@
               Nationality is required.
             </div>
           </div>
-          <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" formControlName="location" class="form-control" placeholder="Location" />
-            <div *ngIf="f['location'].touched && f['location'].errors?.['required']" class="alert alert-danger">
-              Location is required.
-            </div>
-          </div>
+          
           <div class="form-group">
             <label for="height">Height</label>
             <input type="text" formControlName="height" class="form-control" placeholder="Height" />

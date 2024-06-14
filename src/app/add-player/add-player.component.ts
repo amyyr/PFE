@@ -25,7 +25,6 @@ export class AddPlayerComponent implements OnInit {
       position: ['', Validators.required],
       dateOfBirthday: ['', Validators.required],
       nationality: ['', Validators.required],
-      location: ['', Validators.required],
       foot: ['', Validators.required],
       number: ['', Validators.required],
       height: ['', Validators.required],
