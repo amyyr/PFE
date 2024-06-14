@@ -17,10 +17,12 @@ export class StatisticComponent implements OnInit {
   teamAway: any[] = [];
 
   selectedMatch = '';
-  selectedHomeTeam = '';
-  selectedAwayTeam = '';
-  selectedAction = '';
-  selectedPlayer: any = null;
+  selectedHomePlayer: any = null;
+  selectedAwayPlayer: any = null;
+  homeAction = '';
+  homeTime: string = '';
+  awayAction = '';
+  awayTime: string = '';
 
   message = '';
 
@@ -39,7 +41,59 @@ export class StatisticComponent implements OnInit {
   }
 
   updateMessage() {
-    this.message = `Le joueur ${this.selectedPlayer} fait une action ${this.selectedAction} avec l'équipe ${this.selectedHomeTeam} dans le match ${this.selectedMatch}`;
+    if (!this.selectedHomePlayer && !this.selectedAwayPlayer) {
+      alert('Please select players for both teams.');
+      return;
+    }
+
+    this.message = `Home Player ${this.selectedHomePlayer ? this.selectedHomePlayer.firstName + ' ' + this.selectedHomePlayer.lastName : 'none'} performed action ${this.homeAction} at ${this.homeTime}. 
+                    Away Player ${this.selectedAwayPlayer ? this.selectedAwayPlayer.firstName + ' ' + this.selectedAwayPlayer.lastName : 'none'} performed action ${this.awayAction} at ${this.awayTime}.`;
+
+    // Create action objects
+    const homeActionObj = {
+      type: this.homeAction,
+      time: this.homeTime,
+      description: "Home player action",
+      player: {
+        id: this.selectedHomePlayer ? this.selectedHomePlayer.id : null
+      }
+    };
+
+    const awayActionObj = {
+      type: this.awayAction,
+      time: this.awayTime,
+      description: "Away player action",
+      player: {
+        id: this.selectedAwayPlayer ? this.selectedAwayPlayer.id : null
+      }
+    };
+
+    // Call the service to add actions
+    if (this.selectedHomePlayer) {
+      this.matchService.addAction(homeActionObj).subscribe(
+        response => {
+          console.log('Home action added successfully:', response);
+          alert('Home action added successfully');
+        },
+        error => {
+          console.error('Error adding home action:', error);
+          alert('Error adding home action: ' + error.message);
+        }
+      );
+    }
+
+    if (this.selectedAwayPlayer) {
+      this.matchService.addAction(awayActionObj).subscribe(
+        response => {
+          console.log('Away action added successfully:', response);
+          alert('Away action added successfully');
+        },
+        error => {
+          console.error('Error adding away action:', error);
+          alert('Error adding away action: ' + error.message);
+        }
+      );
+    }
   }
 
   onMatchSelected(): void {

@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class MatchService {
   private apiUrl = 'https://back.aitacticalanalysis.com/api/match';
+  private actionApiUrl = 'https://back.aitacticalanalysis.com/api/action';
 
   constructor(private http: HttpClient) {}
   
@@ -99,5 +100,10 @@ export class MatchService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+  addAction(action: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`${this.actionApiUrl}/add`, action, { headers })
+      .pipe(catchError(this.handleError));
   }
 }
