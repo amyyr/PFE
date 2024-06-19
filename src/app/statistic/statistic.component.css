@@ -56,3 +56,13 @@
   background-color: #d4edda;
   color: #155724;
 }
+.team-block h3,
+.player-statistics h3 {
+  color: black;
+}
+
+.player-statistics div,
+table.table-striped th,
+table.table-striped td {
+  color: black;
+}

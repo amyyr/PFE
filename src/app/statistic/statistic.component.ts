@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatchService } from '../service/match.service';
-import { PlayerService } from '../service/player.service';
 
 @Component({
   selector: 'app-statistic',
@@ -11,27 +10,25 @@ export class StatisticComponent implements OnInit {
   ActionsTeamHome = ["Tir", "assist", "but", "dribble", "centrage", "passe", "keyPasse", "interceptions", "degagements", "fautes"];
   ActionsTeamAway = ["Tir", "assist", "but", "dribble", "centrage", "passe", "keyPasse", "interceptions", "degagements", "fautes"];
   players: any[] = [];
-
   matches: { id: string, name: string }[] = [];
   teamHome: any[] = [];
   teamAway: any[] = [];
-
   selectedMatch = '';
+  selectedPlayer: any = null;
+  playerStatistics: any = {};
 
-  actionForms: any[] = [
-    {
-      selectedHomePlayer: null,
-      selectedAwayPlayer: null,
-      homeAction: '',
-      homeTime: '',
-      awayAction: '',
-      awayTime: ''
-    }
-  ];
+  actionForm: any = {
+    selectedHomePlayer: null,
+    selectedAwayPlayer: null,
+    homeAction: '',
+    homeTime: '',
+    awayAction: '',
+    awayTime: ''
+  };
 
   message = '';
 
-  constructor(private matchService: MatchService, private playerService: PlayerService) {}
+  constructor(private matchService: MatchService) {}
 
   ngOnInit(): void {
     this.matchService.getMatchByIdNames().subscribe(
@@ -45,77 +42,73 @@ export class StatisticComponent implements OnInit {
     );
   }
 
-  addActionForm() {
-    this.actionForms.push({
+  updateMessage() {
+    this.message = `Home Player ${this.actionForm.selectedHomePlayer ? this.actionForm.selectedHomePlayer.firstName + ' ' + this.actionForm.selectedHomePlayer.lastName : 'none'} performed action ${this.actionForm.homeAction} at ${this.actionForm.homeTime}. 
+                    Away Player ${this.actionForm.selectedAwayPlayer ? this.actionForm.selectedAwayPlayer.firstName + ' ' + this.actionForm.selectedAwayPlayer.lastName : 'none'} performed action ${this.actionForm.awayAction} at ${this.actionForm.awayTime}.`;
+  }
+
+  addActions() {
+    const homeActionObj = {
+      type: this.actionForm.homeAction,
+      time: this.actionForm.homeTime,
+      description: "Home player action",
+      player: {
+        id: this.actionForm.selectedHomePlayer ? this.actionForm.selectedHomePlayer.id : null
+      },
+      match: {
+        id: this.selectedMatch ? parseInt(this.selectedMatch, 10) : null
+      }
+    };
+
+    const awayActionObj = {
+      type: this.actionForm.awayAction,
+      time: this.actionForm.awayTime,
+      description: "Away player action",
+      player: {
+        id: this.actionForm.selectedAwayPlayer ? this.actionForm.selectedAwayPlayer.id : null
+      },
+      match: {
+        id: this.selectedMatch ? parseInt(this.selectedMatch, 10) : null
+      }
+    };
+
+    const actions = [];
+    if (this.actionForm.selectedHomePlayer) {
+      actions.push(this.matchService.addAction(homeActionObj));
+    }
+
+    if (this.actionForm.selectedAwayPlayer) {
+      actions.push(this.matchService.addAction(awayActionObj));
+    }
+
+    Promise.all(actions.map(action => action.toPromise()))
+      .then(responses => {
+        responses.forEach((response, index) => {
+          if (index === 0) {
+            console.log('Home action added successfully:', response);
+            alert('Home action added successfully');
+          } else {
+            console.log('Away action added successfully:', response);
+            alert('Away action added successfully');
+          }
+        });
+        this.resetForm();
+      })
+      .catch(error => {
+        console.error('Error adding actions:', error);
+        alert('Error adding actions: ' + error.message);
+      });
+  }
+
+  resetForm() {
+    this.actionForm = {
       selectedHomePlayer: null,
       selectedAwayPlayer: null,
       homeAction: '',
       homeTime: '',
       awayAction: '',
       awayTime: ''
-    });
-  }
-
-  removeActionForm(index: number) {
-    this.actionForms.splice(index, 1);
-  }
-
-  updateMessage() {
-    const messages = this.actionForms.map((form, index) => {
-      return `Form ${index + 1}: Home Player ${form.selectedHomePlayer ? form.selectedHomePlayer.firstName + ' ' + form.selectedHomePlayer.lastName : 'none'} performed action ${form.homeAction} at ${form.homeTime}. 
-              Away Player ${form.selectedAwayPlayer ? form.selectedAwayPlayer.firstName + ' ' + form.selectedAwayPlayer.lastName : 'none'} performed action ${form.awayAction} at ${form.awayTime}.`;
-    });
-    this.message = messages.join('\n');
-  }
-
-  addActions() {
-    this.actionForms.forEach(form => {
-      // Create action objects
-      const homeActionObj = {
-        type: form.homeAction,
-        time: form.homeTime,
-        description: "Home player action",
-        player: {
-          id: form.selectedHomePlayer ? form.selectedHomePlayer.id : null
-        }
-      };
-
-      const awayActionObj = {
-        type: form.awayAction,
-        time: form.awayTime,
-        description: "Away player action",
-        player: {
-          id: form.selectedAwayPlayer ? form.selectedAwayPlayer.id : null
-        }
-      };
-
-      // Call the service to add actions
-      if (form.selectedHomePlayer) {
-        this.matchService.addAction(homeActionObj).subscribe(
-          response => {
-            console.log('Home action added successfully:', response);
-            alert('Home action added successfully');
-          },
-          error => {
-            console.error('Error adding home action:', error);
-            alert('Error adding home action: ' + error.message);
-          }
-        );
-      }
-
-      if (form.selectedAwayPlayer) {
-        this.matchService.addAction(awayActionObj).subscribe(
-          response => {
-            console.log('Away action added successfully:', response);
-            alert('Away action added successfully');
-          },
-          error => {
-            console.error('Error adding away action:', error);
-            alert('Error adding away action: ' + error.message);
-          }
-        );
-      }
-    });
+    };
   }
 
   onMatchSelected(): void {
@@ -123,8 +116,8 @@ export class StatisticComponent implements OnInit {
       const matchId: number = parseInt(this.selectedMatch, 10);
       this.matchService.getPlayersByIdMatch(matchId).subscribe({
         next: (data) => {
-          this.teamHome = data.playerTeamHome;
-          this.teamAway = data.playerTeamAway;
+          this.teamHome = data.playerTeamHome || [];
+          this.teamAway = data.playerTeamAway || [];
         },
         error: (error) => {
           console.error('Error fetching players', error);
@@ -132,4 +125,53 @@ export class StatisticComponent implements OnInit {
       });
     }
   }
+
+  fetchPlayerStatistics(playerId: number) {
+    if (this.selectedMatch && playerId) {
+      const matchId: number = parseInt(this.selectedMatch, 10);
+      this.matchService.getPlayerStatistics(playerId, matchId).subscribe(
+        stats => {
+          this.playerStatistics = stats;
+          console.log('Player Statistics:', this.playerStatistics);
+        },
+        error => {
+          console.error('Error fetching player statistics', error);
+        }
+      );
+    }
+  }
+
+  onPlayerSelected(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const playerId = parseInt(selectElement.value, 10);
+    if (!isNaN(playerId)) {
+      this.selectedPlayer = { id: playerId };
+      this.fetchPlayerStatistics(playerId);
+    }
+  }
+
+  deleteStatistic(actionId: number) {
+    if (confirm('Are you sure you want to delete this action?')) {
+      this.matchService.deleteAction(actionId).subscribe(
+        response => {
+          console.log('Action deleted successfully:', response);
+          alert('Action deleted successfully');
+          // Re-fetch player statistics to update the view
+          if (this.selectedPlayer) {
+            this.fetchPlayerStatistics(this.selectedPlayer.id);
+          }
+        },
+        error => {
+          console.error('Error deleting action:', error);
+          alert('Error deleting action: ' + error.message);
+        }
+      );
+    }
+  }
+  
+
+  getObjectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
+  
 }

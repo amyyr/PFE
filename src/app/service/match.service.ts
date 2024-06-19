@@ -106,4 +106,15 @@ export class MatchService {
     return this.http.post<any>(`${this.actionApiUrl}/add`, action, { headers })
       .pipe(catchError(this.handleError));
   }
+  getPlayerStatistics(playerId: number, matchId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.actionApiUrl}/statistique/player/${playerId}/match/${matchId}`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+  deleteAction(actionId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(`${this.actionApiUrl}/${actionId}`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+  
 }
