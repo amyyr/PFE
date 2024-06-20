@@ -67,6 +67,7 @@ import { StreamComponent } from './stream/stream.component';
 import { StreamModalComponent } from './stream-modal/stream-modal.component';
 import { ConditionsGeneralesComponent } from './conditions-generales/conditions-generales.component';
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -137,6 +138,7 @@ import { DatePipe } from '@angular/common';
     MatSidenavModule,
     MatTableModule,
     VgControlsModule,
+    NgbModule,
     DragDropModule,
   ],
   providers: [MatchService, TeamService,DatePipe],

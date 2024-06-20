@@ -67,16 +67,7 @@ export class MatchService {
     this.matchDetailsSource.next(details);
   }
 
-  private handleError(error: HttpErrorResponse) {
-    console.error('Error occurred:', error);
-    let errorMessage = 'Something went wrong; please try again later.';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `An error occurred: ${error.error.message}`;
-    } else {
-      errorMessage = `Backend returned code ${error.status}, body was: ${JSON.stringify(error.error)}`;
-    }
-    return throwError(() => new Error(errorMessage));
-  }
+  
   getPlayersByIdMatch(id: number): Observable<any> {
     const headers = this.getHeaders();
     return this.http.get<any>(`${this.apiUrl}/${id}/players`, { headers })
@@ -106,4 +97,33 @@ export class MatchService {
     return this.http.post<any>(`${this.actionApiUrl}/add`, action, { headers })
       .pipe(catchError(this.handleError));
   }
+  getPlayerStatistics(playerId: number, matchId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.actionApiUrl}/statistique/player/${playerId}/match/${matchId}`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+  
+  deleteAction(actionId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(`${this.actionApiUrl}/${actionId}`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+  
+  getPlayerActions(playerId: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`${this.actionApiUrl}/player/${playerId}`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+  
+private handleError(error: HttpErrorResponse) {
+  console.error('Error occurred:', error);
+  let errorMessage = 'Something went wrong; please try again later.';
+  if (error.error instanceof ErrorEvent) {
+    errorMessage = `An error occurred: ${error.error.message}`;
+  } else {
+    errorMessage = `Backend returned code ${error.status}, body was: ${JSON.stringify(error.error)}`;
+  }
+  return throwError(() => new Error(errorMessage));
+}
+  
 }
