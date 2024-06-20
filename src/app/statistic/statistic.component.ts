@@ -16,6 +16,7 @@ export class StatisticComponent implements OnInit {
   selectedMatch = '';
   selectedPlayer: any = null;
   playerStatistics: any = {};
+  playerActions: any[] = [];
 
   actionForm: any = {
     selectedHomePlayer: null,
@@ -147,7 +148,20 @@ export class StatisticComponent implements OnInit {
     if (!isNaN(playerId)) {
       this.selectedPlayer = { id: playerId };
       this.fetchPlayerStatistics(playerId);
+      this.fetchPlayerActions(playerId);
     }
+  }
+
+  fetchPlayerActions(playerId: number) {
+    this.matchService.getPlayerActions(playerId).subscribe(
+      actions => {
+        this.playerActions = actions;
+        console.log('Player Actions:', this.playerActions);
+      },
+      error => {
+        console.error('Error fetching player actions:', error);
+      }
+    );
   }
 
   deleteStatistic(actionId: number) {
@@ -156,22 +170,25 @@ export class StatisticComponent implements OnInit {
         response => {
           console.log('Action deleted successfully:', response);
           alert('Action deleted successfully');
-          // Re-fetch player statistics to update the view
+          // Re-fetch player actions to update the view
           if (this.selectedPlayer) {
-            this.fetchPlayerStatistics(this.selectedPlayer.id);
+            this.fetchPlayerActions(this.selectedPlayer.id);
           }
         },
         error => {
-          console.error('Error deleting action:', error);
-          alert('Error deleting action: ' + error.message);
+          if (error.status === 404) {
+            console.error('Action not found:', error);
+            alert('Action not found. It may have already been deleted.');
+          } else {
+            console.error('Error deleting action:', error);
+            alert('Error deleting action: ' + error.message);
+          }
         }
       );
     }
   }
   
-
   getObjectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
-  
 }
