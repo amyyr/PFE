@@ -7,58 +7,46 @@ import { Manager } from './models/manager';
   providedIn: 'root'
 })
 export class ManagerService {
-  addManager(newManager: Manager) {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(private http: HttpClient) { }
 
-  // Method to get common headers
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
-    if (token) {
-      return new HttpHeaders({ Authorization: `Bearer ${token}` });
-    } else {
-      return new HttpHeaders();
-    }
+    return token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
   }
 
-  postManager(id: string): Observable<any> {
+  getAllManagers(): Observable<Manager[]> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/v1/auth/manager/signup${id}`, { headers });
+    return this.http.get<Manager[]>('http://localhost:8080/api/manager', { headers });
   }
 
-  getManagerById(id: string): Observable<any> {
+  approveManager(id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/manager/getById/${id}`, { headers });
+    return this.http.post<any>(`http://localhost:8080/api/manager/${id}/approve`, {}, { headers });
+  }
+  
+  rejectManager(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`http://localhost:8080/api/manager/${id}/reject`, {}, { headers });
+  }
+  
+  deleteManager(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.delete<any>(`http://localhost:8080/api/manager/${id}`, { headers });
   }
 
-
-
-  updateManager(body: any, id: any): Observable<any> {
+  getManagerById(id: string): Observable<Manager> {
     const headers = this.getHeaders();
-    return this.http.put<any>(`https://back.aitacticalanalysis.com/api/manager/update/${id}`,{Headers});
+    return this.http.get<Manager>(`http://localhost:8080/api/manager/getById/${id}`, { headers });
   }
 
- 
-
-
-  deleteManager(id: number): Observable<any> {
+  addManager(newManager: Manager): Observable<Manager> {
     const headers = this.getHeaders();
-    return this.http.delete<any>(`https://back.aitacticalanalysis.com/api/manager/${id}`, {headers});
+    return this.http.post<Manager>(`http://localhost:8080/api/manager`, newManager, { headers });
   }
 
-
-  getAllManager(): Observable<Manager[]> {
+  updateManager(body: any, id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<Manager[]>('https://back.aitacticalanalysis.com/api/manager', {headers});
+    return this.http.put<any>(`http://localhost:8080/api/manager/update/${id}`, body, { headers });
   }
 }
-
-
-// Fetch all managers /api/manager
-
-
-// Update a manager
-
-// Delete a manager

@@ -42,7 +42,7 @@ export class MatchDetailsComponent implements OnInit {
   }
 
   getMatchDetails(matchId: string, countryId: string | null, leagueId: string | null, teamId: string | null, to: string | null, from: string | null) {
-    const url = `https://back.aitacticalanalysis.com/api/fixture/all?matchId=${matchId}`;
+    const url = `http://localhost:8080/api/fixture/all?matchId=${matchId}`;
     const params = {
       countryId: countryId ?? '',
       leagueId: leagueId ?? '',

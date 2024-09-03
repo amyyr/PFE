@@ -1,0 +1,25 @@
+.dashboard {
+    padding: 20px;
+  }
+  
+  .admin-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .admin-photo {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  button {
+    margin-right: 10px;
+  }
+  

@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PlayerService {
-  private apiUrl = 'https://back.aitacticalanalysis.com/api/player';
+  private apiUrl = 'http://localhost:8080/api/player';
 
   constructor(private http: HttpClient) {}
 

@@ -1,0 +1,35 @@
+<div class="dashboard-container">
+    <img src="path/to/admin/photo.jpg" (click)="goToAdminProfile()" alt="Admin Photo" />
+
+    <div class="admin-dashboard">
+
+        <h2>Managers List</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let manager of managers">
+                <td (click)="goToManagerProfile(manager.id)">{{ manager.firstName }}</td>
+              <td>{{ manager.lastName }}</td>
+              <td>{{ manager.email }}</td>
+              <td>{{ manager.status }}</td>
+              <td>
+                <button (click)="approveManager(manager.id)" *ngIf="manager.status === 'PENDING'">Approve</button>
+                <button (click)="rejectManager(manager.id)" *ngIf="manager.status === 'PENDING'">Reject</button>
+                <button (click)="deleteManager(manager.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    <button (click)="logout()">Logout</button>
+  </div>
+  

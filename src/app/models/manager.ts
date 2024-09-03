@@ -1,10 +1,7 @@
-export class Manager{
-    constructor(
-        public id :number, 
-         public firstName :string, 
-        public  lastName :string,
-        public   email :string,
-        ){
-       
-    }
+export interface Manager {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  status: string; // Ensure this field is present in your Manager interface
 }

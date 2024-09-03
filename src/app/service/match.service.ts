@@ -8,8 +8,8 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MatchService {
-  private apiUrl = 'https://back.aitacticalanalysis.com/api/match';
-  private actionApiUrl = 'https://back.aitacticalanalysis.com/api/action';
+  private apiUrl = 'http://localhost:8080/api/match';
+  private actionApiUrl = 'http://localhost:8080/api/action';
 
   constructor(private http: HttpClient) {}
   
@@ -27,7 +27,7 @@ export class MatchService {
 
   getMatchById(id: any): Observable<any> {
     const headers = this.getHeaders(); 
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/match/${id}`,{headers}); 
+    return this.http.get<any>(`http://localhost:8080/api/match/${id}`,{headers}); 
   }
 
 
@@ -35,17 +35,17 @@ export class MatchService {
 
   getAll(): Observable<any> { 
     const headers = this.getHeaders(); 
-    return this.http.get<any>('https://back.aitacticalanalysis.com/api/match',{headers}); 
+    return this.http.get<any>('http://localhost:8080/api/match',{headers}); 
   } 
 
   getAllByManager(): Observable<any> { 
     const headers = this.getHeaders(); 
-    return this.http.get<any>('https://back.aitacticalanalysis.com/api/match/manager', { headers }); 
+    return this.http.get<any>('http://localhost:8080/api/match/manager', { headers }); 
   } 
 
   deleteMatch(id: any): Observable<any> { 
     const headers = this.getHeaders(); 
-    return this.http.delete<any>(`https://back.aitacticalanalysis.com/api/match/${id}`,{headers}); 
+    return this.http.delete<any>(`http://localhost:8080/api/match/${id}`,{headers}); 
   } 
 
   updateMatch(id: any, match: any): Observable<any> {
@@ -56,7 +56,7 @@ export class MatchService {
 
   getAllTeam(): Observable<any> { 
     const headers = this.getHeaders(); 
-    return this.http.get<any>('https://back.aitacticalanalysis.com/api/team', { headers }); 
+    return this.http.get<any>('http://localhost:8080/api/team', { headers }); 
   
   }
 
@@ -80,14 +80,14 @@ export class MatchService {
   }
   getMatchByNames(name:string): Observable<any> { 
     const headers = this.getHeaders(); 
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/match/names${name}`,{headers}); 
+    return this.http.get<any>(`http://localhost:8080/api/match/names${name}`,{headers}); 
   } 
 
 
 
   getMatchByIdNames(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/match/id/names`, { headers })
+    return this.http.get<any>(`http://localhost:8080/api/match/id/names`, { headers })
       .pipe(
         catchError(this.handleError)
       );
