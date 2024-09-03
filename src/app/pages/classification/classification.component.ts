@@ -22,7 +22,7 @@ export class ClassificationComponent implements OnInit {
 
   getStandings() {
     const leagueId = 317;
-    this.http.get<any[]>(`https://back.aitacticalanalysis.com/api/standing/total?leagueId=${leagueId}`)
+    this.http.get<any[]>(`http://localhost:8080/api/standing/total?leagueId=${leagueId}`)
       .subscribe(data => {
         this.standings = data;
       }, error => {
@@ -38,7 +38,7 @@ export class ClassificationComponent implements OnInit {
   }
 
   getFixtures(from: string, to: string) {
-    this.http.get<any>(`https://back.aitacticalanalysis.com/api/fixture/all?from=${from}&to=${to}`).subscribe(
+    this.http.get<any>(`http://localhost:8080/api/fixture/all?from=${from}&to=${to}`).subscribe(
       response => {
         if (response.success === 1) {
           this.fixtures = response.result;

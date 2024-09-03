@@ -6,7 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class TeamService {
-  private apiUrl = 'https://back.aitacticalanalysis.com/api/team';
+  private apiUrl = 'http://localhost:8080/api/team';
   constructor(private http: HttpClient) { }
 
   getHeaders(): HttpHeaders {
@@ -16,17 +16,17 @@ export class TeamService {
 
   addTeam(team: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>('https://back.aitacticalanalysis.com/api/team/add', team, { headers });
+    return this.http.post<any>('http://localhost:8080/api/team/add', team, { headers });
   }
 
   getTeamById(id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>(`https://back.aitacticalanalysis.com/api/team/${id}`, { headers });
+    return this.http.get<any>(`http://localhost:8080/api/team/${id}`, { headers });
   }
 
   getAllTeam(): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.get<any>('https://back.aitacticalanalysis.com/api/team', { headers });
+    return this.http.get<any>('http://localhost:8080/api/team', { headers });
   }
   getTeamByManager(): Observable<any> {
     const headers = this.getHeaders();
@@ -35,7 +35,7 @@ export class TeamService {
   }
 
   getAllCountries(): Observable<any> {
-    return this.http.get<any>('https://back.aitacticalanalysis.com/api/country/all'); 
+    return this.http.get<any>('http://localhost:8080/api/country/all'); 
   }
 
   getLeaguesByCountry(countryId: number): Observable<any> {
@@ -50,7 +50,7 @@ export class TeamService {
     });
   }
   // getPlayersByTeam(teamId: number): Observable<any> {
-  //   return this.http.get<any>(`https://back.aitacticalanalysis.com/api/teams/players`, {
+  //   return this.http.get<any>(`http://localhost:8080/api/teams/players`, {
   //     params: { teamId: teamId }
   //   });
   // }

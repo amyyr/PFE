@@ -30,18 +30,29 @@ import { SvgComponent } from './svg/svg.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { StreamComponent } from './stream/stream.component';
 import { ConditionsGeneralesComponent } from './conditions-generales/conditions-generales.component';
+import { AuthComponent } from './auth/auth.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AaaComponent } from './aaa/aaa.component';
+import { VerifyComponent } from './verify/verify.component';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { ManagerProfileComponent } from './manager-profile/manager-profile.component';
 
 
 
 
 
 const routes: Routes = [
+  
   { 
     path: '',
     component: PublicLayoutComponent,
     children: [
       {"path":"",component:HomeComponent},
       {"path":"login",component:LoginComponent},
+    
       {"path":"register",component:RegisterComponent},
       {"path":"drawing",component:DrawingComponent},
       {"path":"blog",component:BlogComponent},
@@ -55,8 +66,19 @@ const routes: Routes = [
       {"path":"statistic",component:StatisticComponent},
       {"path":"conditions-generales",component:ConditionsGeneralesComponent},
     ]
-  },   {"path":"stream",component:StreamComponent},
-   
+  },  
+  
+      {"path":"stream",component:StreamComponent},
+      { "path": 'forgot-password', component: ForgotPasswordComponent },
+      {"path": 'auth', component: AuthComponent },
+    
+      { "path": 'verify', component: VerifyComponent },
+    
+        { path: 'admin/login', component: AdminLoginComponent },
+        { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AdminAuthGuard] },
+        { path: 'admin-profile',component: AdminProfileComponent},
+        { path: 'manager/:id', component: ManagerProfileComponent },
+      
 
   {
     path: 'dashboard',

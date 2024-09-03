@@ -10,7 +10,7 @@ export interface LoginResponse {
 export class LoginService {
 
  
-  private signUpUrl = 'https://back.aitacticalanalysis.com/api/v1/auth/signin';
+  private signUpUrl = 'http://localhost:8080/api/v1/auth/signin';
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class LoginService {
 
 
   loginUser(userData: any): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('https://back.aitacticalanalysis.com/api/v1/auth/signin', userData);
+    return this.http.post<LoginResponse>('http://localhost:8080/api/v1/auth/signin', userData);
   }
   
 }

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LiveScoreService {
-  private apiUrl = 'https://back.aitacticalanalysis.com/api/liveScore/all';
+  private apiUrl = 'http://localhost:8080/api/liveScore/all';
 
   constructor(private http: HttpClient) {}
 

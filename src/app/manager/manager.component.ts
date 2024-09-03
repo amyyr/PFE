@@ -1,44 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { Manager } from '../models/manager';
 import { ManagerService } from '../manager.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manager',
   templateUrl: './manager.component.html',
   styleUrls: ['./manager.component.css']
 })
-export class ManagerComponent {
+export class ManagerComponent implements OnInit {
+  managers: Manager[] = []; // Ensure correct type declaration
 
-  managers:any;
-team: any;
+  constructor(private managerService: ManagerService) {}
 
-  constructor(private managerService: ManagerService,private router:Router) {}
-
-
-  deleteManager(id: number){
-    
-    if (confirm('Are you sure you want to delete this manager')) {
-      this.managerService.deleteManager(id).subscribe(() => {
-        console.log("Deleted");
-        this.getAllManagers();
-      })
-    }
-  }
-
-  ngOnInit() {
-    this.getAllManagers();
-  }
-
-  getAllManagers() {
-    this.managerService.getAllManager().subscribe((data) => {
+  ngOnInit(): void {
+    this.managerService.getAllManagers().subscribe((data: Manager[]) => {
       this.managers = data;
-      console.log(data);
-    })
+    });
   }
 
- 
-  updateManager(id:any) {
-    this.router.navigate([`/dashboard/update-manager/${id}`]);
+  deleteManager(id: string): void {
+    this.managerService.deleteManager(id).subscribe(() => {
+      this.managerService.getAllManagers().subscribe((data: Manager[]) => {
+        this.managers = data;
+      });
+    });
   }
-  
+
+  updateManager(id: string): void {
+    // Logic for updating manager
+  }
 }

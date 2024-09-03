@@ -1,0 +1,22 @@
+<div class="verification-container">
+    <h1>Email Verification</h1>
+    <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+      <label for="code">Enter the 6-digit verification code sent to your email:</label>
+      <div class="code-inputs">
+        <input type="text" maxlength="1" formControlName="digit1" (input)="onInput($event, 'digit2')" (paste)="onPaste($event)" />
+        <input type="text" maxlength="1" formControlName="digit2" (input)="onInput($event, 'digit3')" />
+        <input type="text" maxlength="1" formControlName="digit3" (input)="onInput($event, 'digit4')" />
+        <input type="text" maxlength="1" formControlName="digit4" (input)="onInput($event, 'digit5')" />
+        <input type="text" maxlength="1" formControlName="digit5" (input)="onInput($event, 'digit6')" />
+        <input type="text" maxlength="1" formControlName="digit6" />
+      </div>
+      <div *ngIf="verificationError" class="error">{{ verificationError }}</div>
+      <button type="submit">Verify</button>
+    </form>
+  
+    <div *ngIf="timeLeft > 0">
+      <p>You can resend the code in {{ timeLeft }} seconds.</p>
+    </div>
+    <button *ngIf="timeLeft === 0" (click)="resendCode()">Resend Code</button>
+  </div>
+  
