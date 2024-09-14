@@ -15,7 +15,7 @@ export class AdminAuthGuard implements CanActivate {
       return true;  // Allow access if the token exists
     } else {
       console.log('No token found, redirecting to login.');
- // Redirect to login if not authenticated
+      this.router.navigate(['/admin/login']);  // Redirect to login if not authenticated
       return false;
     }
   }

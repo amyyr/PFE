@@ -42,6 +42,7 @@ import { ManagerProfileComponent } from './manager-profile/manager-profile.compo
 import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
 import { ReclamationDetailComponent } from './reclamation-detail/reclamation-detail.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { AuthGuard } from './auth.guard.service';
 
 
 
@@ -81,7 +82,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    // canActivate: [AdminAuthGuard], // AdminAuthGuard applied to all children routes
+    canActivate: [AdminAuthGuard], // AdminAuthGuard applied to all children routes
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'profile', component: AdminProfileComponent },
@@ -95,7 +96,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardLayoutComponent,
-   // canActivate: [AdminAuthGuard], // Protect dashboard
+   canActivate: [AuthGuard], // Protect dashboard
     children: [
       { path: '', redirectTo: 'add-team', pathMatch: 'full' },
       { path: 'add-team', component: AddTeamComponent },

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'; // ActivatedRoute added
 import { LoginService, LoginResponse } from '../login.service';
 import { RegisterService } from '../register.service';
+import { Location } from '@angular/common'; // Location added to navigate back
 
 @Component({
   selector: 'app-auth',
@@ -22,19 +23,30 @@ export class AuthComponent {
     private fb: FormBuilder,
     private loginService: LoginService,
     private registerService: RegisterService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,  // Inject ActivatedRoute to capture URL
+    private location: Location      // Inject Location to navigate back
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
-
+  
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
+
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // If token exists, redirect the user to the previous page or home
+      this.router.navigateByUrl(this.router.url || '/');
+    }
+  }
+  
 
   toggleToSignUp() {
     const container = document.getElementById('container');
@@ -53,11 +65,14 @@ export class AuthComponent {
   onLoginSubmit() {
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
+  
       this.loginService.loginUser(userData).subscribe({
         next: (response: LoginResponse) => {
           console.log('Login successful!', response.accessToken);
           localStorage.setItem('token', response.accessToken);
-          window.location.href = 'dashboard';
+  
+          // Redirect to the home page after successful login
+          this.router.navigate(['/']);
         },
         error: (error) => {
           if (error.status === 401) {

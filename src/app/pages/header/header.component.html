@@ -1,43 +1,53 @@
-
 <header class="site-navbar py-4" role="banner">
-    <div class="container">
-      <div class="d-flex align-items-center">
-        <div class="site-logo">
-          <a href="index.html">
-            <img src="assets/images/logo.jpg" width="120" alt="Image circulaire" class="img-fluid image-circulaire">
+  <div class="container">
+    <div class="d-flex align-items-center">
+      <div class="site-logo">
+        <a href="/">
+          <img src="assets/images/logo.jpg" width="120" alt="Image circulaire" class="img-fluid image-circulaire">
+        </a>
+      </div>
+      <div class="ml-auto">
+        <nav class="site-navigation position-relative text-right" role="navigation">
+          <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+            <li class="active"><a routerLink="/" class="nav-link"><b>HOME</b></a></li>
+            <li><a routerLink="/classification" class="nav-link"><b>SCORE</b></a></li>
+            <li><a href="https://vue.aitacticalanalysis.com/" target="_blank" class="nav-link"><b>DRAWING</b></a></li>
+            <li><a routerLink="/teams" class="nav-link"><b>TEAMS</b></a></li>
+            <li><a routerLink="/contact" class="nav-link"><b>CONTACT</b></a></li>
+            <li><a href="https://iptv.aitacticalanalysis.com/" class="nav-link"><b>STREAM</b></a></li>
+            <li><a routerLink="/match" class="nav-link"><b>MATCHES</b></a></li>
+            <li><a routerLink="/statistic" class="nav-link"><b>STATISTIC</b></a></li>
 
-          </a>
-        </div>
-        <div class="ml-auto">
-          <nav class="site-navigation position-relative text-right" role="navigation">
-            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-              <li class="active"><a [routerLink]="'/index'" class="nav-link"><b>HOME</b></a></li>
-              <li><a [routerLink]="'/classification'" class="nav-link"><b>SCORE</b></a></li>
-              <li><a href="https://vue.aitacticalanalysis.com/" target="_blank" class="nav-link"><b>DRAWING</b></a></li>
-              <li><a [routerLink]="'/teams'" class="nav-link"><b>TEAMS</b></a></li>
-              <li><a [routerLink]="'/contact'" class="nav-link"><b>CONTACT</b></a></li>
-              <li><a href="https://iptv.aitacticalanalysis.com/" class="nav-link"><b>STREAM</b></a></li>
-              <li><a [routerLink]="'/match'" class="nav-link"><b>MATCHES</b></a></li>
-              <li><a [routerLink]="'/statistic'" class="nav-link"><b>STATISTIC</b></a></li>
-              <li>
-                <a [routerLink]="'/auth'" class="nav-link">
-                  <button class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> <!-- Font Awesome icon for login -->
-                    <b>Connexion</b>
-                  </button>
-                </a>
-              </li>
-              
+            <!-- If the user is not logged in, show the Connexion button -->
+            <li *ngIf="!isLoggedIn">
+              <a routerLink="/auth" class="nav-link">
+                <button class="btn btn-primary">
+                  <i class="fas fa-sign-in-alt"></i>
+                  <b>Connexion</b>
+                </button>
+              </a>
+            </li>
 
+            <!-- If the user is logged in, show the Profile and Logout buttons -->
+            <li *ngIf="isLoggedIn">
+              <a routerLink="/dashboard" class="nav-link">
+                <button class="btn btn-primary">
+                  <i class="fas fa-user"></i>
+                  <b>Profile</b>
+                </button>
+              </a>
+            </li>
 
+            <li *ngIf="isLoggedIn">
+              <button class="btn btn-danger" (click)="logout()">Logout</button>
+            </li>
+          </ul>
+        </nav>
 
-            </ul>
-          </nav>
-
-          <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span
-              class="icon-menu h3 text-white"></span></a>
-        </div>
+        <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
+          <span class="icon-menu h3 text-white"></span>
+        </a>
       </div>
     </div>
-
-  </header>
+  </div>
+</header>
