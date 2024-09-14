@@ -8,6 +8,7 @@ import { ReclamationService } from '../reclamation.service';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
+  showBanner: boolean = false
   contactForm: FormGroup;
   successMessage: string | null = null;
   errorMessage: string | null = null;

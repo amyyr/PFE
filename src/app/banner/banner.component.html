@@ -1,12 +1,19 @@
-<div class="hero overlay" style="background-image: url('assets/images/ar.jpg');">
+<!-- app-banner.component.html -->
+<div class="hero overlay" *ngIf="showBackground" style="background-image: url('assets/images/ar.jpg');">
   <div class="container">
     <div class="row align-items-center">
-  
       <div class="col-lg-5 ml-auto">
-        <h1 class="text-white"></h1>
-        
-        
+        <h1 class="text-white">{{ title }}</h1>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fallback when the background is hidden -->
+<div *ngIf="!showBackground" class="container">
+  <div class="row align-items-center">
+    <div class="col-lg-5 ml-auto">
+      <h1>{{ title }}</h1>
     </div>
   </div>
 </div>

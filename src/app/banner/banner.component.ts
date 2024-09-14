@@ -6,6 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent {
-  @Input() title:any=[];
-constructor(){}
+  @Input() title: string = '';
+  @Input() showBackground: boolean = true; // Control whether to show the background image
 }
