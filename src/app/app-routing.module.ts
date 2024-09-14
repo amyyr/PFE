@@ -39,70 +39,80 @@ import { AdminAuthGuard } from './guards/admin-auth.guard';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ManagerProfileComponent } from './manager-profile/manager-profile.component';
+import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
+import { ReclamationDetailComponent } from './reclamation-detail/reclamation-detail.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 
 
 
 
 
 const routes: Routes = [
-  
-  { 
+  // Public Layout
+  {
     path: '',
     component: PublicLayoutComponent,
     children: [
-      {"path":"",component:HomeComponent},
-      {"path":"login",component:LoginComponent},
-    
-      {"path":"register",component:RegisterComponent},
-      {"path":"drawing",component:DrawingComponent},
-      {"path":"blog",component:BlogComponent},
-      {"path":"contact",component:ContactComponent},
-      {"path":"teams",component:TeamsComponent},
-      {"path":"classification",component:ClassificationComponent}, 
-      {"path":"VideoPopup",component:VideoPopupComponent},
-      {"path":"live-score",component:LiveScoresComponent},
-      {"path":"match",component:MatchComponent},
-      {"path":"matchDetails",component: MatchDetailsComponent},
-      {"path":"statistic",component:StatisticComponent},
-      {"path":"conditions-generales",component:ConditionsGeneralesComponent},
+      { path: '', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'drawing', component: DrawingComponent },
+      { path: 'blog', component: BlogComponent },
+      { path: 'contact', component: ContactComponent },
+      { path: 'teams', component: TeamsComponent },
+      { path: 'classification', component: ClassificationComponent },
+      { path: 'VideoPopup', component: VideoPopupComponent },
+      { path: 'live-score', component: LiveScoresComponent },
+      { path: 'match', component: MatchComponent },
+      { path: 'matchDetails', component: MatchDetailsComponent },
+      { path: 'statistic', component: StatisticComponent },
+      { path: 'conditions-generales', component: ConditionsGeneralesComponent }
     ]
-  },  
-  
-      {"path":"stream",component:StreamComponent},
-      { "path": 'forgot-password', component: ForgotPasswordComponent },
-      {"path": 'auth', component: AuthComponent },
-    
-      { "path": 'verify', component: VerifyComponent },
-    
-        { path: 'admin/login', component: AdminLoginComponent },
-        { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AdminAuthGuard] },
-        { path: 'admin-profile',component: AdminProfileComponent},
-        { path: 'manager/:id', component: ManagerProfileComponent },
-      
+  },
 
+  // Stream routes (assuming public or separate guard)
+  { path: 'stream', component: StreamComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'auth', component: AuthComponent },
+  { path: 'verify', component: VerifyComponent },
+
+  // Admin Layout with Guard (except 'admin/login')
+  { path: 'admin/login', component: AdminLoginComponent },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    // canActivate: [AdminAuthGuard], // AdminAuthGuard applied to all children routes
+    children: [
+      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'profile', component: AdminProfileComponent },
+      { path: 'reclamations', component: ReclamationListComponent },
+      { path: 'reclamation/:id', component: ReclamationDetailComponent },
+      { path: 'manager/:id', component: ManagerProfileComponent }
+    ]
+  },
+ 
+  // Dashboard layout with guard for internal team, match, player, etc.
   {
     path: 'dashboard',
     component: DashboardLayoutComponent,
+   // canActivate: [AdminAuthGuard], // Protect dashboard
     children: [
-      {path: '', redirectTo: 'add-team', pathMatch: 'full'},
-      {"path":"add-team",component:AddTeamComponent},
-      {"path":"all-teams",component:AllTeamsComponent},
-      {"path":"update-team/:id",component:UpdateTeamComponent},
-      {"path":"add-match",component:AddMatchComponent},
-      {"path":"all-matches",component:AllMatchesComponent},
-      {"path":"update-match/:id",component:UpdateMatchComponent},
-      {"path":"add-player",component:AddPlayerComponent},
-      {"path":"all-players",component:AllPlayersComponent},
-      {"path":"update-player/:id",component:UpdatePlayerComponent},
-      {"path":"manager",component:ManagerComponent},
-      {"path":"add-manager",component:AddManagerComponent},
-      {"path":"update-manager/:id",component:UpdateManagerComponent},
-      {"path":"svg",component:SvgComponent},
-     
-      
+      { path: '', redirectTo: 'add-team', pathMatch: 'full' },
+      { path: 'add-team', component: AddTeamComponent },
+      { path: 'all-teams', component: AllTeamsComponent },
+      { path: 'update-team/:id', component: UpdateTeamComponent },
+      { path: 'add-match', component: AddMatchComponent },
+      { path: 'all-matches', component: AllMatchesComponent },
+      { path: 'update-match/:id', component: UpdateMatchComponent },
+      { path: 'add-player', component: AddPlayerComponent },
+      { path: 'all-players', component: AllPlayersComponent },
+      { path: 'update-player/:id', component: UpdatePlayerComponent },
+      { path: 'manager', component: ManagerComponent },
+      { path: 'add-manager', component: AddManagerComponent },
+      { path: 'update-manager/:id', component: UpdateManagerComponent },
+      { path: 'svg', component: SvgComponent }
     ]
   }
-
 ];
 
 @NgModule({
@@ -110,3 +120,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

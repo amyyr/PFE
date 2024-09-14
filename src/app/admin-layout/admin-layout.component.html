@@ -1,0 +1,46 @@
+<div class="wrapper">
+  <!-- Sidebar -->
+  <div class="sidebar" data-color="black" data-active-color="danger">
+    <div class="logo">
+      <!-- Profile Picture -->
+      <div class="logo-image-small">
+        <img [src]="profilePicUrl" alt="Admin Profile Picture" *ngIf="profilePicUrl">
+      </div>
+
+      <!-- Admin Name -->
+      <p class="simple-text logo-normal">
+        <a [routerLink]="['/admin/profile']">{{ admin.username }}</a>
+      </p>
+    </div>
+
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="active">
+          <a [routerLink]="['/admin/dashboard']">
+            <i class="nc-icon nc-chart-bar-32"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/admin/reclamations']">
+            <i class="nc-icon nc-alert-circle-i"></i>
+            <p>Reclamations</p>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Logout Button -->
+      <div class="logout-section">
+        <button class="btn btn-danger" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Panel -->
+  <div class="main-panel">
+    <div class="content">
+      <!-- Child routes will be rendered here -->
+      <router-outlet></router-outlet> <!-- IMPORTANT: Make sure this is present -->
+    </div>
+  </div>
+</div>

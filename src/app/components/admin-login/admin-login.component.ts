@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AdminAuthService } from '../../services/admin-auth.service';
+import { AdminAuthService } from '../../services/admin-auth.service';  // Admin authentication service
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,20 +22,23 @@ export class AdminLoginComponent {
       password: ['', [Validators.required]]
     });
   }
-
-  onSubmit() {
+  onLoginSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
+      console.log('Logging in with email:', email);
+
       this.adminAuthService.login(email, password).subscribe({
-        next: (response: string) => {
-          this.adminAuthService.saveToken(response);
-          this.router.navigate(['/admin/dashboard']);
+        next: () => {
+          console.log('Login successful! Navigating to admin dashboard.');
+          this.router.navigate(['/admin/dashboard']);  // Navigate to the admin dashboard
         },
         error: (error) => {
-          console.error('Admin login failed:', error);
+          console.error('Login failed:', error);  // Log the error
           this.loginError = 'Invalid email or password. Please try again.';
         }
       });
+    } else {
+      console.warn('Form is invalid:', this.loginForm);  // Log invalid form
     }
   }
 }

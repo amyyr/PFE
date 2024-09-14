@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AdminService {
   private apiUrl = 'http://localhost:8080/api/manager';
+  private adminData: any = null;
 
   constructor(private http: HttpClient) {}
 
@@ -32,6 +33,13 @@ export class AdminService {
     }
   
     return headers;
+  }
+  setAdminData(data: any) {
+    this.adminData = data;
+  }
+
+  getAdminData() {
+    return this.adminData;
   }
   
 }

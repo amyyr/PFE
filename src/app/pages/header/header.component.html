@@ -11,14 +11,23 @@
         <div class="ml-auto">
           <nav class="site-navigation position-relative text-right" role="navigation">
             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-              <li class="active"><a href="index.html" class="nav-link"><b>HOME</b></a></li>
-              <li><a href="/classification" class="nav-link"><b>SCORE</b></a></li>
+              <li class="active"><a [routerLink]="'/index'" class="nav-link"><b>HOME</b></a></li>
+              <li><a [routerLink]="'/classification'" class="nav-link"><b>SCORE</b></a></li>
               <li><a href="https://vue.aitacticalanalysis.com/" target="_blank" class="nav-link"><b>DRAWING</b></a></li>
-              <li><a href="/teams" class="nav-link"><b>TEAMS</b></a></li>
-              <li><a href="/contact" class="nav-link"><b>CONTACT</b></a></li>
+              <li><a [routerLink]="'/teams'" class="nav-link"><b>TEAMS</b></a></li>
+              <li><a [routerLink]="'/contact'" class="nav-link"><b>CONTACT</b></a></li>
               <li><a href="https://iptv.aitacticalanalysis.com/" class="nav-link"><b>STREAM</b></a></li>
-              <li><a href="/match" class="nav-link"><b>MATCHES</b></a></li>
-              <li><a href="/statistic" class="nav-link"><b>statistic</b></a></li>
+              <li><a [routerLink]="'/match'" class="nav-link"><b>MATCHES</b></a></li>
+              <li><a [routerLink]="'/statistic'" class="nav-link"><b>STATISTIC</b></a></li>
+              <li>
+                <a [routerLink]="'/auth'" class="nav-link">
+                  <button class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> <!-- Font Awesome icon for login -->
+                    <b>Connexion</b>
+                  </button>
+                </a>
+              </li>
+              
 
 
 

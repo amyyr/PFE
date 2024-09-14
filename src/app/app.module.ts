@@ -76,6 +76,9 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { ManagerProfileComponent } from './manager-profile/manager-profile.component';
+import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
+import { ReclamationDetailComponent } from './reclamation-detail/reclamation-detail.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +132,9 @@ import { ManagerProfileComponent } from './manager-profile/manager-profile.compo
     AdminDashboardComponent,
     AdminProfileComponent,
     ManagerProfileComponent,
+    ReclamationListComponent,
+    ReclamationDetailComponent,
+    AdminLayoutComponent,
   ],
   imports: [
     BrowserModule,

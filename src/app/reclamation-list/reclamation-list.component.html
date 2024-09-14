@@ -1,0 +1,24 @@
+<div class="reclamation-list">
+    <h2>Reclamations</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reclamation of reclamations">
+          <td>{{ reclamation.id }}</td>
+          <td>{{ reclamation.title }}</td>
+          <td>{{ reclamation.status }}</td>
+          <td>
+            <button (click)="viewReclamationDetails(reclamation.id)">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

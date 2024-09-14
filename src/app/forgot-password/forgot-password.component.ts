@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ForgotPasswordService } from '../forgot-password.service';
 import { Router } from '@angular/router';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,14 +13,15 @@ export class ForgotPasswordComponent {
   emailForm: FormGroup;
   codeForm: FormGroup;
   passwordForm: FormGroup;
-  token: string = '';  // Initialize this properly
   emailSent: boolean = false;
   codeVerified: boolean = false;
   resendAvailable: boolean = false;
-  verificationFailed: boolean = false;
-  email: string = '';
-  currentStep: number = 1; // Start at step 1 (email input)
   verificationError: string | null = null;
+  emailSuccessMessage: string | null = null;
+  currentStep: number = 1; // Step 1: Email form; Step 2: Code verification; Step 3: Reset password
+  email: string = '';
+  countdown: number = 5;  // Countdown timer in seconds
+  countdownSubscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -45,6 +47,7 @@ export class ForgotPasswordComponent {
       ? null : { 'passwordMismatch': true };
   }
 
+  // Submit email and proceed to the next step
   onSubmitEmail() {
     if (this.emailForm.valid) {
       this.email = this.emailForm.value.email;
@@ -52,11 +55,15 @@ export class ForgotPasswordComponent {
         next: (response: string) => {
           console.log('Forgot password response:', response);
           this.emailSent = true;
+          this.emailSuccessMessage = "Email sent successfully! Please check your inbox for the verification code.";
+          this.toggleStep(2); // Automatically toggle to step 2
           this.startResendTimer();
         },
         error: (error) => {
           console.error('Error sending forgot password email:', error);
-          this.emailSent = true; // Assuming the email was sent even if there was an error
+          this.emailSent = true;
+          this.emailSuccessMessage = "Email sent successfully! Please check your inbox for the verification code.";
+          this.toggleStep(2); // Automatically toggle to step 2 even on error
           this.startResendTimer();
         }
       });
@@ -64,9 +71,18 @@ export class ForgotPasswordComponent {
   }
 
   startResendTimer() {
-    setTimeout(() => {
-      this.resendAvailable = true;
-    }, 60000); // 60 seconds
+    this.resendAvailable = false;
+    this.countdown = 5 // Reset countdown
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe(); // Clear any existing countdown
+    }
+    this.countdownSubscription = interval(1000).subscribe(() => {
+      this.countdown--;
+      if (this.countdown === 0) {
+        this.resendAvailable = true;
+        this.countdownSubscription?.unsubscribe(); // Stop the timer when countdown ends
+      }
+    });
   }
 
   onResendCode() {
@@ -82,17 +98,17 @@ export class ForgotPasswordComponent {
     });
   }
 
+  // Verify the code and proceed to the next step
   onSubmitCode() {
     if (this.codeForm.valid) {
       const code = this.codeForm.value.code;
-      console.log("Token to verify:", code);
       this.forgotPasswordService.verifyCode(this.email, code).subscribe({
         next: (response: string) => {
           console.log("Verification response:", response);
           if (response.trim() === 'valid token') {  // Check for the correct response text
-            this.currentStep = 3; // Move to the password reset step
-            this.codeVerified = true; // Ensure codeVerified is set to true
+            this.codeVerified = true;
             this.verificationError = null; // Clear any previous errors
+            this.toggleStep(3); // Automatically toggle to step 3
           } else {
             this.verificationError = 'Verification failed. Please try again.';
           }
@@ -105,6 +121,7 @@ export class ForgotPasswordComponent {
     }
   }
 
+  // Submit the new password and navigate to login
   onSubmitPassword() {
     if (this.passwordForm.valid) {
       const password = this.passwordForm.value.password;
@@ -118,5 +135,14 @@ export class ForgotPasswordComponent {
         }
       });
     }
+  }
+
+  // Method to toggle the steps automatically
+  toggleStep(step: number) {
+    this.currentStep = step;
+  }
+
+  ngOnDestroy() {
+    this.countdownSubscription?.unsubscribe(); // Clean up the subscription when component is destroyed
   }
 }

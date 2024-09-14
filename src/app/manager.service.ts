@@ -49,4 +49,13 @@ export class ManagerService {
     const headers = this.getHeaders();
     return this.http.put<any>(`http://localhost:8080/api/manager/update/${id}`, body, { headers });
   }
+  getReclamations(): Observable<any[]> {
+    const headers = this.getHeaders();
+    return this.http.get<any[]>('http://localhost:8080/api/reclamation/all', { headers });
+  }
+  
+  getReclamationById(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get<any>(`http://localhost:8080/api/reclamation/${id}`, { headers });
+  }
 }

@@ -15,8 +15,10 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private managerService: ManagerService, private router: Router) {}
 
   ngOnInit(): void {
+    console.log('AdminDashboardComponent loaded');
     this.loadManagers();
   }
+  
   goToAdminProfile() {
     this.router.navigate(['/admin-profile']);
   }
