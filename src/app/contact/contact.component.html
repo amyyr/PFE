@@ -1,45 +1,49 @@
-<app-banner [title]="'Add Contact'" [showBackground]="true"></app-banner>
-
-
 <div class="site-section">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-7">
-        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <input type="text" formControlName="title" class="form-control" placeholder="Subject" required>
-          </div>
-          <div class="form-group">
-            <textarea formControlName="description" class="form-control" cols="30" rows="10" placeholder="Write something..." required></textarea>
-          </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary py-3 px-5" value="Send Message">
-          </div>
-        </form>
+    <!-- Contact Form Section -->
+    <div class="col-lg-7">
+      <h2>Contact Us</h2>
+      <p>If you have any questions or need assistance, feel free to reach out using the form below. We'll get back to you as soon as possible!</p>
 
-        <div *ngIf="successMessage" class="alert alert-success">
-          {{ successMessage }}
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <input type="text" formControlName="title" class="form-control" placeholder="Subject" required>
         </div>
-        <div *ngIf="errorMessage" class="alert alert-danger">
-          {{ errorMessage }}
+        <div class="form-group">
+          <textarea formControlName="description" class="form-control" cols="30" rows="6" placeholder="Write your message..." required></textarea>
         </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-primary" value="Send Message">
+        </div>
+      </form>
+
+      <!-- Success and Error Messages -->
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
       </div>
-      <div class="col-lg-4 ml-auto">
-        <ul class="list-unstyled">
-          <li class="mb-2">
-            <strong class="text-white d-block">Address</strong>
-            273 South Riverview Rd. <br> New York, NY 10011
-          </li>
-          <li class="mb-2">
-            <strong class="text-white d-block">Email</strong>
-            <a href="#">https://elitesportholding.com/</a>
-          </li>
-          <li class="mb-2">
-            <strong class="text-white d-block">Phone</strong>
-            <a href="#">216 21 12 12 10</a>
-          </li>
-        </ul>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
       </div>
+    </div>
+
+    <!-- Contact Info Section -->
+    <div class="col-lg-4">
+      <h3 class="other-ways-heading">Other Ways to Contact Us</h3>
+      <p>If you'd prefer, you can reach us through the following channels:</p>
+      <ul class="list-unstyled">
+        <li>
+          <strong>Visit Us:</strong> <br>
+          273 South Riverview Rd.<br>New York, NY 10011
+        </li>
+        <li class="mt-3">
+          <strong>Email Us:</strong> <br>
+          <a href="mailto:support@elitesportholding.com">support@elitesportholding.com</a>
+        </li>
+        <li class="mt-3">
+          <strong>Call Us:</strong> <br>
+          <a href="tel:21621121210">+1 216-21-12-12-10</a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

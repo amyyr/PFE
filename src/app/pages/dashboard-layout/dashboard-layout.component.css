@@ -1,49 +1,68 @@
+/* Sidebar Styles */
 .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-  }
-  
-  .sidebar a {
-    display: block;
-    color: black;
-    padding: 16px;
-    text-decoration: none;
-  }
-   
-  .sidebar a.active {
-    background-color: #04AA6D;
-    color: white;
-  }
-  
-  .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-  }
-  
-  div.content {
-    margin-left: 200px;
-    padding: 1px 16px;
-    height: 1000px;
-  }
-  
-  @media screen and (max-width: 700px) {
-    .sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #FF7F50; /* Orange background */
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.2); /* Add subtle shadow */
+}
+
+.sidebar a {
+  display: block;
+  color: white; /* Change text color to white for contrast */
+  padding: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+/* Active link style */
+.sidebar a.active {
+  background-color: #FF4500; /* Darker orange for active link */
+  color: white;
+  font-weight: bold; /* Highlight active link with bold text */
+}
+
+/* Hover effect */
+.sidebar a:hover:not(.active) {
+  background-color: #FF6347; /* Slightly lighter orange on hover */
+  color: white;
+}
+
+/* Content section */
+div.content {
+  margin-left: 200px;
+  padding: 20px;
+  height: 1000px;
+  background-color: #f9f9f9; /* Light gray background for the content area */
+  transition: margin-left 0.3s ease; /* Smooth content shift */
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 700px) {
+  .sidebar {
       width: 100%;
       height: auto;
       position: relative;
-    }
-    .sidebar a {float: left;}
-    div.content {margin-left: 0;}
+      box-shadow: none;
   }
-  
-  @media screen and (max-width: 400px) {
-    .sidebar a {
+  .sidebar a {
+      float: left;
       text-align: center;
-      float: none;
-    }
+      width: 100%;
+      padding: 12px;
   }
+  div.content {
+      margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+      float: none;
+      text-align: center;
+      padding: 10px;
+  }
+}

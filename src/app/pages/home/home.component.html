@@ -1,112 +1,60 @@
-
-  
-  
-  <app-world-cup></app-world-cup>
-    
- 
-
-
-
-<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 p-3">
-      <h2 class="display-5">player statistics</h2>
-      <p class="lead">player statistics.</p>
+<div class="home-container">
+  <!-- Calendar Section -->
+  <div class="calendar-section">
+    <h3>Scores en direct football et programme du jour</h3>
+    <div class="calendar-wrapper">
+      <!-- Date Picker -->
+      <input type="date" [value]="selectedDate" (change)="onDateChange($event)" class="date-picker-input" />
+      <div class="today-button">
+        <button (click)="fetchMatches(todayDate)">Aujourd'hui</button>
+      </div>
     </div>
-      <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <img src="assets/images/8c.jpg" height="200">
+  </div>
+
+  <!-- Match List Section -->
+  <div class="match-list-section">
+    <!-- Display Loading or No Matches message -->
+    <div *ngIf="isLoading" class="loading">
+      <p>Loading matches...</p>
+    </div>
+    <div *ngIf="!isLoading && matches.length === 0" class="no-matches">
+      <p>No matches available for {{ selectedDate }}</p>
+    </div>
+
+    <!-- Match Cards -->
+    <div *ngIf="!isLoading && matches.length > 0" class="matches-list">
+      <div *ngFor="let match of matches" class="match-card" (click)="selectMatch(match)">
+        <!-- Header with Team Logos -->
+        <div class="match-header">
+          <img [src]="match.home_team_logo" alt="{{ match.event_home_team }}" class="team-logo">
+          <span class="vs">vs</span>
+          <img [src]="match.away_team_logo" alt="{{ match.event_away_team }}" class="team-logo">
         </div>
-  </div>
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 py-3">
-      <h2 class="display-5">match statistics</h2>
-      <p class="lead">match statistics.</p></div>
-      <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <img src="assets/images/8d.jpg" height="200"></div>
-  </div>
-</div>
 
-<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 p-3">
-      <h2 class="display-5">Teams Statistics </h2>
-      <p class="lead">And an even wittier subheading.</p>
-    </div>
-    <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <img src="assets/images/8e.jpg" height="200">
-    </div>
-  </div>
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 py-3">
-      <h2 class="display-5">player statistics</h2>
-      <p class="lead">And an even wittier subheading.</p>
-    </div>
-    <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <img src="assets/images/8f.jpg" height="200">
-    </div>
-  </div>
-</div>
+        <!-- Match Info -->
+        <div class="match-info">
+          <p class="teams">{{ match.event_home_team }} vs {{ match.event_away_team }}</p>
+          <p class="time-league">{{ match.event_time }} - {{ match.league_name }}</p>
 
-<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 p-3">
-      <h2 class="display-5">Teams Statistics</h2>
-      <p class="lead">And an even wittier subheading.</p>
-    </div>
-      <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <img src="assets/images/8a.jpg" height="200">
-        </div>
-  </div>
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 py-3">
-      <h2 class="display-5">Teams Statistics</h2>
-      <p class="lead">And an even wittier subheading.</p></div>
-      <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-        <img src="assets/images/8b.jpg" height="200"></div>
-  </div>
-</div>
-<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 p-3">
-      <h2 class="display-5">Teams Statistics</h2>
-      <p class="lead">And an even wittier subheading.</p>
-    </div>
-    <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden ">
-      <img src="assets/images/8g.jpg" height="200">
-    </div>
-  </div>
-  <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-    <div class="my-3 py-3">
-      <h2 class="display-5 animate-text">Another headline</h2>
-      <p class="lead animate-text">And an even wittier subheading.</p>
-    </div>
-    l
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img class="d-block w-100" src="assets/images/8g.jpg" alt="First slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="assets/images/8a.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="assets/images/8b.jpg" alt="Third slide">
-        </div>
-        <div class="carousel-item">
-          <img class="d-block w-100" src="assets/images/8c.jpg" alt="Third slide">
+          <!-- League Logo -->
+          <div *ngIf="match.league_logo" class="league-logo-wrapper">
+            <img [src]="match.league_logo || 'path-to-your-default-image.png'" alt="{{ match.league_name }}" class="league-logo">
+          </div>
+
+          <p class="stadium">Stadium: {{ match.event_stadium }}</p>
         </div>
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
     </div>
+  </div>
 
-  
-  
-  
-  
+  <!-- Match Details Section (Appears when a match is selected) -->
+  <div *ngIf="selectedMatch" class="match-details">
+    <h3>{{ selectedMatch.event_home_team }} vs {{ selectedMatch.event_away_team }}</h3>
+    <p><strong>Time:</strong> {{ selectedMatch.event_time }}</p>
+    <p><strong>League:</strong> {{ selectedMatch.league_name }}</p>
+    <p><strong>Stadium:</strong> {{ selectedMatch.event_stadium }}</p>
+    <p><strong>Referee:</strong> {{ selectedMatch.event_referee }}</p>
+    <!-- Add any additional match details here -->
+    <button class="close-details" (click)="selectedMatch = null">Close</button>
+  </div>
+</div>
