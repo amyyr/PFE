@@ -85,3 +85,27 @@
 .mat-calendar-body {
   min-height: auto; /* Remove minimum height */
 }
+.league-sidebar {
+  background-color: #1a1a1a;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+}
+
+.league-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+}
+
+.league-list li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.league-logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}

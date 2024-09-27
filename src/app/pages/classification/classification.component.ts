@@ -11,23 +11,83 @@ import { MatchService } from '../../service/match.service'; // Updated path
 export class ClassificationComponent implements OnInit {
   standings: any[] = [];
   fixtures: any[] = [];
+  leagues: any[] = []; // Store the list of leagues
+  selectedLeagueId: number = 317; // Default league ID (can be Tunisia Ligue 1)
   selected: Date | null = null;
   showMoreResults: boolean = false;
 
   constructor(private http: HttpClient, private router: Router, private matchService: MatchService) {}
 
   ngOnInit() {
-    this.getStandings();
+    this.getLeagues(); // Fetch the list of leagues
+    this.getStandings(); // Fetch standings for the default league
   }
 
+  // Fetch all available leagues (this can come from an API or a local list)
+  getLeagues() {
+    // Assuming this list is available statically; you can replace it with an API call if needed
+    this.leagues = [
+      {
+        "league_key": 3,
+        "league_name": "UEFA Champions League",
+        "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/3_uefa_champions_league.png"
+      },
+      {
+        "league_key": 4,
+        "league_name": "UEFA Europa League",
+        "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/4_uefa_europa_league.png"
+      },
+      {
+        "league_key": 683,
+        "league_name": "UEFA Conference League"
+      },
+      {
+        "league_key": 317,
+        "league_name": "Ligue 1 (Tunisia)",
+        "country_logo": "https://apiv2.allsportsapi.com/logo/logo_country/110_tunisia.png"
+      },
+      {
+        "league_key": 152,
+        "league_name": "Premier League",
+        "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/152_premier-league.png"
+      },
+      {
+        "league_key": 302,
+        "league_name": "La Liga",
+        "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/302_la-liga.png"
+      },
+      {
+        "league_key": 207,
+        "league_name": "Serie A",
+        "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/207_serie-a.png"
+      },
+      {
+        "league_key": 175,
+        "league_name": "Bundesliga",
+        "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/175_bundesliga.png"
+      },
+      {
+        "league_key": 168,
+        "league_name": "Ligue 1 (France)",
+        "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/168_ligue-1.png"
+      }
+    ];
+  }
+
+  // Fetch standings for the selected league
   getStandings() {
-    const leagueId = 317;
-    this.http.get<any[]>(`http://localhost:8080/api/standing/total?leagueId=${leagueId}`)
+    this.http.get<any[]>(`http://localhost:8080/api/standing/total?leagueId=${this.selectedLeagueId}`)
       .subscribe(data => {
         this.standings = data;
       }, error => {
         console.error('Error fetching standings:', error);
       });
+  }
+
+  // Update standings based on league selection
+  selectLeague(leagueId: number) {
+    this.selectedLeagueId = leagueId;
+    this.getStandings(); // Fetch standings for the selected league
   }
 
   onDateChange(event: Date) {

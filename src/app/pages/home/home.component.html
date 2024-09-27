@@ -1,94 +1,94 @@
 <div class="home-container">
   <div class="content-wrapper">
-    <!-- Calendar Section -->
-    <div class="calendar-section">
-      <h3>Scores en direct football et programme du jour</h3>
-      <div class="calendar-wrapper">
-        <!-- Dynamic Calendar Navigation -->
-        <div class="calendar-header">
-          <button (click)="prevMonth()">&lt;</button>
-          <p class="month-year">{{ monthNames[currentMonth] }} {{ currentYear }}</p>
-          <button (click)="nextMonth()">&gt;</button>
-        </div>
+      <!-- Calendar Section -->
+      <div class="calendar-section">
+          <h5>Scores en direct football et programme du jour</h5>
+          <div class="calendar-wrapper">
+              <!-- Dynamic Calendar Navigation -->
+              <div class="calendar-header">
+                  <button (click)="prevMonth()">&lt;</button>
+                  <p class="month-year">{{ monthNames[currentMonth] }} {{ currentYear }}</p>
+                  <button (click)="nextMonth()">&gt;</button>
+              </div>
 
-        <!-- Calendar Grid -->
-        <div class="calendar-grid">
-          <div class="day-header" *ngFor="let day of dayNames">{{ day }}</div>
-          <div *ngFor="let empty of getFillerDays()" class="day filler"></div>
-          <div *ngFor="let day of getDaysInMonth()" 
-               class="day" 
-               [ngClass]="{'selected': isSelected(day)}" 
-               (click)="selectDate(day)">
-            {{ day }}
+              <!-- Calendar Grid -->
+              <div class="calendar-grid">
+                  <div class="day-header" *ngFor="let day of dayNames">{{ day }}</div>
+                  <div *ngFor="let empty of getFillerDays()" class="day filler"></div>
+                  <div *ngFor="let day of getDaysInMonth()" 
+                       class="day" 
+                       [ngClass]="{'selected': isSelected(day)}" 
+                       (click)="selectDate(day)">
+                      {{ day }}
+                  </div>
+              </div>
+
+              <!-- Today's Button -->
+              <div class="today-button">
+                  <button (click)="goToToday()">Aujourd'hui</button>
+              </div>
           </div>
-        </div>
-
-        <!-- Today's Button -->
-        <div class="today-button">
-          <button (click)="goToToday()">Aujourd'hui</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Match List Section -->
-    <div class="match-list-section">
-      <div *ngIf="isLoading" class="loading">
-        <p>Loading matches...</p>
-      </div>
-      <div *ngIf="!isLoading && matches.length === 0" class="no-matches">
-        <p>No matches available for {{ selectedDate }}</p>
       </div>
 
-      <!-- Match Cards -->
-      <div *ngIf="!isLoading && matches.length > 0" class="matches-list">
-        <div *ngFor="let match of matches" class="match-card" (click)="selectMatch(match)">
-          <div class="match-header">
-            <img [src]="match.home_team_logo" alt="{{ match.event_home_team }}" class="team-logo">
-            <span class="vs">vs</span>
-            <img [src]="match.away_team_logo" alt="{{ match.event_away_team }}" class="team-logo">
+      <!-- Match List Section -->
+      <div class="match-list-section">
+          <div *ngIf="isLoading" class="loading">
+              <p>Loading matches...</p>
           </div>
-          <div class="match-info">
-            <p class="time-league">{{ match.event_time }} - {{ match.league_name }}</p>
-            <p class="teams">{{ match.event_home_team }} vs {{ match.event_away_team }}</p>
+          <div *ngIf="!isLoading && matches.length === 0" class="no-matches">
+              <p>No matches available for {{ selectedDate }}</p>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Match Details Sidebar (Appears only when a match is selected) -->
-    <div *ngIf="selectedMatch" class="match-details-sidebar">
-      <!-- Header with Team Logos and Final Score -->
-      <div class="match-details-header">
-        <img [src]="selectedMatch.home_team_logo" alt="{{ selectedMatch.event_home_team }}" class="team-logo">
-        <span class="final-result">{{ selectedMatch.event_final_result }}</span> <!-- FINAL RESULT -->
-        <img [src]="selectedMatch.away_team_logo" alt="{{ selectedMatch.event_away_team }}" class="team-logo">
-      </div>
-
-      <!-- Match Status (e.g., Terminé or In-Progress) -->
-      <p class="match-status">{{ getMatchStatus(selectedMatch.event_status) }}</p>
-
-      <!-- Half-Time Result -->
-      <p class="halftime-score">Half-Time: {{ selectedMatch.event_halftime_result }}</p>
-
-      <!-- Goal Scorers -->
-      <div *ngFor="let goal of selectedMatch.goalscorers" class="scorers">
-        <p>
-          <span class="goal-time">{{ goal.time }}'</span> - 
-          <span *ngIf="goal.home_scorer">{{ goal.home_scorer }}</span>
-          <span *ngIf="goal.away_scorer">{{ goal.away_scorer }}</span>
-        </p>
+          <!-- Match Cards -->
+          <div *ngIf="!isLoading && matches.length > 0" class="matches-list">
+              <div *ngFor="let match of matches" class="match-card" (click)="selectMatch(match)">
+                  <div class="match-header">
+                      <img [src]="match.home_team_logo" alt="{{ match.event_home_team }}" class="team-logo">
+                      <span class="vs">vs</span>
+                      <img [src]="match.away_team_logo" alt="{{ match.event_away_team }}" class="team-logo">
+                  </div>
+                  <div class="match-info">
+                      <p class="time-league">{{ match.event_time }} - {{ match.league_name }}</p>
+                      <p class="teams">{{ match.event_home_team }} vs {{ match.event_away_team }}</p>
+                  </div>
+              </div>
+          </div>
       </div>
 
-      <!-- View More Button -->
-      <button class="see-more-button">Voir plus</button>
+      <!-- Match Details Sidebar (Appears only when a match is selected) -->
+      <div class="match-details-sidebar" [ngClass]="{ 'active': selectedMatch }">
+          <!-- Header with Team Logos and Final Score -->
+          <div class="match-details-header">
+              <img [src]="selectedMatch?.home_team_logo" alt="{{ selectedMatch?.event_home_team }}" class="team-logo">
+              <span class="final-result">{{ selectedMatch?.event_final_result }}</span> <!-- FINAL RESULT -->
+              <img [src]="selectedMatch?.away_team_logo" alt="{{ selectedMatch?.event_away_team }}" class="team-logo">
+          </div>
 
-      <!-- Match Tabs (Details, Stats, etc.) -->
-      <div class="match-tabs">
-        <a href="#" class="active-tab">Détails</a>
-        <a href="#">Compositions</a>
-        <a href="#">Statistiques</a>
-        <a href="#">Commentaires</a>
+          <!-- Match Status (e.g., Terminé or In-Progress) -->
+          <p class="match-status">{{ getMatchStatus(selectedMatch?.event_status) }}</p>
+
+          <!-- Half-Time Result -->
+          <p class="halftime-score">Half-Time: {{ selectedMatch?.event_halftime_result }}</p>
+
+          <!-- Goal Scorers -->
+          <div *ngFor="let goal of selectedMatch?.goalscorers" class="scorers">
+              <p>
+                  <span class="goal-time">{{ goal.time }}'</span> - 
+                  <span *ngIf="goal.home_scorer">{{ goal.home_scorer }}</span>
+                  <span *ngIf="goal.away_scorer">{{ goal.away_scorer }}</span>
+              </p>
+          </div>
+
+          <!-- View More Button -->
+          <button class="see-more-button">Voir plus</button>
+
+          <!-- Match Tabs (Details, Stats, etc.) -->
+          <div class="match-tabs">
+              <a href="#" class="active-tab">Détails</a>
+              <a href="#">Compositions</a>
+              <a href="#">Statistiques</a>
+              <a href="#">Commentaires</a>
+          </div>
       </div>
-    </div>
   </div>
 </div>

@@ -3,29 +3,34 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-top: 100px;
   min-height: 100vh;
   padding: 20px;
-  margin-top: 100px; /* Ensure content starts below the fixed header */
-  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay to show video background */
+  margin-top: 100px;
+  background-color: transparent; /* Remove or make transparent */
 }
-
 
 /* Content Wrapper */
 .content-wrapper {
   display: flex;
-  justify-content: space-between; /* Calendar and match list side by side */
+  justify-content: space-between; /* Make sure the calendar and match list are side by side */
+  align-items: flex-start; /* Align items to the top */
   width: 100%;
-  max-width: 1200px;
-  gap: 20px; /* Space between calendar and match list */
+  max-width: 1200px; /* Set a maximum width */
+  margin: 0 auto; /* Center the content */
+  gap: 20px; /* Add space between the calendar and the match list */
 }
+
 
 /* Calendar Section */
 .calendar-section {
-  width: 25%; /* Adjust width to allow space for match list */
+  width: 30%; /* Keep the calendar width smaller compared to the match list */
   background-color: rgba(35, 35, 35, 0.8);
   padding: 20px;
   border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: auto; /* Let the height adjust naturally */
 }
 
 /* Calendar Header */
@@ -101,14 +106,14 @@
 
 /* Match List Section */
 .match-list-section {
-  width: 50%; /* Adjust width for space next to calendar */
+  width: 65%; /* Allow the match list to take more space */
   background-color: rgba(58, 58, 58, 0.8);
   padding: 15px;
   border-radius: 10px;
-  margin-left: 20px; /* Ensure space between calendar and match list */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-height: calc(100vh - 150px); /* Make list scrollable within this space */
-  overflow-y: auto;
+  max-height: 100vh; /* Set a maximum height */
+  overflow-y: auto; /* Make the match list scrollable */
+  height: fit-content; /* Ensure the match list's height matches content */
 }
 
 /* Adjust Scrollbar for match list */
@@ -135,10 +140,11 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   color: white;
   transition: transform 0.2s ease-in-out;
+  height: auto; /* Allow auto height to prevent overflow */
 }
 
 .match-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.05); /* Slight hover effect */
 }
 
 .team-logo {
@@ -174,15 +180,20 @@
 
 /* Match Details Sidebar */
 .match-details-sidebar {
-  width: 25%; /* Adjust width to fit next to match list */
+  width: 25%; /* Sidebar width */
   background-color: rgba(35, 35, 35, 0.8);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   height: fit-content;
   position: sticky;
-  top: 100px; /* Make the sidebar sticky below the header */
+  top: 100px; /* Stick it below the header */
+  display: none; /* Initially hidden until a match is selected */
 }
+.match-details-sidebar.active {
+  display: block; /* Display when a match is selected */
+}
+
 /* Final Result Styling */
 .final-result {
   font-size: 36px;
@@ -276,19 +287,21 @@
 
 /* RESPONSIVE STYLES */
 @media (max-width: 768px) {
-  .home-container {
-    flex-direction: column;
+  .content-wrapper {
+      flex-direction: column; /* Stack elements vertically on small screens */
   }
 
   .calendar-section,
-  .match-list-section,
-  .match-details-sidebar {
-    width: 100%;
-    margin-left: 0;
-    margin-bottom: 20px;
+  .match-list-section {
+      width: 100%; /* Full width on smaller screens */
+      margin-right: 0;
+      margin-bottom: 20px;
   }
 
   .match-list-section {
     max-height: 300px; /* Adjust max height for smaller screens */
+  }
+  .your-element-class {
+    background-color: transparent !important;
   }
 }

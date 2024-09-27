@@ -4,12 +4,14 @@ header.site-navbar {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Ensures the header stays above content */
-    background-color: rgba(35, 35, 35, 0.9); /* Semi-transparent */
+    z-index: 1000; /* Make sure the header stays on top */
+    background-color: rgba(35, 35, 35, 0.9); /* Optional: Semi-transparent background */
     padding: 15px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for better visibility */
-  }
-  
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a slight shadow for visibility */
+}
+.home-container {
+    margin-top: 80px; /* Adjust this to match the height of your header */
+}
   /* Adjust container to center the content */
   header .container {
     display: flex;
@@ -25,12 +27,8 @@ header.site-navbar {
   
   /* Main content adjustment to avoid overlap with the fixed header */
   .home-container {
-    margin-top: 100px; /* Ensures content starts below the fixed header */
-    padding: 20px;
-    max-width: 100%; /* Full width for content */
-    background-color: rgba(0, 0, 0, 0.7); /* Transparent background over video */
-  }
-  
+    margin-top: 80px; /* Ensure content starts below the fixed header */
+}
   /* Calendar Section */
   .calendar-section {
     width: 25%; /* Adjust for better space distribution */

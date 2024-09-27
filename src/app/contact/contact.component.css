@@ -1,103 +1,91 @@
-/* Center the entire section */
+/* Apply the gray background to both sections (form and contact info) */
+.contact-container {
+  background-color: rgba(35, 35, 35, 0.8); /* Dark gray background for both sections */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  display: flex;
+  flex-direction: row; /* Align form and contact info side by side */
+}
+
+/* Contact Form Section */
+.contact-form-section {
+  flex: 1;
+  margin-right: 20px;
+  color: white; /* White text for readability */
+}
+
+/* Contact Info Section */
+.contact-info-section {
+  flex-basis: 30%;
+  color: white; /* White text for readability */
+}
+
+/* Form inputs and textarea with slight transparency */
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+  color: white; /* White text inside the form fields */
+}
+
+/* Button styles */
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Contact info list styles */
+ul.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+ul.list-unstyled li {
+  margin-bottom: 15px;
+}
+
+ul.list-unstyled li a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+ul.list-unstyled li a:hover {
+  text-decoration: underline;
+}
+
+/* Site section adjustments */
 .site-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Full height of the viewport */
-    padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full height of the viewport */
+  padding: 20px;
+  background-color: transparent; /* Keep the outer background transparent */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-container {
+      flex-direction: column; /* Stack vertically on smaller screens */
   }
-  
-  /* Style the container to contain both form and contact info */
-  .container {
-    max-width: 900px; /* Limit the max width of the form and info block */
-    display: flex;
-    flex-direction: row;
-    background-color: rgba(255, 255, 255, 0.95); /* Light background for contrast */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for a clean look */
-  }
-  
-  /* Form container (col-lg-7) */
-  .col-lg-7 {
-    flex: 1;
-    margin-right: 20px; /* Add space between form and contact info */
-  }
-  
-  /* Contact info container (col-lg-4) */
-  .col-lg-4 {
-    flex-basis: 30%; /* Set a fixed width for the contact info */
-    color: #333; /* Dark color for readability */
-  }
-  
-  /* Styling form elements */
-  .form-group input, .form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    font-size: 16px;
-  }
-  
-  .btn-primary {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Contact info list styles */
-  ul.list-unstyled {
-    padding-left: 0;
-    list-style: none;
-  }
-  
-  ul.list-unstyled li {
-    margin-bottom: 15px;
-  }
-  
-  /* Spacing for list items */
-  ul.list-unstyled li a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  ul.list-unstyled li a:hover {
-    text-decoration: underline;
-  }
-  
-  /* For mobile responsiveness */
-  @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      padding: 15px;
-    }
-  
-    .col-lg-7 {
+
+  .contact-form-section {
       margin-right: 0;
       margin-bottom: 20px;
-    }
-  }
-  /* Change heading color to black */
-h2, h3 {
-    color: #000000; /* Set to black */
-  }
-  
-  /* If you're using specific classes for these headings, add those too */
-  .contact-heading, .other-ways-heading {
-    color: #000000; /* Ensure the specific classes have black text */
-  }
-  @media (max-width: 768px) {
-  .contact-heading, .other-ways-heading {
-    color: #000000; /* Ensure black text on mobile as well */
   }
 }
