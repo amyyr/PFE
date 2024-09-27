@@ -1,0 +1,119 @@
+/* Header Styles */
+header.site-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the header stays above content */
+    background-color: rgba(35, 35, 35, 0.9); /* Semi-transparent */
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for better visibility */
+  }
+  
+  /* Adjust container to center the content */
+  header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Site logo */
+  header .site-logo img {
+    max-width: 120px;
+    height: auto;
+  }
+  
+  /* Main content adjustment to avoid overlap with the fixed header */
+  .home-container {
+    margin-top: 100px; /* Ensures content starts below the fixed header */
+    padding: 20px;
+    max-width: 100%; /* Full width for content */
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent background over video */
+  }
+  
+  /* Calendar Section */
+  .calendar-section {
+    width: 25%; /* Adjust for better space distribution */
+    background-color: #232323;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px; /* Add space between calendar and match list */
+  }
+  
+  /* Match List Section */
+  .match-list-section {
+    width: 50%;
+    background-color: rgba(58, 58, 58, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 150px); /* Scrollable height for the match list */
+  }
+  
+  /* Add a scrollbar to the match list */
+  .match-list-section::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .match-list-section::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+  }
+  
+  .match-list-section::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Match Cards */
+  .match-card {
+    background-color: rgba(42, 42, 42, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .match-card:hover {
+    transform: scale(1.05); /* Slight hover effect */
+  }
+  
+  /* Team Logos */
+  .team-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+  
+  /* Score styles */
+  .match-details-header .score {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .home-container {
+      flex-direction: column;
+    }
+  
+    .calendar-section,
+    .match-list-section {
+      width: 100%;
+      margin-right: 0;
+      margin-top: 10px;
+    }
+  
+    header .container {
+      flex-direction: column;
+    }
+  }
+  

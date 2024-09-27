@@ -14,6 +14,12 @@ export class HomeComponent implements OnInit {
   isLoading: boolean = false; // To handle loading state
   selectedMatch: any = null;  // To store the selected match
 
+  // Calendar Data
+  currentYear: number = moment().year();
+  currentMonth: number = moment().month();
+  monthNames: string[] = moment.months();
+  dayNames: string[] = ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'];
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -27,9 +33,8 @@ export class HomeComponent implements OnInit {
 
     this.http.get(apiUrl).subscribe(
       (response: any) => {
-        console.log(response);  // Add this to check the response in your browser console
         this.matches = response;
-        this.isLoading = false;  // Set loading to false after data is received
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching matches:', error);
@@ -39,13 +44,62 @@ export class HomeComponent implements OnInit {
   }
 
   // Method triggered when the user selects a new date
-  onDateChange(event: any): void {
-    this.selectedDate = event.target.value;
-    this.fetchMatches(this.selectedDate);  // Fetch matches for the selected date
+  selectDate(day: number): void {
+    const date = moment(`${this.currentYear}-${this.currentMonth + 1}-${day}`, 'YYYY-MM-DD');
+    this.selectedDate = date.format('YYYY-MM-DD');
+    this.fetchMatches(this.selectedDate);
   }
+
+  // Check if a day is selected
+  isSelected(day: number): boolean {
+    return moment(`${this.currentYear}-${this.currentMonth + 1}-${day}`, 'YYYY-MM-DD').isSame(this.selectedDate, 'day');
+  }
+
+  // Get number of filler days for the current month
+  getFillerDays(): any[] {
+    const startOfMonth = moment(`${this.currentYear}-${this.currentMonth + 1}-01`, 'YYYY-MM-DD').startOf('month').day();
+    return Array(startOfMonth > 0 ? startOfMonth : 7).fill(null);
+  }
+
+  // Get number of days in the current month
+  getDaysInMonth(): number[] {
+    const daysInMonth = moment(`${this.currentYear}-${this.currentMonth + 1}`, 'YYYY-MM').daysInMonth();
+    return Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  }
+
+  // Navigate to previous month
+  prevMonth(): void {
+    this.currentMonth = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
+    if (this.currentMonth === 11) this.currentYear -= 1;
+  }
+
+  // Navigate to next month
+  nextMonth(): void {
+    this.currentMonth = this.currentMonth === 11 ? 0 : this.currentMonth + 1;
+    if (this.currentMonth === 0) this.currentYear += 1;
+  }
+
+
 
   // Method to handle match selection
   selectMatch(match: any): void {
     this.selectedMatch = match;  // Set the selected match
+  }
+    // Get the match status (dynamic based on match state)
+    getMatchStatus(status: string): string {
+      switch (status) {
+        case 'Finished':
+          return 'Terminé';
+        case 'Live':
+          return 'En cours';
+        default:
+          return 'À venir';
+      }
+    }
+      // Go to today's date
+  goToToday(): void {
+    this.selectedDate = this.todayDate;
+    this.fetchMatches(this.todayDate);
+    this.selectedMatch = null; // Hide sidebar
   }
 }
