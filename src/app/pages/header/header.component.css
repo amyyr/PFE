@@ -1,117 +1,174 @@
-/* Header Styles */
-header.site-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Make sure the header stays on top */
-    background-color: rgba(35, 35, 35, 0.9); /* Optional: Semi-transparent background */
-    padding: 15px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a slight shadow for visibility */
+/* Global reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.home-container {
-    margin-top: 80px; /* Adjust this to match the height of your header */
+
+/* Header styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10%; /* Adjust padding for better balance */
+  background-color: #24252a;
+  height: 70px; /* Set fixed height */
+  max-height: 70px; /* Prevent the header from expanding beyond this */
 }
-  /* Adjust container to center the content */
-  header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Site logo */
-  header .site-logo img {
-    max-width: 120px;
-    height: auto;
-  }
-  
-  /* Main content adjustment to avoid overlap with the fixed header */
-  .home-container {
-    margin-top: 80px; /* Ensure content starts below the fixed header */
+
+/* Logo styling */
+.logo {
+  cursor: pointer;
+  width: 120px; /* Set a fixed width for the logo */
+  height: auto; /* Ensure the logo scales proportionally */
 }
-  /* Calendar Section */
-  .calendar-section {
-    width: 25%; /* Adjust for better space distribution */
-    background-color: #232323;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-right: 20px; /* Add space between calendar and match list */
+
+/* Navigation links styling */
+.nav__links {
+  list-style: none;
+  display: flex;
+}
+
+.nav__links li {
+  padding: 0px 15px; /* Reduced padding to fit more items */
+}
+
+.nav__links li a {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #edf0f1;
+  text-decoration: none;
+  font-size: 16px; /* Adjust font size */
+  transition: color 0.3s ease 0s;
+}
+
+.nav__links li a:hover {
+  color: #0088a9;
+}
+
+/* Call-to-action button */
+.cta {
+  padding: 9px 20px;
+  background-color: rgba(0, 136, 169, 1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease 0s;
+}
+
+.cta:hover {
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+/* Mobile menu */
+.menu {
+  display: none; /* Hidden on larger screens */
+}
+
+/* Overlay for mobile menu */
+.overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: #24252a;
+  overflow-x: hidden;
+  transition: width 0.5s ease 0s;
+}
+
+.overlay--active {
+  width: 100%; /* Full width when active */
+}
+
+.overlay__content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay a {
+  padding: 15px;
+  font-size: 36px;
+  display: block;
+  transition: color 0.3s ease 0s;
+}
+
+.overlay a:hover,
+.overlay a:focus {
+  color: #0088a9;
+}
+
+.overlay .close {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  color: #edf0f1;
+}
+
+/* Mobile responsiveness */
+@media only screen and (max-width: 800px) {
+  /* Hide desktop navigation */
+  .nav__links,
+  .cta {
+    display: none;
   }
-  
-  /* Match List Section */
-  .match-list-section {
-    width: 50%;
-    background-color: rgba(58, 58, 58, 0.8);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    overflow-y: auto;
-    max-height: calc(100vh - 150px); /* Scrollable height for the match list */
+
+  /* Show mobile menu button */
+  .menu {
+    display: initial;
+    font-size: 20px;
+    cursor: pointer;
   }
-  
-  /* Add a scrollbar to the match list */
-  .match-list-section::-webkit-scrollbar {
-    width: 8px;
+
+  /* Adjust padding for the header on smaller screens */
+  header {
+    padding: 10px 5%;
+    height: 60px;
+    max-height: 60px;
   }
-  
-  .match-list-section::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
+
+  /* Resize the logo on mobile */
+  .logo {
+    width: 90px; /* Scale down the logo */
   }
-  
-  .match-list-section::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Match Cards */
-  .match-card {
-    background-color: rgba(42, 42, 42, 0.9);
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .match-card:hover {
-    transform: scale(1.05); /* Slight hover effect */
-  }
-  
-  /* Team Logos */
-  .team-logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-  }
-  
-  /* Score styles */
-  .match-details-header .score {
+
+  /* Adjust the font size for the overlay menu */
+  .overlay a {
     font-size: 24px;
-    font-weight: bold;
-    color: white;
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .home-container {
-      flex-direction: column;
-    }
-  
-    .calendar-section,
-    .match-list-section {
-      width: 100%;
-      margin-right: 0;
-      margin-top: 10px;
-    }
-  
-    header .container {
-      flex-direction: column;
-    }
+
+  .overlay .close {
+    font-size: 40px;
+    top: 10px;
+    right: 25px;
   }
-  
+}
+
+@media only screen and (max-width: 500px) {
+  /* Further reduce header size for small screens */
+  header {
+    padding: 5px 5%;
+    height: 50px;
+    max-height: 50px;
+  }
+
+  /* Smaller logo for very small screens */
+  .logo {
+    width: 70px;
+  }
+
+  /* Smaller font size for mobile menu */
+  .overlay a {
+    font-size: 18px;
+  }
+
+  .overlay .close {
+    font-size: 35px;
+  }
+}

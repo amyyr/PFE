@@ -201,7 +201,12 @@
   color: #ffffff; /* White for clarity */
   margin: 0 15px;
 }
-
+/* Half-Time Result Styling */
+.halftime-score {
+  font-size: 18px; /* Adjust the size if needed */
+  color: #ffffff; /* Match color to full-time score */
+  margin-bottom: 10px;
+}
 
 /* Match Details Header (Team Logos and Score) */
 .match-details-header {

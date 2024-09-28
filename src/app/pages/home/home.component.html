@@ -80,7 +80,9 @@
           </div>
 
           <!-- View More Button -->
-          <button class="see-more-button">Voir plus</button>
+         <!-- Classement Button with Router Link -->
+<button class="see-more-button" [routerLink]="['/classification']" [queryParams]="{ leagueId: selectedMatch?.league_key }">Classement</button>
+
 
           <!-- Match Tabs (Details, Stats, etc.) -->
           <div class="match-tabs">

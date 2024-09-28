@@ -20,4 +20,20 @@ export class HeaderComponent {
     localStorage.removeItem('token'); // Remove token from localStorage
     this.router.navigate(['/']); // Navigate back to the home page or login
   }
+
+  // Open the mobile nav menu
+  openNav(): void {
+    const overlay = document.getElementById('mobile-menu');
+    if (overlay) {
+      overlay.classList.add('overlay--active');
+    }
+  }
+
+  // Close the mobile nav menu
+  closeNav(): void {
+    const overlay = document.getElementById('mobile-menu');
+    if (overlay) {
+      overlay.classList.remove('overlay--active');
+    }
+  }
 }

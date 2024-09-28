@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { MatchService } from '../../service/match.service'; // Updated path
+import { ActivatedRoute, Router } from '@angular/router'; // Import ActivatedRoute to handle route parameters
+import { MatchService } from '../../service/match.service'; // Import MatchService for match details
 
 @Component({
   selector: 'app-classification',
@@ -9,23 +9,35 @@ import { MatchService } from '../../service/match.service'; // Updated path
   styleUrls: ['./classification.component.css']
 })
 export class ClassificationComponent implements OnInit {
-  standings: any[] = [];
-  fixtures: any[] = [];
-  leagues: any[] = []; // Store the list of leagues
-  selectedLeagueId: number = 317; // Default league ID (can be Tunisia Ligue 1)
-  selected: Date | null = null;
-  showMoreResults: boolean = false;
+  standings: any[] = [];  // Store the fetched standings
+  fixtures: any[] = [];   // Store the fetched fixtures
+  leagues: any[] = [];    // Store the list of leagues
+  selectedLeagueId: number = 317; // Default league ID (Tunisia Ligue 1)
+  selected: Date | null = null;   // For handling selected dates
+  showMoreResults: boolean = false; // Toggle for showing more fixtures
 
-  constructor(private http: HttpClient, private router: Router, private matchService: MatchService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private matchService: MatchService,
+    private route: ActivatedRoute // Inject ActivatedRoute to read query parameters
+  ) {}
 
   ngOnInit() {
-    this.getLeagues(); // Fetch the list of leagues
-    this.getStandings(); // Fetch standings for the default league
+    // Fetch leagueId from query parameters (if available)
+    this.route.queryParams.subscribe(params => {
+      const leagueId = params['leagueId'];
+      if (leagueId) {
+        this.selectedLeagueId = +leagueId; // Update the leagueId from query param
+      }
+      this.getLeagues();    // Fetch the list of leagues
+      this.getStandings();  // Fetch standings for the selected league
+    });
   }
 
-  // Fetch all available leagues (this can come from an API or a local list)
+  // Fetch all available leagues (static list or from API)
   getLeagues() {
-    // Assuming this list is available statically; you can replace it with an API call if needed
+    // Assuming this list is available statically; replace with an API call if necessary
     this.leagues = [
       {
         "league_key": 3,
@@ -90,13 +102,15 @@ export class ClassificationComponent implements OnInit {
     this.getStandings(); // Fetch standings for the selected league
   }
 
+  // Handle date changes (optional feature for your app)
   onDateChange(event: Date) {
     const selectedDate = event;
     const fromDate = this.formatDate(selectedDate);
     const toDate = this.formatDate(selectedDate);
-    this.getFixtures(fromDate, toDate);
+    this.getFixtures(fromDate, toDate); // Fetch fixtures for the selected date range
   }
 
+  // Fetch fixtures between two dates
   getFixtures(from: string, to: string) {
     this.http.get<any>(`http://localhost:8080/api/fixture/all?from=${from}&to=${to}`).subscribe(
       response => {
@@ -113,6 +127,7 @@ export class ClassificationComponent implements OnInit {
     );
   }
 
+  // Utility method to format date (YYYY-MM-DD)
   formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -120,6 +135,7 @@ export class ClassificationComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+  // Open match details when a fixture is clicked
   openMatchDetails(fixture: any) {
     if (this.selected) {
       const formattedDate = this.formatDate(this.selected);

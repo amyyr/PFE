@@ -1,53 +1,43 @@
-<header class="site-navbar py-4" role="banner">
-  <div class="container">
-    <div class="d-flex align-items-center">
-      <div class="site-logo">
-        <a href="/">
-          <img src="assets/images/logo.png" width="120" alt="Image circulaire" class="img-fluid image-circulaire">
-        </a>
-      </div>
-      <div class="ml-auto">
-        <nav class="site-navigation position-relative text-right" role="navigation">
-          <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-            <li class="active"><a routerLink="/" class="btn btn-danger"><b>HOME</b></a></li>
-            <li><a routerLink="/classification" class="btn btn-danger"><b>SCORE</b></a></li>
-            <li><a href="https://vue.aitacticalanalysis.com/" target="_blank" class="btn btn-danger"><b>DRAWING</b></a></li>
-            <li><a routerLink="/teams" class="btn btn-danger"><b>TEAMS</b></a></li>
-            <li><a routerLink="/contact" class="btn btn-danger"><b>CONTACT</b></a></li>
-            <li><a href="https://iptv.aitacticalanalysis.com/" class="btn btn-danger"><b>STREAM</b></a></li>
-            <li><a routerLink="/match" class="btn btn-danger"><b>MATCHES</b></a></li>
-            <li><a routerLink="/statistic" class="btn btn-danger"><b>STATISTIC</b></a></li>
+<header>
+  <a class="logo" routerLink="/"><img src="assets/images/logo.png" alt="logo"></a>
+  <nav>
+    <ul class="nav__links">
+      <li><a routerLink="/classification">Score</a></li>
+      <li><a routerLink="/teams">Teams</a></li>
+      <li><a routerLink="/contact">Contact</a></li>
+      <li><a routerLink="/match">Matches</a></li>
+      <li><a routerLink="/statistic">Statistic</a></li>
+      <!-- External link -->
+      <li><a href="https://vue.aitacticalanalysis.com/" target="_blank">Drawing</a></li>
+      <li><a href="https://iptv.aitacticalanalysis.com/" target="_blank">Stream</a></li>
+      
+      <!-- If the user is logged in, show Profile and Logout buttons -->
+      <li *ngIf="isLoggedIn"><a routerLink="/dashboard">Profile</a></li>
+      <li *ngIf="isLoggedIn"><a (click)="logout()" class="cta">Logout</a></li>
 
-            <!-- If the user is not logged in, show the Connexion button -->
-            <li *ngIf="!isLoggedIn">
-              <a routerLink="/auth" class="btn btn-danger">
-                <button class="btn btn-primary">
-                  <i class="fas fa-sign-in-alt"></i>
-                  <b>Connexion</b>
-                </button>
-              </a>
-            </li>
-
-            <!-- If the user is logged in, show the Profile and Logout buttons -->
-            <li *ngIf="isLoggedIn">
-              <a routerLink="/dashboard" class="btn btn-danger">
-                <button class="btn btn-primary">
-                  <i class="fas fa-user"></i>
-                  <b>Profile</b>
-                </button>
-              </a>
-            </li>
-
-            <li *ngIf="isLoggedIn">
-              <button class="btn btn-danger" (click)="logout()">Logout</button>
-            </li>
-          </ul>
-        </nav>
-
-        <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white">
-          <span class="icon-menu h3 text-white"></span>
-        </a>
-      </div>
-    </div>
-  </div>
+      <!-- If the user is not logged in, show the Connexion button -->
+      <li *ngIf="!isLoggedIn"><a routerLink="/auth" class="cta">Connexion</a></li>
+    </ul>
+  </nav>
+  <p class="menu cta">Menu</p>
 </header>
+
+<!-- Mobile Overlay Menu -->
+<div class="overlay" id="mobile-menu">
+  <a class="close" href="javascript:void(0)" (click)="closeNav()">&times;</a>
+  <div class="overlay__content">
+    <a routerLink="/">Home</a>
+    <a routerLink="/classification">Score</a>
+    <a routerLink="/teams">Teams</a>
+    <a routerLink="/contact">Contact</a>
+    <a routerLink="/match">Matches</a>
+    <a routerLink="/statistic">Statistic</a>
+    <a href="https://vue.aitacticalanalysis.com/" target="_blank">Drawing</a>
+    <a href="https://iptv.aitacticalanalysis.com/" target="_blank">Stream</a>
+    
+    <!-- Conditional buttons based on login state -->
+    <a *ngIf="isLoggedIn" routerLink="/dashboard">Profile</a>
+    <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+    <a *ngIf="!isLoggedIn" routerLink="/auth">Connexion</a>
+  </div>
+</div>
