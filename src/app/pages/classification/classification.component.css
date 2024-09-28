@@ -1,95 +1,23 @@
-.team-info {
-  display: flex;
-  align-items: center;
-}
-
-.team-logo {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  vertical-align: middle;
-}
-
-.team-name {
-  color: rgb(70, 202, 147); 
-}
-
-.table {
-  width: 100%;
-  margin-top: 0;
-  padding-top: 20px; /* Adjust to control spacing */
-  color: #007af3;
-  background-color: transparent;
-}
-
-.custom-table th, .custom-table td {
-  padding: 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #ff0101;
-}
-
-.custom-table thead th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #e20000;
-}
-
-.custom-table tbody + tbody {
-  border-top: 2px solid #ff0000;
-}
-
-.fixture {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.fixture .team-logo {
-  width: 30px;
-  height: 30px;
-  margin: 0 10px;
-}
-
-.fixture-results {
-  flex-grow: 1;
-  margin-left: 20px;
-  max-width: 50%;
-}
-
-.demo-inline-calendar-card {
-  width: 250px;
-  margin: 0 auto; /* Center the calendar */
-}
-
-.mat-calendar {
-  width: 100%; /* Ensure the calendar fits within the card */
-  font-size: 0.875rem; /* Reduce font size */
-}
-
-.mat-calendar-table {
-  width: 100%; /* Ensure the table fits within the card */
-}
-
-.mat-calendar-body-cell {
-  height: 2.5rem; /* Reduce cell height */
-  line-height: 2.5rem; /* Center text vertically */
-}
-
-.mat-calendar-body-label {
-  font-size: 0.875rem; /* Reduce label font size */
-}
-
-.mat-calendar-body {
-  min-height: auto; /* Remove minimum height */
-}
+/* Sidebar styling */
 .league-sidebar {
-  background-color: #1a1a1a;
+  background-color: rgba(50, 50, 50, 0.9);
   padding: 15px;
   border-radius: 10px;
   color: white;
+  height: 100vh;
+  overflow-y: auto;
+  max-width: 300px;
+}
+
+.league-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 50px;
+}
+
+.league-list-wrapper {
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
 }
 
 .league-list li {
@@ -105,7 +33,142 @@
 }
 
 .league-logo {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
+  object-fit: cover;
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.pagination-controls button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-controls button:hover {
+  background-color: #0088a9;
+}
+
+.pagination-controls button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+/* Transparent Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: rgba(50, 50, 50, 0.9);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.team-info {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+}
+
+.team-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.team-name {
+  font-weight: 600;
+  color: #080808;
+}
+
+.custom-table thead th {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 10px;
+  color: #cccccc;
+  background-color: rgba(0, 136, 169, 0.8);
+}
+
+.custom-table tbody tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.custom-table tbody tr {
+  transition: background-color 0.3s ease;
+  background-color: transparent;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(0, 136, 169, 0.1);
+}
+
+/* Make the entire row clickable */
+.custom-table tbody tr a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.custom-table td, .custom-table th {
+  border-bottom: 1px solid rgba(200, 200, 200, 0.5);
+}
+
+.custom-table td.gf-ga {
+  font-weight: bold;
+  color: #00ff88;
+}
+
+/* Home/Away Toggle Buttons */
+#toggleButtons {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+#toggleButtons button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#toggleButtons button.active {
+  background-color: #007aff;
+}
+
+#toggleButtons button:hover {
+  background-color: #0088a9;
+}
+
+@media (max-width: 768px) {
+  .league-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .league-sidebar {
+    max-width: 100%;
+  }
 }
