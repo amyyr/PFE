@@ -1,5 +1,3 @@
-<app-banner [title]="'Classification'" [showBackground]="true"></app-banner>
-
 <div class="site-section">
   <div class="container">
     <div class="row">
@@ -11,7 +9,7 @@
             <ul class="list-unstyled league-list">
               <li *ngFor="let league of paginatedLeagues" (click)="selectLeague(league.league_key)">
                 <img [src]="league.league_logo || league.country_logo" alt="{{ league.league_name }}" class="league-logo">
-                <span>{{ league.league_name }}</span>
+                <span class="league-name">{{ league.league_name }}</span>
               </li>
             </ul>
           </div>
@@ -25,7 +23,7 @@
       </div>
 
       <!-- Standings Table -->
-      <div class="col-lg-9">
+      <div class="col-lg-9 table-container">
         <div id="toggleButtons">
           <button (click)="loadStandings('all')" [class.active]="currentView === 'all'">All</button>
           <button (click)="loadStandings('home')" [class.active]="currentView === 'home'">Home</button>

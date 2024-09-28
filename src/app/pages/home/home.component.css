@@ -6,8 +6,11 @@
   margin-top: 100px;
   min-height: 100vh;
   padding: 20px;
-  margin-top: 100px;
   background-color: transparent; /* Remove or make transparent */
+}
+.league-logo {
+  width: 50px;
+  height: auto;
 }
 
 
@@ -107,7 +110,7 @@
 
 /* Match List Section */
 .match-list-section {
-  width: 65%; /* Allow the match list to take more space */
+  width: 100%; /* Allow the match list to take more space */
   background-color: rgba(58, 58, 58, 0.8);
   padding: 15px;
   border-radius: 10px;
@@ -116,7 +119,6 @@
   overflow-y: auto; /* Make the match list scrollable */
   height: fit-content; /* Ensure the match list's height matches content */
 }
-
 /* Adjust Scrollbar for match list */
 .match-list-section::-webkit-scrollbar {
   width: 8px;
@@ -148,10 +150,35 @@
   transform: scale(1.05); /* Slight hover effect */
 }
 
+/* Teams and Scores */
+.teams-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.team-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.team {
+  display: flex;
+  align-items: center;
+}
+.team-score {
+  font-size: 20px;
+  font-weight: bold;
+  color: #00ff00; /* Green color for scores */
+  margin-left: 10px;
+}
+
+
 .team-logo {
   width: 45px;
   height: 45px;
   border-radius: 50%;
+  margin-right: 15px;
 }
 
 .vs {
@@ -181,15 +208,15 @@
 
 /* Match Details Sidebar */
 .match-details-sidebar {
-  width: 25%; /* Sidebar width */
-  background-color: rgba(35, 35, 35, 0.8);
+  width: 25%;
+  background-color: rgba(35, 35, 35, 0.9); /* Darker background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   height: fit-content;
   position: sticky;
-  top: 100px; /* Stick it below the header */
-  display: none; /* Initially hidden until a match is selected */
+  top: 100px;
+  display: none;
 }
 .match-details-sidebar.active {
   display: block; /* Display when a match is selected */
@@ -290,7 +317,6 @@
   color: #bbbbbb;
   margin-top: 20px;
 }
-
 /* RESPONSIVE STYLES */
 @media (max-width: 768px) {
   .content-wrapper {
@@ -310,4 +336,39 @@
   .your-element-class {
     background-color: transparent !important;
   }
+}
+/* Country Flag */
+.country-logo {
+  width: 25px;
+  margin-left: 10px;
+}
+/* Match Details Section (Détails) */
+.details-tab {
+  padding: 10px 0;
+}
+
+.details-tab p {
+  font-size: 16px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.details-tab p i {
+  margin-right: 10px;
+  color: #cccccc; /* Icon color */
+}
+
+.details-tab p img {
+  width: 20px;
+  margin-right: 10px;
+}
+/* Match Stats and Comments (placeholder) */
+.stats-tab, .comments-tab {
+  color: #cccccc;
+  padding: 10px 0;
+}
+body {
+  background-color: transparent;
+  color: white; /* This will make text readable on a dark background */
 }

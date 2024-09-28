@@ -1,45 +1,139 @@
 /* Sidebar styling */
 .league-sidebar {
-  background-color: rgba(50, 50, 50, 0.9);
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background with slight transparency */
   padding: 15px;
   border-radius: 10px;
   color: white;
-  height: 100vh;
+  height: 100vh; /* Full vertical height */
   overflow-y: auto;
-  max-width: 300px;
+  max-width: 300px; /* Set fixed width */
+  min-width: 300px; /* Ensure minimum width */
+  box-sizing: border-box;
+  margin-right: 20px; /* Add space between sidebar and table */
 }
-
+/* List Styling */
 .league-list {
   list-style: none;
   padding-left: 0;
-  margin-bottom: 50px;
+  margin-bottom: 50px; /* Avoid overlap with pagination */
 }
-
 .league-list-wrapper {
-  max-height: calc(100vh - 150px);
-  overflow-y: auto;
+  max-height: calc(100vh - 150px); /* Dynamic height for scrollable area */
+  overflow-y: auto; /* Enable scroll if content exceeds height */
 }
-
 .league-list li {
   display: flex;
   align-items: center;
   padding: 10px;
   cursor: pointer;
   border-bottom: 1px solid #333;
+  transition: background-color 0.3s;
 }
-
 .league-list li:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
 }
-
+/* League logos inside the sidebar */
 .league-logo {
   width: 40px;
   height: 40px;
   margin-right: 10px;
   object-fit: cover;
+  border-radius: 5px;
+}
+/* Align the sidebar and the table */
+.site-section {
+  display: flex; /* Make the sidebar and table aligned horizontally */
 }
 
-/* Pagination Controls */
+#toggleButtons {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+#toggleButtons button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#toggleButtons button.active {
+  background-color: #007aff;
+}
+
+#toggleButtons button:hover {
+  background-color: #0088a9;
+}
+
+/* Ensure table is aligned with sidebar */
+.table-container {
+  flex-grow: 1;
+  margin-top: 0; /* Remove margin from top */
+}
+
+/* Transparent Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(50, 50, 50, 0.8); /* Same color as sidebar */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.custom-table thead th {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 10px;
+  color: #cccccc;
+  background-color: rgba(0, 136, 169, 0.8); /* Slightly transparent header */
+  text-align: center;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Light transparent border */
+  background-color: rgba(50, 50, 50, 0.5); /* Add slight background opacity for readability */
+  color: white; /* Ensure text is readable */
+}
+
+/* Hover effect for team row - make it bigger */
+.custom-table tbody tr {
+  transition: transform 0.3s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+  transform: scale(1.05); /* Scale up the row on hover */
+  background-color: rgba(0, 136, 169, 0.2); /* Hover effect with slight transparency */
+}
+
+/* Team info styling */
+.team-info {
+  display: flex;
+  align-items: center;
+  background-color: transparent; /* No background for team info */
+}
+
+.team-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.team-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Sidebar Pagination Controls */
 .pagination-controls {
   display: flex;
   justify-content: space-between;
@@ -64,98 +158,7 @@
   cursor: not-allowed;
 }
 
-/* Transparent Table Styling */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background-color: rgba(50, 50, 50, 0.9);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.team-info {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-}
-
-.team-logo {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  border-radius: 50%;
-}
-
-.team-name {
-  font-weight: 600;
-  color: #080808;
-}
-
-.custom-table thead th {
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: 13px;
-  padding: 10px;
-  color: #cccccc;
-  background-color: rgba(0, 136, 169, 0.8);
-}
-
-.custom-table tbody tr:nth-child(odd) {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.custom-table tbody tr {
-  transition: background-color 0.3s ease;
-  background-color: transparent;
-}
-
-.custom-table tbody tr:hover {
-  background-color: rgba(0, 136, 169, 0.1);
-}
-
-/* Make the entire row clickable */
-.custom-table tbody tr a {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-.custom-table td, .custom-table th {
-  border-bottom: 1px solid rgba(200, 200, 200, 0.5);
-}
-
-.custom-table td.gf-ga {
-  font-weight: bold;
-  color: #00ff88;
-}
-
-/* Home/Away Toggle Buttons */
-#toggleButtons {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 20px;
-}
-
-#toggleButtons button {
-  background-color: #444;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  margin-right: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#toggleButtons button.active {
-  background-color: #007aff;
-}
-
-#toggleButtons button:hover {
-  background-color: #0088a9;
-}
-
+/* Small screen adjustments */
 @media (max-width: 768px) {
   .league-logo {
     width: 30px;

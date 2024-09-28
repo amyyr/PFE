@@ -9,10 +9,12 @@ import * as moment from 'moment';
 })
 export class HomeComponent implements OnInit {
   matches: any[] = [];  // Array to store the fetched matches
+  liveMatches: any[] = []; // Array to store live matches
   selectedDate: string = moment().format('YYYY-MM-DD'); // Default to today's date
   todayDate: string = moment().format('YYYY-MM-DD');    // Store today's date
   isLoading: boolean = false; // To handle loading state
   selectedMatch: any = null;  // To store the selected match
+  selectedTab: string = 'details'; // Default to 'details' tab
 
   // Calendar Data
   currentYear: number = moment().year();
@@ -24,6 +26,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchMatches(this.selectedDate);  // Fetch matches when component initializes
+  }
+  fetchLiveScores(): void {
+    this.isLoading = true;  // Set loading to true
+    const apiUrl = `http://localhost:8080/api/liveScore/all`;
+
+    this.http.get(apiUrl).subscribe(
+      (response: any) => {
+        this.matches = response;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching live scores:', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   // Method to fetch matches for the given date
@@ -101,5 +118,16 @@ export class HomeComponent implements OnInit {
     this.selectedDate = this.todayDate;
     this.fetchMatches(this.todayDate);
     this.selectedMatch = null; // Hide sidebar
+  }
+   // Helper function to get the match's live status from the liveMatches array
+   getLiveStatus(eventKey: number): string {
+    const liveMatch = this.liveMatches.find(match => match.event_key === eventKey);
+    if (liveMatch && liveMatch.event_status) {
+      return `Live: ${liveMatch.event_status}'`; // Show live time (minutes)
+    }
+    return 'Upcoming';  // Default if not live
+  }
+  setTab(tabName: string): void {
+    this.selectedTab = tabName;
   }
 }
