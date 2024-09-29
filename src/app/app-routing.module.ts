@@ -67,6 +67,7 @@ const routes: Routes = [
       { path: 'match', component: MatchComponent },
       { path: 'matchDetails', component: MatchDetailsComponent },
       { path: 'statistic', component: StatisticComponent },
+      { path: 'aa', component: ManagerProfileComponent },
       { path: 'conditions-generales', component: ConditionsGeneralesComponent }
     ]
   },

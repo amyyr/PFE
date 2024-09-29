@@ -160,6 +160,8 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
     VgControlsModule,
     NgbModule,
     DragDropModule,
+    
+    
   ],
   providers: [MatchService, TeamService, DatePipe],
   bootstrap: [AppComponent],

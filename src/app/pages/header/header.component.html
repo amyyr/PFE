@@ -1,5 +1,10 @@
 <header>
-  <a class="logo" routerLink="/"><img src="assets/images/logo.png" alt="logo"></a>
+  <!-- Logo with router link -->
+  <a class="logo" routerLink="/">
+    <img src="assets/images/logo.png" alt="logo">
+  </a>
+
+  <!-- Navigation links -->
   <nav>
     <ul class="nav__links">
       <li><a routerLink="/classification">Score</a></li>
@@ -7,37 +12,51 @@
       <li><a routerLink="/contact">Contact</a></li>
       <li><a routerLink="/match">Matches</a></li>
       <li><a routerLink="/statistic">Statistic</a></li>
-      <!-- External link -->
-      <li><a href="https://vue.aitacticalanalysis.com/" target="_blank">Drawing</a></li>
-      <li><a href="https://iptv.aitacticalanalysis.com/" target="_blank">Stream</a></li>
       
       <!-- If the user is logged in, show Profile and Logout buttons -->
-      <li *ngIf="isLoggedIn"><a routerLink="/dashboard">Profile</a></li>
-      <li *ngIf="isLoggedIn"><a (click)="logout()" class="cta">Logout</a></li>
+      <li *ngIf="isLoggedIn">
+        <!-- Profile Image with Dropdown -->
+        <div class="profile-container" (click)="toggleDropdown()">
+          <img
+            *ngIf="profile?.image; else defaultImage"
+            [src]="profile?.image"
+            alt="Profile Image"
+            class="profile-image"
+          />
+          <ng-template #defaultImage>
+            <img src="assets/images/default-profile.png" alt="Default Profile" class="profile-image" />
+          </ng-template>
 
-      <!-- If the user is not logged in, show the Connexion button -->
-      <li *ngIf="!isLoggedIn"><a routerLink="/auth" class="cta">Connexion</a></li>
+          <!-- Dropdown menu that will show when 'dropdownVisible' is true -->
+          <div class="profile-dropdown" [class.active]="dropdownVisible">
+            <p>{{ profile?.email }}</p>
+            <a (click)="logout()">Logout</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- If the user is not logged in, show the login/connexion link -->
+      <li *ngIf="!isLoggedIn">
+        <a routerLink="/auth" class="cta">Connexion</a>
+      </li>
     </ul>
   </nav>
-  <p class="menu cta">Menu</p>
-</header>
 
-<!-- Mobile Overlay Menu -->
-<div class="overlay" id="mobile-menu">
-  <a class="close" href="javascript:void(0)" (click)="closeNav()">&times;</a>
-  <div class="overlay__content">
-    <a routerLink="/">Home</a>
-    <a routerLink="/classification">Score</a>
-    <a routerLink="/teams">Teams</a>
-    <a routerLink="/contact">Contact</a>
-    <a routerLink="/match">Matches</a>
-    <a routerLink="/statistic">Statistic</a>
-    <a href="https://vue.aitacticalanalysis.com/" target="_blank">Drawing</a>
-    <a href="https://iptv.aitacticalanalysis.com/" target="_blank">Stream</a>
-    
-    <!-- Conditional buttons based on login state -->
-    <a *ngIf="isLoggedIn" routerLink="/dashboard">Profile</a>
-    <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
-    <a *ngIf="!isLoggedIn" routerLink="/auth">Connexion</a>
+  <!-- Mobile Menu Button -->
+  <p class="menu cta" (click)="openNav()">Menu</p>
+
+  <!-- Mobile Navigation Overlay -->
+  <div id="mobile-menu" class="overlay">
+    <a href="javascript:void(0)" class="close" (click)="closeNav()">&times;</a>
+    <div class="overlay__content">
+      <a routerLink="/classification" (click)="closeNav()">Score</a>
+      <a routerLink="/teams" (click)="closeNav()">Teams</a>
+      <a routerLink="/contact" (click)="closeNav()">Contact</a>
+      <a routerLink="/match" (click)="closeNav()">Matches</a>
+      <a routerLink="/statistic" (click)="closeNav()">Statistic</a>
+
+      <a *ngIf="isLoggedIn" (click)="logout(); closeNav()">Logout</a>
+      <a *ngIf="!isLoggedIn" routerLink="/auth" (click)="closeNav()">Connexion</a>
+    </div>
   </div>
-</div>
+</header>
