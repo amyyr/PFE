@@ -1,118 +1,79 @@
-/* General Layout */
 .wrapper {
   display: flex;
-  min-height: 100vh;
 }
 
-/* Sidebar Styling */
 .sidebar {
   width: 250px;
-  background: #1a1a1a;
-  height: 100vh;
+  background-color: #2c2c2c;
+  min-height: 100vh;
   position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
+  transition: width 0.3s ease;
+}
+
+.sidebar.active {
+  width: 60px;
+}
+
+.main-panel {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-panel.active {
+  margin-left: 60px;
 }
 
 .sidebar .logo {
   padding: 20px;
   text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar .logo-image-small img {
-  width: 100px; /* Profile picture size */
-  height: 100px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  object-fit: cover;
 }
 
-.sidebar .logo-normal {
-  margin-top: 10px;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
+.sidebar-wrapper ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-/* Nav Items */
-.sidebar .nav li {
-  list-style: none;
-  padding: 10px 15px;
+.sidebar-wrapper ul li {
+  margin-bottom: 10px;
 }
 
-.sidebar .nav li a {
-  color: white;
-  text-decoration: none;
+.sidebar-wrapper ul li a {
   display: flex;
   align-items: center;
-}
-
-.sidebar .nav li a:hover,
-.sidebar .nav li.active a {
-  background-color: #f96332;
-  border-radius: 5px;
-}
-
-/* Logout Button Styling */
-.logout-section {
-  margin-top: auto; /* Pushes logout button to the bottom */
-  padding: 20px;
-  text-align: center;
-}
-
-.btn-danger {
-  padding: 8px 20px;
-  border-radius: 20px;
-  width: 100%;
-}
-
-/* Main Panel Styling */
-.main-panel {
-  margin-left: 250px; /* Adjust for sidebar width */
-  flex-grow: 1;
-  padding-top: 70px; /* Adjust for the fixed navbar */
-  background-color: #f4f3ef;
-  min-height: 100vh;
-  overflow-y: auto;
-}
-
-/* Navbar Styling */
-.navbar {
-  height: 70px;
-  background-color: transparent;
-  z-index: 999;
-  position: fixed;
-  width: calc(100% - 250px); /* Adjust for sidebar width */
-  top: 0;
-  right: 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.navbar .navbar-brand {
-  color: #333;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.navbar .btn-danger {
-  margin-left: 20px;
-  padding: 8px 20px;
-  border-radius: 20px;
-}
-
-/* Content Area */
-.content {
-  padding: 20px;
-  margin-top: 20px;
-}
-
-/* Footer Styling */
-.footer {
-  background-color: #1a1a1a;
+  padding: 10px;
   color: white;
-  padding: 20px 0;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-wrapper ul li a:hover,
+.sidebar-wrapper ul li.active a {
+  background-color: #ff6b6b;
+  color: white;
+  border-radius: 4px;
+}
+
+.sidebar-wrapper ul li a i {
+  margin-right: 10px;
+}
+
+.logout-section {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
   text-align: center;
+}
+
+.logout-section button {
+  width: 90%;
+  padding: 10px;
 }

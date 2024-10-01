@@ -7,10 +7,10 @@ export interface Profile {
   email: string;
   firstName: string;
   lastName: string;
-  birthday: string;  // This should be a date in ISO format (e.g., "1990-01-01")
-  sexe: string;      // Either 'male' or 'female'
-  address: string;
-  phone: string;
+  phone?: string;  
+  birthday?: string;
+  sexe?: string;
+  adress?: string;  // Ensure this matches the backend field
   imageUrl?: string;
 }
 
@@ -24,6 +24,7 @@ export class ProfileService {
 
   getManagerToken(): Observable<Profile> {
     const token = localStorage.getItem('token');  // Ensure the token key matches the one in localStorage
+    console.log('Token from localStorage:', token);
     if (!token) {
       console.error('No token found! Please log in.');
       return throwError('No token found');

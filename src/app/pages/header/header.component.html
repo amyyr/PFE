@@ -18,8 +18,8 @@
         <!-- Profile Image with Dropdown -->
         <div class="profile-container" (click)="toggleDropdown()">
           <img
-            *ngIf="profile?.image; else defaultImage"
-            [src]="profile?.image"
+            *ngIf="userImage; else defaultImage"
+            [src]="userImage"
             alt="Profile Image"
             class="profile-image"
           />
@@ -30,6 +30,7 @@
           <!-- Dropdown menu that will show when 'dropdownVisible' is true -->
           <div class="profile-dropdown" [class.active]="dropdownVisible">
             <p>{{ profile?.email }}</p>
+            <a routerLink="/aa">Edit Profile</a> <!-- New "Edit Profile" link -->
             <a (click)="logout()">Logout</a>
           </div>
         </div>

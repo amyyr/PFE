@@ -13,7 +13,7 @@ export class ManagerProfileComponent implements OnInit {
   imageUrl: string | null = null;  // Store the image URL if available
   selectedFile: File | null = null;  // Store the selected image file
   message: string | null = null;
-messageType: 'success' | 'error' | null = null;
+  messageType: 'success' | 'error' | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +26,7 @@ messageType: 'success' | 'error' | null = null;
       lastName: [''],
       birthday: [''],
       sexe: [''],
-      address: [''],
+      adress: [''],  // Make sure to use "adress" here
       phone: ['']
     });
   }
@@ -42,43 +42,43 @@ messageType: 'success' | 'error' | null = null;
           phone: data.phone,
           birthday: data.birthday,
           sexe: data.sexe,
-          address: data.address
+          adress: data.adress  // Patch the value with "adress"
         });
-  
+
         // Fetch the profile image
         this.fetchProfileImage();
-  
       },
       (error) => {
         console.error('Error fetching profile:', error);
       }
     );
   }
+
   // Fetch profile image from the API
-fetchProfileImage(): void {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    console.error('No token found! Please log in.');
-    return;
-  }
-
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`,
-  });
-
-  this.http.get('http://localhost:8080/api/image/manager/image', { headers, responseType: 'blob' }).subscribe(
-    (response: Blob) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imageUrl = reader.result as string;  // Convert blob to image URL
-      };
-      reader.readAsDataURL(response);
-    },
-    (error) => {
-      console.error('Error fetching profile image:', error);
+  fetchProfileImage(): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No token found! Please log in.');
+      return;
     }
-  );
-}
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+
+    this.http.get('http://localhost:8080/api/image/manager/image', { headers, responseType: 'blob' }).subscribe(
+      (response: Blob) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imageUrl = reader.result as string;  // Convert blob to image URL
+        };
+        reader.readAsDataURL(response);
+      },
+      (error) => {
+        console.error('Error fetching profile image:', error);
+      }
+    );
+  }
 
   // Method to handle form submission
   onSubmit(): void {
@@ -88,21 +88,19 @@ fetchProfileImage(): void {
         console.error('No token found! Please log in.');
         return;
       }
-  
+
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`,
       });
-  
+
       this.http.put('http://localhost:8080/api/manager/update', this.profileForm.value, { headers }).subscribe(
         response => {
           console.log('Profile updated successfully', response);
-          // Show success message and reload the form with updated data
           this.showMessage('Profile updated successfully!', 'success');
           this.reloadProfileData();  // Reload the updated profile data
         },
         error => {
           console.error('Error updating profile:', error);
-          // Show error message
           this.showMessage('Error updating profile.', 'error');
         }
       );
@@ -118,12 +116,37 @@ fetchProfileImage(): void {
   }
 
   // Upload the selected profile image to the server
-// Upload the selected profile image to the server
-uploadImage(): void {
-  const formData = new FormData();
-  if (this.selectedFile) {
-    formData.append('image', this.selectedFile, this.selectedFile.name);
+  uploadImage(): void {
+    const formData = new FormData();
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile, this.selectedFile.name);
 
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found! Please log in.');
+        return;
+      }
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+      });
+
+      this.http.post('http://localhost:8080/api/image/manager/add', formData, { headers }).subscribe(
+        (response: any) => {
+          console.log('Image uploaded successfully', response);
+          this.showMessage('Image uploaded successfully!', 'success');
+          this.loadLatestImage();  // This will update the image in the UI
+        },
+        error => {
+          console.error('Error uploading image:', error);
+          this.showMessage('Error uploading image.', 'error');
+        }
+      );
+    }
+  }
+
+  // Method to fetch the latest image URL from the API after upload
+  loadLatestImage(): void {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found! Please log in.');
@@ -134,55 +157,50 @@ uploadImage(): void {
       'Authorization': `Bearer ${token}`,
     });
 
-    this.http.post('http://localhost:8080/api/image/manager/add', formData, { headers }).subscribe(
+    this.http.get('http://localhost:8080/api/image/manager/image', { headers }).subscribe(
       (response: any) => {
-        console.log('Image uploaded successfully', response);
-        // Assuming the response contains the new image URL
-        this.imageUrl = response.imageUrl; // Update the image URL immediately after successful upload
-
-        // Show success message for image upload
-        this.showMessage('Image uploaded successfully!', 'success');
+        this.imageUrl = response.imageUrl; // Update the image URL with the latest one
+        console.log('Latest image URL:', this.imageUrl);
       },
       error => {
-        console.error('Error uploading image:', error);
-        // Show error message for image upload
-        this.showMessage('Error uploading image.', 'error');
+        console.error('Error fetching the latest image:', error);
       }
     );
   }
-}
-showMessage(message: string, type: 'success' | 'error'): void {
-  this.message = message;
-  this.messageType = type;
 
-  // Automatically hide the message after 3 seconds
-  setTimeout(() => {
-    this.message = null;
-    this.messageType = null;
-  }, 3000);
-}
-reloadProfileData(): void {
-  this.profileService.getManagerToken().subscribe(
-    (data: Profile) => {
-      // Repopulate the form with updated profile data
-      this.profileForm.patchValue({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        birthday: data.birthday,
-        sexe: data.sexe,
-        address: data.address
-      });
+  showMessage(message: string, type: 'success' | 'error'): void {
+    this.message = message;
+    this.messageType = type;
 
-      // Update image if it exists
-      if (data.imageUrl) {
-        this.imageUrl = data.imageUrl;
+    // Automatically hide the message after 3 seconds
+    setTimeout(() => {
+      this.message = null;
+      this.messageType = null;
+    }, 3000);
+  }
+
+  reloadProfileData(): void {
+    this.profileService.getManagerToken().subscribe(
+      (data: Profile) => {
+        // Repopulate the form with updated profile data
+        this.profileForm.patchValue({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          birthday: data.birthday,
+          sexe: data.sexe,
+          adress: data.adress  // Make sure to patch with "adress"
+        });
+
+        // Update image if it exists
+        if (data.imageUrl) {
+          this.imageUrl = data.imageUrl;
+        }
+      },
+      (error) => {
+        console.error('Error fetching updated profile:', error);
       }
-    },
-    (error) => {
-      console.error('Error fetching updated profile:', error);
-    }
-  );
-}
+    );
+  }
 }

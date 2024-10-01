@@ -5,6 +5,13 @@
         <div class="card-header">
           <h4 class="card-title">Managers List</h4>
           <p class="card-category">List of all the managers with pending actions</p>
+
+          <!-- View switcher -->
+          <div class="btn-group" role="group">
+            <button class="btn btn-primary" (click)="setCurrentView('PENDING')">Pending Managers</button>
+            <button class="btn btn-success" (click)="setCurrentView('APPROVED')">Approved Managers</button>
+            <button class="btn btn-danger" (click)="setCurrentView('REJECTED')">Rejected Managers</button>
+          </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -19,7 +26,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let manager of managers">
+                <tr *ngFor="let manager of getFilteredManagers()">
                   <td (click)="goToManagerProfile(manager.id)">{{ manager.firstName }}</td>
                   <td>{{ manager.lastName }}</td>
                   <td>{{ manager.email }}</td>
@@ -33,8 +40,18 @@
                     </span>
                   </td>
                   <td>
-                    <button class="btn btn-success btn-sm" (click)="approveManager(manager.id)" *ngIf="manager.status === 'PENDING'">Approve</button>
-                    <button class="btn btn-danger btn-sm" (click)="rejectManager(manager.id)" *ngIf="manager.status === 'PENDING'">Reject</button>
+                    <!-- Pending Manager Actions -->
+                    <ng-container *ngIf="manager.status === 'PENDING'">
+                      <button class="btn btn-success btn-sm" (click)="approveManager(manager.id)">Approve</button>
+                      <button class="btn btn-warning btn-sm" (click)="rejectManager(manager.id)">Reject</button>
+                    </ng-container>
+
+                    <!-- Approved Manager Actions -->
+                    <ng-container *ngIf="manager.status === 'APPROVED'">
+                      <button class="btn btn-warning btn-sm" (click)="suspendManager(manager.id)">Suspend</button>
+                    </ng-container>
+
+                    <!-- All Managers have Delete Option -->
                     <button class="btn btn-danger btn-sm" (click)="deleteManager(manager.id)">Delete</button>
                   </td>
                 </tr>

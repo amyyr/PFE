@@ -11,9 +11,16 @@ export class ManagerService {
   constructor(private http: HttpClient) { }
 
   getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
+    const token = localStorage.getItem('adminToken');
+    // Ensure the token exists and is valid
+    if (token) {
+      return new HttpHeaders({ Authorization: `Bearer ${token}` });
+    } else {
+      console.error('Token not found in local storage.');
+      return new HttpHeaders(); // Handle missing token appropriately
+    }
   }
+  
 
   getAllManagers(): Observable<Manager[]> {
     const headers = this.getHeaders();
@@ -28,6 +35,10 @@ export class ManagerService {
   rejectManager(id: string): Observable<any> {
     const headers = this.getHeaders();
     return this.http.post<any>(`http://localhost:8080/api/manager/${id}/reject`, {}, { headers });
+  }
+  suspendreManager(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`http://localhost:8080/api/manager/${id}/suspendre`, {}, { headers });
   }
   
   deleteManager(id: string): Observable<any> {

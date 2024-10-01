@@ -174,48 +174,51 @@ header {
 }
 /* Profile Image and Dropdown */
 .profile-container {
-  margin-left: auto; 
   position: relative;
   display: inline-block;
   cursor: pointer;
 }
 
-.profile-image {
-  width: 40px;   /* Fixed size for the profile image */
-  height: 40px;
-  border-radius: 50%; /* Makes the image circular */
-  object-fit: cover;  /* Ensures the image scales properly within its container */
-  border: 2px solid #fff; /* Add border to make it stand out if needed */
-}
 
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 /* Profile dropdown styles */
 .profile-dropdown {
   display: none;
   position: absolute;
   top: 50px;
   right: 0;
-  background-color: #fff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  width: 150px;
-  text-align: center;
-  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.8); /* Darker gray with transparency */
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow */
+  z-index: 1000;
+  width: 180px;
 }
 
 .profile-dropdown p {
   margin: 10px 0;
+  font-weight: bold;
+  font-size: 14px; /* Smaller text */
+  color: #fff; /* White color for better contrast */
 }
-
 .profile-dropdown a {
   display: block;
   padding: 10px;
   text-decoration: none;
-  color: #333;
+  font-size: 14px;
+  color: #00bfff; /* Light blue for the links */
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .profile-dropdown a:hover {
-  background-color: #f1f1f1;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter hover effect */
+  color: #fff; /* Change to white on hover */
 }
 
 /* Show dropdown when active */
