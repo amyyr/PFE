@@ -57,7 +57,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   deleteManager(id: string): void {
-    this.managerService.deleteManager(id).subscribe(() => {
+    this.managerService.archiverManager(id).subscribe(() => {
       this.loadManagers(); // Reload managers on success
     });
   }

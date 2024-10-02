@@ -12,6 +12,7 @@ export class AdminProfileComponent implements OnInit {
   selectedFile: File | null = null;  // Store selected file for image upload
   profileImageUrl: string = '';  // URL for the image blob
   isEditing: boolean = false;  // Flag to toggle edit mode
+  id!: number ;
 
   constructor(private adminService: AdminService, private http: HttpClient) {}
 
@@ -20,7 +21,7 @@ export class AdminProfileComponent implements OnInit {
     this.adminService.getAdminData().subscribe(
       (data) => {
         this.admin = data;  // Set the fetched admin data
-        // Fetch the admin's image from the API after receiving admin data
+        this.id = this.admin.id;  // Store the admin ID
         this.getProfileImage();
       },
       (error) => {
@@ -41,12 +42,12 @@ export class AdminProfileComponent implements OnInit {
       console.error('No token found');
       return;
     }
-  
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-  
-    this.http.get('http://localhost:8080/api/image/admin/19/image', { headers, responseType: 'blob' })
+
+    this.http.get(`http://localhost:8080/api/image/admin/${this.id}/image`, { headers, responseType: 'blob' })
       .subscribe(
         (blob) => {
           if (blob.size === 0) {
@@ -57,14 +58,13 @@ export class AdminProfileComponent implements OnInit {
         },
         (error) => {
           if (error.status === 404) {
-            console.error('Image not found for the manager ID: 33');
+            console.error('Image not found for the admin ID:', this.id);
           } else {
             console.error('Error fetching profile image:', error);
           }
         }
       );
   }
-  
 
   // Method triggered when a file is selected
   onFileSelected(event: any) {
@@ -79,28 +79,23 @@ export class AdminProfileComponent implements OnInit {
       return;
     }
 
-    // Prepare form data with the correct key "image"
     const formData = new FormData();
     formData.append('image', this.selectedFile);  // The key must be "image" to match your backend
 
-    // Get the token from localStorage
     const token = localStorage.getItem('adminToken');
     if (!token) {
       console.error('No token found');
       return;
     }
 
-    // Prepare the headers with the token
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    // Make the POST request to upload the image
     this.http.post('http://localhost:8080/api/image/admin/add', formData, { headers })
       .subscribe(
         (response) => {
           console.log('Image uploaded successfully', response);
-          // After successful upload, refresh the admin image
           this.getProfileImage();  // Refresh the image after upload
         },
         (error) => {
@@ -116,14 +111,14 @@ export class AdminProfileComponent implements OnInit {
       console.error('No token found');
       return;
     }
-  
+
     console.log('Sending admin data:', this.admin); // Log the data being sent
-  
+
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'  // Ensure the correct Content-Type is set
     });
-  
-    // Send the updated admin data to the backend
+
     this.http.put('http://localhost:8080/api/admin/update', this.admin, { headers })
       .subscribe(
         (response) => {
@@ -135,5 +130,4 @@ export class AdminProfileComponent implements OnInit {
         }
       );
   }
-  
 }

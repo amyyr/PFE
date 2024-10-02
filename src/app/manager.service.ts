@@ -29,23 +29,24 @@ export class ManagerService {
 
   approveManager(id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(`http://localhost:8080/api/manager/${id}/approve`, {}, { headers });
+    return this.http.post(`http://localhost:8080/api/manager/${id}/approve`, {}, { headers, responseType: 'text' });
   }
   
   rejectManager(id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(`http://localhost:8080/api/manager/${id}/reject`, {}, { headers });
+    return this.http.post(`http://localhost:8080/api/manager/${id}/reject`, {}, { headers, responseType: 'text' });
   }
   suspendreManager(id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.post<any>(`http://localhost:8080/api/manager/${id}/suspendre`, {}, { headers });
+    return this.http.post(`http://localhost:8080/api/manager/${id}/suspendre`, {}, { headers, responseType: 'text' });
   }
   
-  deleteManager(id: string): Observable<any> {
+  
+  archiverManager(id: string): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.delete<any>(`http://localhost:8080/api/manager/${id}`, { headers });
+    return this.http.post(`http://localhost:8080/api/manager/${id}/archiver`, {}, { headers, responseType: 'text' });
   }
-
+  
   getManagerById(id: string): Observable<Manager> {
     const headers = this.getHeaders();
     return this.http.get<Manager>(`http://localhost:8080/api/manager/getById/${id}`, { headers });
@@ -76,4 +77,14 @@ export class ManagerService {
       responseType: 'blob' // Get the image as Blob
     });
   }
+   // New method to restore an archived manager
+   restoreManager(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`http://localhost:8080/api/manager/${id}/approve`, {}, { headers });
+  }
+  deleteManager(id: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(`http://localhost:8080/api/manager/delete/${id}`, { headers });
+  }
+
 }

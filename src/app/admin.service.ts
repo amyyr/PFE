@@ -26,7 +26,7 @@ export class AdminService {
     return this.http.delete(`${this.apiUrl}/archiver/${id}`);
   }
   getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('adminToken'); 
     let headers = new HttpHeaders();
   
     if (token) {

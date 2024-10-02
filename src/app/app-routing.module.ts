@@ -89,7 +89,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'profile', component: AdminProfileComponent },
-      { path: 'profile', component: ArchivedManagersComponent },
+      { path: 'archived-managers', component: ArchivedManagersComponent },
       { path: 'reclamations', component: ReclamationListComponent },
       { path: 'reclamation/:id', component: ReclamationDetailComponent },
       { path: 'manager/:id', component: ManagerProfileComponent }

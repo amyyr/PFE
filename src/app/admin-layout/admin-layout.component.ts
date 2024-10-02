@@ -29,13 +29,17 @@ export class AdminLayoutComponent implements OnInit {
     }
   }
 
+  // Fetch admin details including firstName, lastName, and profile picture
   getAdminDetails(token: string) {
     this.http.get('http://localhost:8080/api/admin/token', {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe(
       (response: any) => {
         this.admin = response;  // Set admin details
-        this.profilePicUrl = `path/to/profile/images/${this.admin.id}.jpg`; // Adjust the path based on your actual response
+
+        // Fetch the profile picture for the admin
+        this.getProfilePicture(this.admin.id);
+
         this.adminService.setAdminData(this.admin);
       },
       (error) => {
@@ -47,6 +51,26 @@ export class AdminLayoutComponent implements OnInit {
         }
       }
     );
+  }
+
+  // Fetch profile image from backend API
+  getProfilePicture(adminId: number) {
+    const token = localStorage.getItem('adminToken');
+    const headers = { Authorization: `Bearer ${token}` };
+
+    this.http.get(`http://localhost:8080/api/image/admin/${adminId}/image`, { headers, responseType: 'blob' })
+      .subscribe(
+        (blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.profilePicUrl = reader.result as string;  // Set the profile picture URL
+          };
+          reader.readAsDataURL(blob);
+        },
+        (error) => {
+          console.error('Error fetching profile picture:', error);
+        }
+      );
   }
 
   logout() {

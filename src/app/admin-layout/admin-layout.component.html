@@ -17,10 +17,14 @@
 
     <!-- Profile Section -->
     <div class="profile-section">
+      <!-- Admin Profile Picture -->
       <img [src]="profilePicUrl" alt="Admin Profile Picture" *ngIf="profilePicUrl" class="profile-img" (click)="goToProfile()">
-      <p class="simple-text logo-normal">
-        <a [routerLink]="['/admin/profile']">{{ admin.username }}</a>
-      </p>
+      <div class="admin-details">
+        <p class="simple-text logo-normal">
+          {{ admin.firstName || 'First Name' }} {{ admin.lastName || 'Last Name' }}
+        </p>
+        <p class="role">{{ admin.role }}</p> <!-- Assuming admin.role exists -->
+      </div>
     </div>
 
     <!-- Sidebar Navigation Links -->
@@ -38,7 +42,7 @@
             <p>Reclamations</p>
           </a>
         </li>
-        <li [ngClass]="{ active: router.url === '/admin/archived-managers' }">
+        <li [ngClass]="{ active: router.url === 'admin/archived-managers' }">
           <a [routerLink]="['/admin/archived-managers']">
             <i class="nc-icon nc-single-copy-04"></i>
             <p>Archived Managers</p>
