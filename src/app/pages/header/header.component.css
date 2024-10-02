@@ -39,26 +39,27 @@ header {
   color: #edf0f1;
   text-decoration: none;
   font-size: 16px; /* Adjust font size */
-  transition: color 0.3s ease 0s;
+  transition: color 0.3s ease, transform 0.3s ease; /* Transition for color and size change */
 }
 
 .nav__links li a:hover {
   color: #0088a9;
+  transform: scale(1.05); /* Make the link bigger on hover */
 }
 
 /* Call-to-action button */
 .cta {
-  padding: 9px 20px;
-  background-color: rgba(0, 136, 169, 1);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease 0s;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
 }
+
 
 .cta:hover {
   background-color: rgba(0, 136, 169, 0.8);
+  transform: scale(1.05); /* Make the button grow on hover */
 }
 
 /* Mobile menu */
@@ -95,12 +96,13 @@ header {
   padding: 15px;
   font-size: 36px;
   display: block;
-  transition: color 0.3s ease 0s;
+  transition: color 0.3s ease 0s, transform 0.3s ease; /* Transition for color and size change */
 }
 
 .overlay a:hover,
 .overlay a:focus {
   color: #0088a9;
+  transform: scale(1.05); /* Make the link grow on hover */
 }
 
 .overlay .close {
@@ -172,61 +174,138 @@ header {
     font-size: 35px;
   }
 }
+
 /* Profile Image and Dropdown */
 .profile-container {
+  margin-left: auto; 
   position: relative;
   display: inline-block;
   cursor: pointer;
 }
 
-
 .profile-image {
-  width: 40px;
+  width: 40px;   /* Fixed size for the profile image */
   height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
+  border-radius: 50%; /* Makes the image circular */
+  object-fit: cover;  /* Ensures the image scales properly within its container */
+  border: 2px solid #fff; /* Add border to make it stand out if needed */
+  transition: transform 0.3s ease; /* Add transform for hover */
 }
-/* Profile dropdown styles */
+
+.profile-image:hover {
+  transform: scale(1.05); /* Make the profile image grow on hover */
+}
+
+/* Profile dropdown */
 .profile-dropdown {
   display: none;
   position: absolute;
-  top: 50px;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.8); /* Darker gray with transparency */
+  top: 100%; /* Position directly below the profile image */
+  right: 0; /* Align the dropdown to the right (matches the profile image location) */
+  background-color: #24252a; /* Match header background */
   border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow */
+  padding: 10px;
+  width: 180px; /* Set width to match the content */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add shadow for some depth */
   z-index: 1000;
-  width: 180px;
 }
 
 .profile-dropdown p {
-  margin: 10px 0;
+  margin: 10px;
   font-weight: bold;
-  font-size: 14px; /* Smaller text */
-  color: #fff; /* White color for better contrast */
 }
 .profile-dropdown a {
   display: block;
   padding: 10px;
+  color: #edf0f1;  /* Match the text color to the header text */
   text-decoration: none;
-  font-size: 14px;
-  color: #00bfff; /* Light blue for the links */
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transition for hover */
 }
 
 .profile-dropdown a:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter hover effect */
-  color: #fff; /* Change to white on hover */
+  background-color: #0088a9; /* Hover effect for the dropdown links */
+  transform: scale(1.05); /* Make the link grow on hover */
 }
+
+/* Ensure Logout turns red with white text on hover */
+.profile-dropdown a.logout:hover {
+  background-color: red !important;  /* Use !important to ensure this takes priority */
+  color: white !important;           /* White text */
+  transform: scale(1.05);
+}
+
 
 /* Show dropdown when active */
 .profile-dropdown.active {
   display: block;
 }
+
+/* Show dropdowns when active */
+.profile-dropdown.active,
+.dropdown-container .action-dropdown-list {
+  display: block;
+}
+
+/* Ensure the containers are relative to the dropdowns */
+.dropdown-container,
+.profile-container {
+  position: relative;
+}
+
+/* Dropdown toggle */
+.dropdown-toggle {
+  cursor: pointer;
+  padding: 10px;
+  color: #00bfff;
+  font-size: 14px;
+  transition: color 0.3s ease, transform 0.3s ease; /* Add transform transition */
+}
+
+.dropdown-toggle:hover {
+  color: #0088a9;
+  transform: scale(1.05); /* Make the button grow on hover */
+}
+
+/* Match the action dropdown's styling to the profile dropdown */
+.action-dropdown-list {
+  display: none;
+  position: absolute;
+  top: 100%; /* Position directly below the Action button */
+  right: 0; /* Align the dropdown to the right, similar to profile dropdown */
+  background-color: #24252a; /* Match header background */
+  border-radius: 8px;
+  padding: 10px;
+  width: 180px; /* Match the width to the profile dropdown */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Add shadow for depth, same as profile */
+  z-index: 1000;
+}
+
+
+.dropdown-container {
+  position: relative; /* Ensure the dropdown is positioned relative to the container */
+}
+
+.action-dropdown-list li {
+  padding: 10px;
+}
+
+.action-dropdown-list li a {
+  color: #edf0f1;  /* Match the text color to the header text */
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Add transform for hover */
+}
+
+.action-dropdown-list li a:hover {
+  background-color: #0088a9; /* Hover effect for the dropdown links */
+  transform: scale(1.05); /* Make the link grow on hover */
+}
+
+/* Vertically center items in the nav */
 nav ul {
   display: flex;
+
   align-items: center; /* Vertically center elements */
 }
 
@@ -234,13 +313,17 @@ nav ul li {
   margin-right: 20px; /* Add spacing between the nav items */
 }
 
+/* Button and Call-to-action styles */
 .cta {
   background-color: #007bff;
   padding: 10px 20px;
   border-radius: 5px;
+;
   color: #fff;
   text-decoration: none;
 }
+
+/* Header styling */
 .header {
   display: flex;
   align-items: center;

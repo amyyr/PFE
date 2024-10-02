@@ -93,7 +93,4 @@ export class AdminLayoutComponent implements OnInit {
     this.archivedSectionOpen = !this.archivedSectionOpen;
   }
 
- 
-
- 
 }

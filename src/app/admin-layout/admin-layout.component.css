@@ -1,19 +1,24 @@
-/* Wrapper and layout adjustments */
+/* Wrapper and Layout Adjustments */
 .wrapper {
   display: flex;
   height: 100vh;
+  transition: all 0.3s ease; /* Smooth transition for sidebar open/close */
 }
 
 .sidebar {
   background-color: #333; /* Dark background for sidebar */
   width: 250px;
-  transition: width 0.3s ease;
-  position: relative;
+  min-width: 250px;
+  transition: width 0.3s ease, min-width 0.3s ease;
   color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-collapsed .sidebar {
   width: 80px;
+  min-width: 80px;
 }
 
 .main-panel {
@@ -27,7 +32,7 @@
   margin-left: 80px;
 }
 
-/* Sidebar header section */
+/* Sidebar Header Section */
 .logo-section {
   display: flex;
   align-items: center;
@@ -75,10 +80,9 @@
   transform: scale(1.1);
 }
 
-/* Admin details beside the image */
+/* Admin Details */
 .admin-details {
   margin-top: 10px;
-  text-align: center;
 }
 
 .simple-text {
@@ -144,6 +148,18 @@
   color: #009688;
 }
 
+/* Submenu Styling */
+.nav-sub {
+  list-style: none;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.nav-sub li {
+  padding: 10px 0;
+  padding-left: 30px;
+}
+
 /* Logout Button */
 .logout-section {
   position: absolute;
@@ -167,50 +183,27 @@
   background-color: #c0392b;
 }
 
-/* Table Styling */
-.table {
-  background-color: #2C2C2C;
-  border-radius: 10px;
-  overflow: hidden;
-  width: 100%;
+/* Sidebar Open/Close Transition */
+.sidebar-collapsed .nav p,
+.sidebar-collapsed .nav i {
+  transition: opacity 0.3s ease;
 }
 
-.table th {
-  background-color: #009688;
-  color: white;
-  padding: 15px;
-  text-align: left;
-  font-weight: bold;
+.sidebar-collapsed .nav p {
+  opacity: 0; /* Hide text when sidebar is collapsed */
+  pointer-events: none;
 }
 
-.table td {
-  padding: 15px;
-  text-align: left;
-  color: white;
-  border-bottom: 1px solid #444;
+.sidebar-collapsed .nav i {
+  text-align: center;
+  margin-left: 0;
 }
 
-.table tr:last-child td {
-  border-bottom: none;
+/* Adjustments for table when sidebar is open/closed */
+.sidebar-collapsed .main-panel {
+  padding-left: 80px;
 }
 
-.table .btn {
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.875rem;
-}
-
-.table .btn-approve {
-  background-color: #28a745;
-  color: white;
-}
-
-.table .btn-reject {
-  background-color: #dc3545;
-  color: white;
-}
-
-.table .btn-delete {
-  background-color: #E74C3C;
-  color: white;
+.main-panel {
+  padding-left: 250px;
 }

@@ -11,11 +11,25 @@
       <li><a routerLink="/teams">Teams</a></li>
       <li><a routerLink="/contact">Contact</a></li>
       <li><a routerLink="/match">Matches</a></li>
-      <li><a routerLink="/statistic">Statistic</a></li>
+
+      <!-- Action Dropdown (Visible only if logged in) -->
+      <li *ngIf="isLoggedIn" class="dropdown-container">
+        <a (click)="toggleActionDropdown()" class="dropdown-toggle">Action</a> <!-- Action button -->
+        
+        <!-- Dropdown list for Action links -->
+        <ul *ngIf="actionDropdownVisible" class="action-dropdown-list">
+          <li><a routerLink="/add-team">Add Team</a></li>
+          <li><a routerLink="/all-teams">All Teams</a></li>
+          <li><a routerLink="/add-match">Add Match</a></li>
+          <li><a routerLink="/all-matches">All Matches</a></li>
+          <li><a routerLink="/add-player">Add Player</a></li>
+          <li><a routerLink="/all-players">All Players</a></li>
+          <li><a routerLink="/statistic">Statistic</a></li>
+        </ul>
+      </li>
       
-      <!-- If the user is logged in, show Profile and Logout buttons -->
+      <!-- Profile Image and Dropdown Menu for logged-in users -->
       <li *ngIf="isLoggedIn">
-        <!-- Profile Image with Dropdown -->
         <div class="profile-container" (click)="toggleDropdown()">
           <img
             *ngIf="userImage; else defaultImage"
@@ -27,18 +41,18 @@
             <img src="assets/images/default-profile.png" alt="Default Profile" class="profile-image" />
           </ng-template>
 
-          <!-- Dropdown menu that will show when 'dropdownVisible' is true -->
+          <!-- Dropdown menu -->
           <div class="profile-dropdown" [class.active]="dropdownVisible">
             <p>{{ profile?.email }}</p>
-            <a routerLink="/aa">Edit Profile</a> <!-- New "Edit Profile" link -->
-            <a (click)="logout()">Logout</a>
+            <a routerLink="/aa">Edit Profile</a>
+            <a class="logout" (click)="logout()">Logout</a>
           </div>
         </div>
       </li>
 
-      <!-- If the user is not logged in, show the login/connexion link -->
+      <!-- Login button if user is not logged in -->
       <li *ngIf="!isLoggedIn">
-        <a (click)="openAuthDialog()" class="cta">Connexion</a> <!-- Changed from routerLink -->
+        <a (click)="openAuthDialog()" class="cta">Connexion</a>
       </li>
     </ul>
   </nav>
@@ -54,8 +68,13 @@
       <a routerLink="/teams" (click)="closeNav()">Teams</a>
       <a routerLink="/contact" (click)="closeNav()">Contact</a>
       <a routerLink="/match" (click)="closeNav()">Matches</a>
-      <a routerLink="/statistic" (click)="closeNav()">Statistic</a>
-
+      <a *ngIf="isLoggedIn" routerLink="/add-team" (click)="closeNav()">Add Team</a>
+      <a *ngIf="isLoggedIn" routerLink="/all-teams" (click)="closeNav()">All Teams</a>
+      <a *ngIf="isLoggedIn" routerLink="/add-match" (click)="closeNav()">Add Match</a>
+      <a *ngIf="isLoggedIn" routerLink="/all-matches" (click)="closeNav()">All Matches</a>
+      <a *ngIf="isLoggedIn" routerLink="/add-player" (click)="closeNav()">Add Player</a>
+      <a *ngIf="isLoggedIn" routerLink="/all-players" (click)="closeNav()">All Players</a>
+      <a *ngIf="isLoggedIn" routerLink="/statistic" (click)="closeNav()">Statistic</a>
       <a *ngIf="isLoggedIn" (click)="logout(); closeNav()">Logout</a>
       <a *ngIf="!isLoggedIn" routerLink="/auth" (click)="closeNav()">Connexion</a>
     </div>

@@ -57,10 +57,7 @@ const routes: Routes = [
     component: PublicLayoutComponent,
     children: [
       { path: '', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'drawing', component: DrawingComponent },
-      { path: 'blog', component: BlogComponent },
+   
       { path: 'contact', component: ContactComponent },
       { path: 'teams', component: TeamsComponent },
       { path: 'classification', component: ClassificationComponent },
@@ -69,8 +66,21 @@ const routes: Routes = [
       { path: 'match', component: MatchComponent },
       { path: 'matchDetails', component: MatchDetailsComponent },
       { path: 'statistic', component: StatisticComponent },
-      { path: 'aa', component: ManagerProfileComponent },
-      { path: 'conditions-generales', component: ConditionsGeneralesComponent }
+      { path: 'aa', component: ManagerProfileComponent  , canActivate: [AuthGuard]},
+      { path: 'conditions-generales', component: ConditionsGeneralesComponent },
+      { path: 'add-team', component: AddTeamComponent  , canActivate: [AuthGuard]},
+      { path: 'all-teams', component: AllTeamsComponent  , canActivate: [AuthGuard]},
+      { path: 'update-team/:id', component: UpdateTeamComponent  , canActivate: [AuthGuard]},
+      { path: 'add-match', component: AddMatchComponent , canActivate: [AuthGuard] },
+      { path: 'all-matches', component: AllMatchesComponent  , canActivate: [AuthGuard]},
+      { path: 'update-match/:id', component: UpdateMatchComponent , canActivate: [AuthGuard] },
+      { path: 'add-player', component: AddPlayerComponent , canActivate: [AuthGuard] },
+      { path: 'all-players', component: AllPlayersComponent , canActivate: [AuthGuard] },
+      { path: 'update-player/:id', component: UpdatePlayerComponent  , canActivate: [AuthGuard]},
+      { path: 'manager', component: ManagerComponent  , canActivate: [AuthGuard]},
+      { path: 'add-manager', component: AddManagerComponent  , canActivate: [AuthGuard]},
+      { path: 'update-manager/:id', component: UpdateManagerComponent , canActivate: [AuthGuard] },
+      { path: 'svg', component: SvgComponent  , canActivate: [AuthGuard]}
     ]
   },
 
