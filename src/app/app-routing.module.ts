@@ -44,6 +44,7 @@ import { ReclamationDetailComponent } from './reclamation-detail/reclamation-det
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AuthGuard } from './auth.guard.service';
 import { ArchivedManagersComponent } from './archived-managers/archived-managers.component';
+import { ArchivedReclamationsComponent } from './archived-reclamations/archived-reclamations.component';
 
 
 
@@ -92,6 +93,7 @@ const routes: Routes = [
       { path: 'archived-managers', component: ArchivedManagersComponent },
       { path: 'reclamations', component: ReclamationListComponent },
       { path: 'reclamation/:id', component: ReclamationDetailComponent },
+      { path: 'archived-reclamations', component: ArchivedReclamationsComponent },
       { path: 'manager/:id', component: ManagerProfileComponent }
     ]
   },

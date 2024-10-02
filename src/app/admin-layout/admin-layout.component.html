@@ -17,36 +17,52 @@
 
     <!-- Profile Section -->
     <div class="profile-section">
-      <!-- Admin Profile Picture -->
       <img [src]="profilePicUrl" alt="Admin Profile Picture" *ngIf="profilePicUrl" class="profile-img" (click)="goToProfile()">
       <div class="admin-details">
         <p class="simple-text logo-normal">
           {{ admin.firstName || 'First Name' }} {{ admin.lastName || 'Last Name' }}
         </p>
-        <p class="role">{{ admin.role }}</p> <!-- Assuming admin.role exists -->
+        <p class="role">{{ admin.role }}</p>
       </div>
     </div>
 
     <!-- Sidebar Navigation Links -->
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li [ngClass]="{ active: router.url === 'admin/dashboard' }">
+        <li [ngClass]="{ active: router.url === '/admin/dashboard' }">
           <a [routerLink]="['/admin/dashboard']">
             <i class="nc-icon nc-chart-bar-32"></i>
             <p>Dashboard</p>
           </a>
         </li>
-        <li [ngClass]="{ active: router.url === 'admin/reclamations' }">
+        <li [ngClass]="{ active: router.url === '/admin/reclamations' }">
           <a [routerLink]="['/admin/reclamations']">
             <i class="nc-icon nc-alert-circle-i"></i>
             <p>Reclamations</p>
           </a>
         </li>
-        <li [ngClass]="{ active: router.url === 'admin/archived-managers' }">
-          <a [routerLink]="['/admin/archived-managers']">
-            <i class="nc-icon nc-single-copy-04"></i>
-            <p>Archived Managers</p>
+        
+        <!-- Archived Section -->
+        <li>
+          <a (click)="toggleArchivedSection()">
+            <i class="nc-icon nc-archive-2"></i>
+            <p>Archived <span *ngIf="!archivedSectionOpen">+</span><span *ngIf="archivedSectionOpen">-</span></p>
           </a>
+
+          <ul *ngIf="archivedSectionOpen" class="nav-sub">
+            <li [ngClass]="{ active: router.url === '/admin/archived-reclamations' }">
+              <a [routerLink]="['/admin/archived-reclamations']">
+                <i class="nc-icon nc-single-copy-04"></i>
+                <p>Archived Reclamations</p>
+              </a>
+            </li>
+            <li [ngClass]="{ active: router.url === '/admin/archived-managers' }">
+              <a [routerLink]="['/admin/archived-managers']">
+                <i class="nc-icon nc-single-copy-04"></i>
+                <p>Archived Managers</p>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
 
@@ -60,7 +76,6 @@
   <!-- Main Panel -->
   <div class="main-panel">
     <div class="content">
-      <!-- Child routes will be rendered here -->
       <router-outlet></router-outlet>
     </div>
   </div>

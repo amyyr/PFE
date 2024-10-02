@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Archived Reclamations</h4>
+            <p class="card-category">List of all archived reclamations</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="styled-table">
+                <thead class="text-primary">
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Date Created</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let reclamation of archivedReclamations" (click)="openReclamationDetails(reclamation)" class="clickable-row">
+                    <td>{{ reclamation.id }}</td>
+                    <td>{{ reclamation.title }}</td>
+                    <td>{{ reclamation.dateCreated | date:'medium' }}</td>
+                    <td>
+                      <span class="badge badge-danger">Archived</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Popup Modal for Reclamation Details -->
+    <div class="modal" [class.show]="isModalOpen" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()"> <!-- Prevent closing when clicking inside the modal -->
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Reclamation Details</h2>
+        <p><strong>ID:</strong> {{ selectedReclamation?.id }}</p>
+        <p><strong>Title:</strong> {{ selectedReclamation?.title }}</p>
+        <p><strong>Description:</strong> {{ selectedReclamation?.description }}</p>
+        <p><strong>Date Created:</strong> {{ selectedReclamation?.dateCreated | date:'medium' }}</p>
+        <p><strong>Status:</strong> Archived</p>
+      </div>
+    </div>
+  </div>
+  

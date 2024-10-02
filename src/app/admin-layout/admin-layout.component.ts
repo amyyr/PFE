@@ -12,7 +12,9 @@ export class AdminLayoutComponent implements OnInit {
   admin: any = {}; // Object to store admin details
   profilePicUrl: string = ''; // URL for the profile picture
   token: string | null = '';
-  sidebarOpen: boolean = true; // Variable to manage sidebar open/close state
+
+  sidebarOpen = true;
+  archivedSectionOpen = false;
 
   constructor(
     public router: Router, // `public` because we access `router.url` in the template
@@ -85,4 +87,13 @@ export class AdminLayoutComponent implements OnInit {
   goToProfile() {
     this.router.navigate(['admin/profile']);
   }
+ 
+
+  toggleArchivedSection() {
+    this.archivedSectionOpen = !this.archivedSectionOpen;
+  }
+
+ 
+
+ 
 }
