@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router'; // ActivatedRoute adde
 import { LoginService, LoginResponse } from '../login.service';
 import { RegisterService } from '../register.service';
 import { Location } from '@angular/common'; // Location added to navigate back
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-auth',
@@ -19,13 +21,16 @@ export class AuthComponent {
   successMessage: string | null = null;
 
   constructor(
+    public dialogRef: MatDialogRef<AuthComponent>, 
     private renderer: Renderer2,
     private fb: FormBuilder,
     private loginService: LoginService,
     private registerService: RegisterService,
     private router: Router,
     private route: ActivatedRoute,  // Inject ActivatedRoute to capture URL
-    private location: Location      // Inject Location to navigate back
+    private location: Location  ,    // Inject Location to navigate back
+    private snackBar: MatSnackBar
+
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -65,21 +70,24 @@ export class AuthComponent {
   onLoginSubmit() {
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
-  
+      
       this.loginService.loginUser(userData).subscribe({
-        next: (response: LoginResponse) => {
-          console.log('Login successful!', response.accessToken);
+        next: (response) => {
+          // Successfully logged in, save token
           localStorage.setItem('token', response.accessToken);
-  
-          // Redirect to the home page after successful login
-          this.router.navigate(['/']);
+
+          // Close the modal
+          this.dialogRef.close(); // Close the popup
+
+          // Show a success message using MatSnackBar
+          this.snackBar.open('Logged in successfully!', 'Close', {
+            duration: 3000, // Duration for how long the message will show
+          });
+
+          // Optionally, you can navigate to a different page here if you want
         },
         error: (error) => {
-          if (error.status === 401) {
-            this.loginError = 'Invalid email or password. Please try again.';
-          } else {
-            this.loginError = 'An error occurred during login. Please try again later.';
-          }
+          this.loginError = 'Invalid email or password. Please try again.';
         }
       });
     }
@@ -112,5 +120,8 @@ export class AuthComponent {
 
   get rf() {
     return this.registerForm.controls;
+  }
+  closeDialog() {
+    this.dialogRef.close();  // Close the dialog manually if needed
   }
 }

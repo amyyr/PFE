@@ -16,12 +16,20 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('AdminDashboardComponent loaded');
-    this.loadManagers();
+    this.loadManagers(); // Initial loading of managers
   }
 
   loadManagers(): void {
     this.managerService.getAllManagers().subscribe((data: Manager[]) => {
-      this.managers = data;
+      // For each manager, fetch the image blob
+      const requests = data.map(manager =>
+        this.managerService.getManagerImageBlob(manager.id).subscribe(blob => {
+          const objectURL = URL.createObjectURL(blob); // Convert Blob to URL
+          manager.imageUrl = objectURL; // Assign the Blob URL to the manager
+        })
+      );
+  
+      this.managers = data; // Assign managers once all image requests are handled
     });
   }
 
@@ -41,28 +49,29 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+
   rejectManager(id: string): void {
     this.managerService.rejectManager(id).subscribe(() => {
-      this.loadManagers();
+      this.loadManagers(); // Reload managers on success
     });
   }
 
   deleteManager(id: string): void {
     this.managerService.deleteManager(id).subscribe(() => {
-      this.loadManagers();
+      this.loadManagers(); // Reload managers on success
     });
   }
 
   suspendManager(id: string): void {
     const body = { status: 'SUSPENDED' }; // New status for suspension
     this.managerService.suspendreManager(id).subscribe(() => {
-      this.loadManagers();
+      this.loadManagers(); // Reload managers on success
     });
   }
 
   // Navigation methods
   goToManagerProfile(managerId: string) {
-    this.router.navigate([`/manager/${managerId}`]);
+    this.router.navigate([`manager/${managerId}`]);
   }
 
   // Switch view methods
@@ -73,5 +82,31 @@ export class AdminDashboardComponent implements OnInit {
   // Filter managers based on the current view
   getFilteredManagers(): Manager[] {
     return this.managers.filter(manager => manager.status === this.currentView);
+  }
+
+  // Method to get the subtitle text based on the current view
+  getSubtitle(): string {
+    switch (this.currentView) {
+      case 'PENDING':
+        return 'List of all the managers with pending actions';
+      case 'APPROVED':
+        return 'List of all the approved managers';
+      case 'REJECTED':
+        return 'List of all the rejected managers';
+      default:
+        return '';
+    }
+  }
+
+  // Approve button for Rejected Managers
+  approveRejectedManager(id: string): void {
+    this.managerService.approveManager(id).subscribe({
+      next: () => {
+        this.loadManagers(); // Reload the managers after approving a rejected one
+      },
+      error: (error) => {
+        console.error('Error approving rejected manager:', error);
+      }
+    });
   }
 }

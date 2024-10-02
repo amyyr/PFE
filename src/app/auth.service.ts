@@ -13,7 +13,7 @@ export class AuthService {
   private userRole: string | null = null;
   private baseUrl = 'http://localhost:8080/api/manager/password';
   private signUpUrl = 'http://localhost:8080/api/v1/auth/manager/signup';
-  private signInUrl = 'http://localhost:8080/api/v1/auth/signin';
+  private signInUrl = 'localhost:8080/api/v1/auth/signin/manager';
 
   constructor(private http: HttpClient, private router: Router) {}
 

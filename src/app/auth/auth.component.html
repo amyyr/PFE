@@ -1,7 +1,4 @@
-<video autoplay muted loop id="bg-video">
-  <source src="assets/video/video.mp4" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video>
+
 
 <div class="container" id="container">
   <!-- Sign Up Form -->
@@ -15,9 +12,10 @@
         <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
       </div>
       <span>or use your email for registration</span>
-      <input type="text" placeholder="Name" formControlName="name" />
+    
       <input type="email" placeholder="Email" formControlName="email" />
       <input type="password" placeholder="Password" formControlName="password" />
+      <input type="password" placeholder="confirme Password" formControlName="password" />
       <div *ngIf="registerError" class="error">{{ registerError }}</div>
       <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
       <button type="submit">Sign Up</button>
@@ -37,7 +35,8 @@
       <span>or use your email and password</span>
       <input type="email" placeholder="Email" formControlName="email" />
       <input type="password" placeholder="Password" formControlName="password" />
-      <div *ngIf="loginError" class="error">{{ loginError }}</div>
+        <!-- Show error if login fails -->
+        <div *ngIf="loginError" class="error">{{ loginError }}</div>
       <a href="#">Forget Your Password?</a>
       <button type="submit">Sign In</button>
     </form>

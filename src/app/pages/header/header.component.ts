@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';  // Import Router for navigation
+import { AuthComponent } from 'src/app/auth/auth.component';
 import { Profile, ProfileService } from 'src/app/profile.service';
 
 
@@ -17,7 +19,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,          // Inject Router for navigation
     private http: HttpClient,
-    private profileService: ProfileService // Inject ProfileService
+    private profileService: ProfileService, // Inject ProfileService
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -102,4 +105,13 @@ export class HeaderComponent implements OnInit {
   toggleDropdown(): void {
     this.dropdownVisible = !this.dropdownVisible;
   }
+  // Open the dialog when clicking outside it to close it
+  openAuthDialog(): void {
+    this.dialog.open(AuthComponent, {
+      width: '500px',
+      height: 'auto',
+      disableClose: false  // Ensure clicking outside the dialog closes it
+    });
+  }
+  
 }

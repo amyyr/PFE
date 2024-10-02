@@ -38,7 +38,7 @@
 
       <!-- If the user is not logged in, show the login/connexion link -->
       <li *ngIf="!isLoggedIn">
-        <a routerLink="/auth" class="cta">Connexion</a>
+        <a (click)="openAuthDialog()" class="cta">Connexion</a> <!-- Changed from routerLink -->
       </li>
     </ul>
   </nav>

@@ -3,5 +3,6 @@ export interface Manager {
   firstName: string;
   lastName: string;
   email: string;
-  status: string; // Ensure this field is present in your Manager interface
+  status: string; // This field already exists to track manager approval status
+  imageUrl?: string; // Optional image URL field for manager's image
 }

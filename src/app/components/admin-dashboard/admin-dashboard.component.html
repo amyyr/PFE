@@ -4,20 +4,22 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title">Managers List</h4>
-          <p class="card-category">List of all the managers with pending actions</p>
+          <p class="card-category">{{ getSubtitle() }}</p>
 
           <!-- View switcher -->
-          <div class="btn-group" role="group">
-            <button class="btn btn-primary" (click)="setCurrentView('PENDING')">Pending Managers</button>
-            <button class="btn btn-success" (click)="setCurrentView('APPROVED')">Approved Managers</button>
-            <button class="btn btn-danger" (click)="setCurrentView('REJECTED')">Rejected Managers</button>
+          <div class="view-tabs">
+            <button class="tab-btn" [ngClass]="{active: currentView === 'PENDING'}" (click)="setCurrentView('PENDING')">Pending</button>
+            <button class="tab-btn" [ngClass]="{active: currentView === 'APPROVED'}" (click)="setCurrentView('APPROVED')">Approved</button>
+            <button class="tab-btn" [ngClass]="{active: currentView === 'REJECTED'}" (click)="setCurrentView('REJECTED')">Rejected</button>
           </div>
         </div>
+
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table">
+            <table class="styled-table">
               <thead class="text-primary">
                 <tr>
+                  <th></th> <!-- Removed "Image" header -->
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
@@ -27,10 +29,19 @@
               </thead>
               <tbody>
                 <tr *ngFor="let manager of getFilteredManagers()">
-                  <td (click)="goToManagerProfile(manager.id)">{{ manager.firstName }}</td>
-                  <td>{{ manager.lastName }}</td>
-                  <td>{{ manager.email }}</td>
-                  <td>
+                  <td data-label="">
+                    <!-- Manager's image is still displayed, but no "Image" header -->
+                    <img *ngIf="manager.imageUrl; else defaultImage" [src]="manager.imageUrl" alt="Manager Image" class="profile-image" />
+
+                    <!-- Default image to display when no manager image is available -->
+                    <ng-template #defaultImage>
+                      <img src="assets/images/default-profile.jpg" alt="Default Profile" class="profile-image" />
+                    </ng-template>
+                  </td>
+                  <td data-label="First Name">{{ manager.firstName }}</td>
+                  <td data-label="Last Name">{{ manager.lastName }}</td>
+                  <td data-label="Email">{{ manager.email }}</td>
+                  <td data-label="Status">
                     <span class="badge" [ngClass]="{
                       'badge-success': manager.status === 'APPROVED',
                       'badge-warning': manager.status === 'PENDING',
@@ -39,7 +50,7 @@
                       {{ manager.status }}
                     </span>
                   </td>
-                  <td>
+                  <td data-label="Actions">
                     <!-- Pending Manager Actions -->
                     <ng-container *ngIf="manager.status === 'PENDING'">
                       <button class="btn btn-success btn-sm" (click)="approveManager(manager.id)">Approve</button>
@@ -50,8 +61,14 @@
                     <ng-container *ngIf="manager.status === 'APPROVED'">
                       <button class="btn btn-warning btn-sm" (click)="suspendManager(manager.id)">Suspend</button>
                     </ng-container>
+                    <!-- Rejected Manager Actions -->
+                     
+                      <ng-container *ngIf="manager.status === 'REJECTED'">
+                        <button class="btn btn-success btn-sm" (click)="approveManager(manager.id)">Approve</button>
+                      </ng-container>
 
                     <!-- All Managers have Delete Option -->
+                 
                     <button class="btn btn-danger btn-sm" (click)="deleteManager(manager.id)">Delete</button>
                   </td>
                 </tr>

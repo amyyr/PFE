@@ -79,6 +79,9 @@ import { ManagerProfileComponent } from './manager-profile/manager-profile.compo
 import { ReclamationListComponent } from './reclamation-list/reclamation-list.component';
 import { ReclamationDetailComponent } from './reclamation-detail/reclamation-detail.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
+import { ArchivedManagersComponent } from './archived-managers/archived-managers.component';
 
 @NgModule({
   declarations: [
@@ -135,10 +138,12 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
     ReclamationListComponent,
     ReclamationDetailComponent,
     AdminLayoutComponent,
+    ArchivedManagersComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatSnackBarModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -160,9 +165,13 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
     VgControlsModule,
     NgbModule,
     DragDropModule,
+    RouterModule,
+    
+    
     
     
   ],
+  
   providers: [MatchService, TeamService, DatePipe],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -43,6 +43,7 @@ import { ReclamationListComponent } from './reclamation-list/reclamation-list.co
 import { ReclamationDetailComponent } from './reclamation-detail/reclamation-detail.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AuthGuard } from './auth.guard.service';
+import { ArchivedManagersComponent } from './archived-managers/archived-managers.component';
 
 
 
@@ -80,6 +81,7 @@ const routes: Routes = [
 
   // Admin Layout with Guard (except 'admin/login')
   { path: 'admin/login', component: AdminLoginComponent },
+  
   {
     path: 'admin',
     component: AdminLayoutComponent,
@@ -87,6 +89,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'profile', component: AdminProfileComponent },
+      { path: 'archived-managers', component: ArchivedManagersComponent },
       { path: 'reclamations', component: ReclamationListComponent },
       { path: 'reclamation/:id', component: ReclamationDetailComponent },
       { path: 'manager/:id', component: ManagerProfileComponent }

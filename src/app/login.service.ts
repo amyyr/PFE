@@ -13,7 +13,7 @@ export interface LoginResponse {
 })
 export class LoginService {
 
-  private signInUrl = 'http://localhost:8080/api/v1/auth/signin'; // API URL
+  private signInUrl = 'http://localhost:8080/api/v1/auth/signin/manager'; // API URL
 
   constructor(private http: HttpClient) {}
 

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 export class AdminService {
   private apiUrl = 'http://localhost:8080/api/manager';
   private adminData: any = null;
+  private abiUrl = 'http://localhost:8080/api/admin/token';
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,7 @@ export class AdminService {
   }
 
   deleteManager(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete/${id}`);
+    return this.http.delete(`${this.apiUrl}/archiver/${id}`);
   }
   getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token'); 
@@ -38,8 +39,23 @@ export class AdminService {
     this.adminData = data;
   }
 
-  getAdminData() {
-    return this.adminData;
+ 
+
+  getAdminData(): Observable<any> {
+    const token = localStorage.getItem('adminToken');  // Retrieve adminToken from localStorage
+
+    // Ensure the token exists
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    // Prepare the headers with the token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    // Make the API call to fetch admin data
+    return this.http.get<any>(this.abiUrl, { headers });
   }
   
 }

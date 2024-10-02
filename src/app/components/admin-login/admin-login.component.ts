@@ -30,7 +30,8 @@ export class AdminLoginComponent {
       this.adminAuthService.login(email, password).subscribe({
         next: () => {
           console.log('Login successful! Navigating to admin dashboard.');
-          this.router.navigate(['/admin/dashboard']);  // Navigate to the admin dashboard
+          this.router.navigate(['admin/dashboard']);
+          // Navigate to the admin dashboard
         },
         error: (error) => {
           console.error('Login failed:', error);  // Log the error

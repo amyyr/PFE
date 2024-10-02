@@ -1,0 +1,118 @@
+/* Profile Card Styles */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .profile-card {
+    background-color: #333;
+    color: white;
+    width: 500px;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  /* Flexbox for Profile Header */
+  .profile-header {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    margin-bottom: 20px;
+  }
+  
+  .image-container {
+    flex-shrink: 0; /* Prevent the image from shrinking */
+    margin-right: 20px; /* Space between image and name */
+  }
+  
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .profile-image:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Name and Role section */
+  .name-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .name-container h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .role {
+    font-size: 1rem;
+    color: #009688; /* Match the green color */
+    margin-top: 5px;
+  }
+  
+  /* Personal and Contact Info Styles */
+  .profile-info, .profile-contact {
+    background-color: #2C2C2C;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .profile-info h3, .profile-contact h3 {
+    color: #009688;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  strong {
+    color: #E74C3C; /* Accent color for labels */
+  }
+  
+  /* Save Changes Button */
+  .btn-save {
+    background-color: #009688;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .btn-save:hover {
+    background-color: #00796b;
+  }
+  
+  /* Hidden file input */
+  .hidden {
+    display: none;
+  }
+  .edit-btn-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .btn-edit {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-edit:hover {
+    background-color: #e68900;
+  }

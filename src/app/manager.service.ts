@@ -69,4 +69,11 @@ export class ManagerService {
     const headers = this.getHeaders();
     return this.http.get<any>(`http://localhost:8080/api/reclamation/${id}`, { headers });
   }
+  getManagerImageBlob(id: string): Observable<Blob> {
+    const headers = this.getHeaders();
+    return this.http.get(`http://localhost:8080/api/image/manager/${id}/image`, {
+      headers: headers,
+      responseType: 'blob' // Get the image as Blob
+    });
+  }
 }
