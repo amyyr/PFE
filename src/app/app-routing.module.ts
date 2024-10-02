@@ -81,13 +81,13 @@ const routes: Routes = [
 
   // Admin Layout with Guard (except 'admin/login')
   { path: 'admin/login', component: AdminLoginComponent },
-  
+ 
   {
     path: 'admin',
     component: AdminLayoutComponent,
     canActivate: [AdminAuthGuard], // AdminAuthGuard applied to all children routes
     children: [
-      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'dashboard', component: PublicLayoutComponent },
       { path: 'profile', component: AdminProfileComponent },
       { path: 'archived-managers', component: ArchivedManagersComponent },
       { path: 'reclamations', component: ReclamationListComponent },

@@ -23,9 +23,9 @@ export class AdminLayoutComponent implements OnInit {
   ngOnInit() {
     this.token = localStorage.getItem('token');
     if (this.token) {
-      this.getAdminDetails(this.token);
+      this.getAdminDetails(this.token); // Fetch admin details if token is available
     } else {
-      this.router.navigate(['admin/login']);
+      this.router.navigate(['admin/login']); // Redirect to login if token is missing
     }
   }
 

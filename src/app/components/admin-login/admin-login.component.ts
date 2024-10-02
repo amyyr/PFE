@@ -25,21 +25,15 @@ export class AdminLoginComponent {
   onLoginSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      console.log('Logging in with email:', email);
-
       this.adminAuthService.login(email, password).subscribe({
-        next: () => {
-          console.log('Login successful! Navigating to admin dashboard.');
-          this.router.navigate(['admin/dashboard']);
-          // Navigate to the admin dashboard
+        next: (response) => {
+          localStorage.setItem('token', response.token); // Ensure the token is stored
+          this.router.navigate(['admin/dashboard']); // Redirect to dashboard after successful login
         },
         error: (error) => {
-          console.error('Login failed:', error);  // Log the error
           this.loginError = 'Invalid email or password. Please try again.';
         }
       });
-    } else {
-      console.warn('Form is invalid:', this.loginForm);  // Log invalid form
     }
   }
 }
