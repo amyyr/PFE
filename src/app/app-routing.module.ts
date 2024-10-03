@@ -45,6 +45,7 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AuthGuard } from './auth.guard.service';
 import { ArchivedManagersComponent } from './archived-managers/archived-managers.component';
 import { ArchivedReclamationsComponent } from './archived-reclamations/archived-reclamations.component';
+import { TeamComponent } from './team/team.component';
 
 
 
@@ -60,6 +61,7 @@ const routes: Routes = [
    
       { path: 'contact', component: ContactComponent },
       { path: 'teams', component: TeamsComponent },
+      { path: 'team', component: TeamComponent , canActivate: [AuthGuard] },
       { path: 'classification', component: ClassificationComponent },
       { path: 'VideoPopup', component: VideoPopupComponent },
       { path: 'live-score', component: LiveScoresComponent },

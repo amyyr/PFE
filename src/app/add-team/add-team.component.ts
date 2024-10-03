@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Team } from '../models/Team';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TeamService } from '../service/team.service';
 import { Router } from '@angular/router';
 
@@ -12,38 +11,33 @@ import { Router } from '@angular/router';
 export class AddTeamComponent {
 
   addTeamForm: FormGroup;
+  formHasErrors: boolean = false; // Control for the single error message
 
   constructor(private formBuilder: FormBuilder, private teamService: TeamService, private router: Router) {
-
     this.addTeamForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      location: ['', [Validators.required]],
-      formationYear: ['', [Validators.required]],
-      homeStadium: ['', [Validators.required]],
-      managerTeam: ['', [Validators.required]],
+      name: ['', Validators.required],
+      location: ['', Validators.required],
+      formationYear: ['', Validators.required],
+      homeStadium: ['', Validators.required],
+      managerTeam: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {
-  }
-
+  // Method to handle form submission
   addTeam() {
     if (this.addTeamForm.valid) {
       this.teamService.addTeam(this.addTeamForm.value).subscribe(() => {
-        console.log(this.addTeamForm.value);
         this.addTeamForm.reset();
-        this.router.navigate(['/dashboard/all-teams']);
-      })
+        this.router.navigate(['all-teams']);
+      });
     } else {
-      this.addTeamForm.markAllAsTouched();
-      return;
+      this.addTeamForm.markAllAsTouched(); // Mark all fields as touched to trigger validation
+      this.formHasErrors = true; // Show the single error message at the bottom
     }
   }
 
-  get f() { return this.addTeamForm.controls; }
-
-  
+  // Getter to easily access form controls
+  get f() {
+    return this.addTeamForm.controls;
+  }
 }
-
-
-

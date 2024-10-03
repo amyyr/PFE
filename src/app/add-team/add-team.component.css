@@ -1,38 +1,104 @@
-.match-container {
-    max-width: 400px;
-    margin: 0 auto;
+/* Form container styles to match the design */
+.form-container {
+  background-color: rgba(50, 50, 50, 0.8); /* Dark background to match sidebar */
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 20px; /* Space between form and other elements */
+}
+
+/* Form card styling */
+.form-card {
+  background-color: rgba(50, 50, 50, 0.9); /* Dark background with transparency */
+  border-radius: 15px; /* Rounded corners */
+  padding: 30px; /* Padding inside the card */
+  color: white; /* Text color */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  max-width: 100%; /* Ensures the card is responsive */
+}
+
+/* Full-width for single row fields like buttons */
+.form-card-full {
+  grid-column: 1 / -1; /* Make the element take the full width of the grid */
+}
+
+/* General Form Group Styling */
+.form-group label {
+  font-weight: 600;
+  color: #fff; /* White label color */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent light background for better readability */
+  border: 1px solid rgba(255, 255, 255, 0.5); /* Light border for better contrast */
+  border-radius: 8px;
+  color: white; /* Ensure input text is white for readability */
+  font-size: 16px; /* Make text size a bit larger */
+  margin-bottom: 10px;
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Lighter placeholder color */
+}
+
+/* Button Styling */
+.btn-success {
+  background-color: #007aff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.btn-success:hover {
+  background-color: #0088a9;
+}
+
+/* Center the form card on the page */
+.site-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
+  .form-card {
+    padding: 20px;
+    max-width: 100%;
   }
-  
-  .match-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
+
+  .form-group input {
+    font-size: 14px;
   }
-  
-  .match-container label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .match-container input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .match-container button {
-    width: 100%;
+
+  .btn-success {
     padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
   }
-  
-  .match-container button:hover {
-    background-color: #45a049;
-  }
-  
+}
+
+/* Error Alert Styling */
+.alert-danger {
+  background-color: rgba(255, 0, 0, 0.8); /* Darker red for better contrast */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.form-group {
+  position: relative;
+}
+
+/* Highlight input fields with errors */
+.form-group input.ng-invalid.ng-touched {
+  border: 2px solid rgba(255, 0, 0, 0.8); /* Red border for invalid inputs */
+  background-color: rgba(255, 0, 0, 0.1); /* Slightly red background */
+  color: white; /* Maintain text color white */
+}

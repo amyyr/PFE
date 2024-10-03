@@ -1,0 +1,155 @@
+/* Form container styles */
+.form-card {
+    background-color: rgba(50, 50, 50, 0.9); /* Dark background with transparency */
+    border-radius: 15px; /* Rounded corners */
+    padding: 30px; /* Padding inside the card */
+    color: white; /* Text color */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    max-width: 100%; /* Ensures the card is responsive */
+  }
+  
+  /* Error Alert Styling */
+  .single-error-message {
+    background-color: rgba(255, 0, 0, 0.8); /* Red background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for inputs */
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent light background */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Light border */
+    border-radius: 8px;
+    color: white; /* Ensure input text is white for readability */
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Lighter placeholder color */
+  }
+  
+  /* Button Styling */
+  .btn-success, .btn-warning, .btn-danger {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-success {
+    background-color: #007aff; /* Blue background for Add Team button */
+  }
+  
+  .btn-success:hover {
+    background-color: #0088a9;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107; /* Yellow background for Update button */
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; /* Red background for Delete button */
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  /* Toggle Buttons for Switching Between Views */
+  #toggleButtons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  #toggleButtons button {
+    background-color: #444; /* Dark gray background */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #toggleButtons button.active {
+    background-color: #007aff; /* Blue background for active button */
+  }
+  
+  #toggleButtons button:hover {
+    background-color: #0088a9;
+  }
+  
+  /* Table Styling */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(50, 50, 50, 0.8); /* Slightly transparent background for table */
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .custom-table thead th {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 10px;
+    color: #cccccc;
+    background-color: rgba(0, 136, 169, 0.8); /* Slightly transparent header */
+    text-align: center;
+  }
+  
+  .custom-table th, .custom-table td {
+    padding: 12px;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Light transparent border */
+    background-color: rgba(50, 50, 50, 0.5); /* Add slight background opacity for readability */
+    color: white; /* Ensure text is readable */
+  }
+  
+  /* Hover effect for rows */
+  .custom-table tbody tr:hover {
+    transform: scale(1.05); /* Scale up the row on hover */
+    background-color: rgba(0, 136, 169, 0.2); /* Hover effect with slight transparency */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Highlight the newly added team row */
+  .highlight-row {
+    background-color: rgba(0, 136, 169, 0.2); /* Light blue background for highlighting */
+    transition: background-color 1s ease;
+  }
+  
+  /* Responsive adjustments for small screens */
+  @media (max-width: 768px) {
+    .form-card {
+      padding: 20px;
+      max-width: 100%;
+    }
+  
+    .form-group input {
+      font-size: 14px;
+    }
+  
+    .btn-success {
+      padding: 10px;
+    }
+  
+    .custom-table th, .custom-table td {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }
+  

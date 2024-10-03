@@ -83,6 +83,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { ArchivedManagersComponent } from './archived-managers/archived-managers.component';
 import { ArchivedReclamationsComponent } from './archived-reclamations/archived-reclamations.component';
+import { TeamComponent } from './team/team.component';
 
 @NgModule({
   declarations: [
@@ -141,6 +142,7 @@ import { ArchivedReclamationsComponent } from './archived-reclamations/archived-
     AdminLayoutComponent,
     ArchivedManagersComponent,
     ArchivedReclamationsComponent,
+    TeamComponent,
   ],
   imports: [
     BrowserModule,

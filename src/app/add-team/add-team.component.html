@@ -1,67 +1,48 @@
-<!-- <app-banner title="Add Team"></app-banner> -->
+  <div class="site-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <!-- Form Card Container -->
+        <div class="col-lg-6">
+          <div class="form-card">
+            <h2 class="text-center">Add Team</h2>
+            <form [formGroup]="addTeamForm" (ngSubmit)="addTeam()">
 
-<div class="site-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7">
-        <form [formGroup]="addTeamForm" (ngSubmit)="addTeam()">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" formControlName="name" class="form-control" placeholder="Name" />
+              </div>
 
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" formControlName="name" class="form-control" placeholder="Name" />
-            <div *ngIf="f?.['name']?.['touched'] && f?.['name']?.['errors']?.['required']" class="alert alert-danger">
-              Name is required.
-            </div>
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" formControlName="location" class="form-control" placeholder="Location" />
+              </div>
+
+              <div class="form-group">
+                <label for="formationYear">Formation Year</label>
+                <input type="text" formControlName="formationYear" class="form-control" placeholder="Formation Year" />
+              </div>
+
+              <div class="form-group">
+                <label for="homeStadium">Home Stadium</label>
+                <input type="text" formControlName="homeStadium" class="form-control" placeholder="Home Stadium" />
+              </div>
+
+              <div class="form-group">
+                <label for="managerTeam">Manager Team</label>
+                <input type="text" formControlName="managerTeam" class="form-control" placeholder="Manager Team" />
+              </div>
+
+              <!-- Single Error Message at the bottom -->
+              <div *ngIf="formHasErrors" class="single-error-message">
+                Please fill out all required fields.
+              </div>
+
+              <div class="form-group text-center">
+                <button type="submit" class="btn btn-success py-3 px-5">Add Team</button>
+              </div>
+            </form>
           </div>
-
-
-          <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" formControlName="location" class="form-control" placeholder="location" />
-            <div *ngIf="f?.['location']?.['touched'] && f?.['location']?.['errors']?.['required']" class="alert alert-danger">
-              Location is required.
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="homeStadium">Formation Year</label>
-            <input type="text" formControlName="formationYear" class="form-control" placeholder="Formation Year" />
-            <div *ngIf="f?.['formationYear']?.touched && f?.['formationYear']?.errors?.['required']" class="alert alert-danger">
-              Formation year is required.
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="formationYear">Home Stadium</label>
-            <input type="text" formControlName="homeStadium" class="form-control" placeholder="Home Stadium" />
-            <div *ngIf="f?.['homeStadium']?.touched && f?.['homeStadium']?.errors?.['required']" class="alert alert-danger">
-              Home stadium is required.
-            </div>
-          </div>
-
-
-          <div class="form-group">
-            <label for="managerTeam">ManagerTeam</label>
-            <input type="text" formControlName="managerTeam" class="form-control" placeholder="Manager Team" />
-            <div *ngIf="f?.['managerTeam']?.touched && f?.['managerTeam']?.errors?.['required']" class="alert alert-danger">
-              Manager team is required.
-            </div>
-          </div>
-
-
-
-          <!--<div class="form-group">
-                  <label for="image">Image</label>
-                  <input type="file" formControlName="Image" name="Image" class="form-control" />
-                </div>
-              -->
-
-
-
-          <div class="form-group">
-            <button type="submit" class="btn btn-success py-3 px-5">Add Team</button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
