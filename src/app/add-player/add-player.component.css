@@ -1,38 +1,165 @@
-.match-container {
-    max-width: 400px;
-    margin: 0 auto;
+/* General form container styles */
+.form-card {
+  background-color: rgba(50, 50, 50, 0.9); /* Dark background with transparency */
+  border-radius: 15px; /* Rounded corners */
+  padding: 30px; /* Padding inside the card */
+  color: white; /* Text color */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  max-width: 100%; /* Ensures the card is responsive */
+}
+
+/* Styling for form inputs */
+.form-group input,
+.form-group select {
+  background-color: rgba(50, 50, 50, 0.9); /* Dark background for select box */
+  color: white; /* White text for select options */
+  border: 1px solid rgba(255, 255, 255, 0.5); /* Same border */
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Placeholder styling */
+.form-group input::placeholder,
+.form-group select option {
+  background-color: rgba(50, 50, 50, 0.9); /* Dark background for dropdown options */
+  color: white; /* White text for dropdown options */
+}
+/* Add hover and focus state for the select element */
+.form-group select:focus, 
+.form-group select:hover {
+  outline: none; /* Remove default outline */
+  background-color: rgba(50, 50, 50, 0.9); /* Dark background on hover/focus */
+  border-color: rgba(255, 255, 255, 0.8); /* Lighter border on hover/focus */
+}
+
+/* Error message styling */
+.alert-danger {
+  color: white; /* White text for error message */
+  background-color: rgba(255, 0, 0, 0.8); /* Red background */
+  padding: 10px; /* Padding inside alert */
+  border-radius: 5px; /* Rounded corners */
+  margin-top: 5px; /* Spacing above alert */
+}
+
+/* Button styling */
+.btn {
+  padding: 10px 20px; /* Padding for buttons */
+  border-radius: 5px; /* Rounded corners */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.btn-success {
+  background-color: #007aff; /* Blue for Add/Update buttons */
+}
+
+.btn-success:hover {
+  background-color: #0088a9; /* Darker blue on hover */
+}
+
+.btn-warning {
+  background-color: #ffc107; /* Yellow for Update buttons */
+}
+
+.btn-warning:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+}
+
+.btn-danger {
+  background-color: #dc3545; /* Red for Delete buttons */
+}
+
+.btn-danger:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* Toggle button container */
+#toggleButtons {
+  display: flex; /* Horizontal layout for buttons */
+  justify-content: center; /* Center the buttons */
+  margin-bottom: 20px; /* Space below the buttons */
+}
+
+/* Toggle button styles */
+#toggleButtons button {
+  background-color: #444; /* Dark gray background */
+  color: #fff; /* White text */
+  border: none; /* No border */
+  border-radius: 20px; /* Rounded buttons */
+  padding: 10px 20px; /* Padding for buttons */
+  margin: 0 10px; /* Spacing between buttons */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+#toggleButtons button.active {
+  background-color: #007aff; /* Blue for active button */
+}
+
+#toggleButtons button:hover {
+  background-color: #0088a9; /* Darker blue on hover */
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse; /* No spacing between table cells */
+  background-color: rgba(50, 50, 50, 0.8); /* Slightly transparent background */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* Ensure content stays inside the table */
+}
+
+/* Table header styling */
+.custom-table thead th {
+  text-transform: uppercase; /* Uppercase text for headers */
+  font-weight: 500; /* Bold headers */
+  font-size: 13px; /* Smaller font for headers */
+  padding: 10px; /* Padding for header cells */
+  color: #cccccc; /* Light gray text */
+  background-color: rgba(0, 136, 169, 0.8); /* Slightly transparent blue */
+  text-align: center; /* Center text in header */
+}
+
+/* Table cell styling */
+.custom-table th, .custom-table td {
+  padding: 12px; /* Padding for table cells */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Light transparent border */
+  background-color: rgba(50, 50, 50, 0.5); /* Slight background opacity */
+  color: white; /* Ensure text is readable */
+}
+
+/* Hover effect for table rows */
+.custom-table tbody tr:hover {
+  transform: scale(1.05); /* Slight scale-up on hover */
+  background-color: rgba(0, 136, 169, 0.2); /* Light blue background on hover */
+  transition: transform 0.3s ease-in-out; /* Smooth hover transition */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .form-card {
+    padding: 20px; /* Adjust padding for smaller screens */
   }
-  
-  .match-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
+
+  .form-group input, .form-group select {
+    font-size: 14px; /* Smaller input font size */
   }
-  
-  .match-container label {
-    display: block;
-    margin-bottom: 5px;
+
+  .btn-success {
+    padding: 10px; /* Adjust button padding for mobile */
   }
-  
-  .match-container input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+
+  .custom-table th, .custom-table td {
+    padding: 8px; /* Smaller table cell padding */
+    font-size: 12px; /* Smaller font for mobile */
   }
-  
-  .match-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: 4CAF50;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .match-container button:hover {
-    background-color: #45a049;
-  }
-  
+}
+
+/* Highlight newly added/updated row */
+.highlight-row {
+  background-color: rgba(0, 136, 169, 0.2); /* Light blue highlight */
+  transition: background-color 1s ease; /* Smooth transition */
+}

@@ -1,90 +1,114 @@
 <div class="site-section">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-7">
-        <form [formGroup]="addPlayerForm" (ngSubmit)="addPlayer()">
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" formControlName="firstName" class="form-control" placeholder="First Name" />
-            <div *ngIf="f['firstName'].touched && f['firstName'].errors?.['required']" class="alert alert-danger">
-              First name is required.
+    <!-- Toggle Buttons (Add Player, All Players) -->
+    <div id="toggleButtons" class="text-center mt-4">
+      <button (click)="switchToAddPlayer()" [class.active]="currentView === 'add-player'">Add Player</button>
+      <button (click)="switchView('all-players')" [class.active]="currentView === 'all-players'">All Players</button>
+    </div>
+
+    <!-- Add/Update Player Form (Shown if currentView is 'add-player') -->
+    <div *ngIf="currentView === 'add-player'" class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="form-card">
+          <h2 class="text-center">{{ isUpdateMode ? 'Update Player' : 'Add Player' }}</h2>
+          <form [formGroup]="addPlayerForm" (ngSubmit)="submitPlayer()">
+            
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" formControlName="firstName" class="form-control" placeholder="First Name" />
+              <div *ngIf="f['firstName'].touched && f['firstName'].errors?.['required']" class="alert alert-danger">
+                First name is required.
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" />
-            <div *ngIf="f['lastName'].touched && f['lastName'].errors?.['required']" class="alert alert-danger">
-              Last name is required.
+
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" />
+              <div *ngIf="f['lastName'].touched && f['lastName'].errors?.['required']" class="alert alert-danger">
+                Last name is required.
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="position">Position</label>
-            <input type="text" formControlName="position" class="form-control" placeholder="Position" />
-            <div *ngIf="f['position'].touched && f['position'].errors?.['required']" class="alert alert-danger">
-              Position is required.
+
+            <div class="form-group">
+              <label for="position">Position</label>
+              <input type="text" formControlName="position" class="form-control" placeholder="Position" />
+              <div *ngIf="f['position'].touched && f['position'].errors?.['required']" class="alert alert-danger">
+                Position is required.
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="dateOfBirthday">Date Of Birthday</label>
-            <input type="date" formControlName="dateOfBirthday" class="form-control" placeholder="Date Of Birthday" />
-            <div *ngIf="f['dateOfBirthday'].touched && f['dateOfBirthday'].errors?.['required']" class="alert alert-danger">
-              Date Of Birthday is required.
+
+            <div class="form-group">
+              <label for="dateOfBirthday">Date Of Birthday</label>
+              <input type="date" formControlName="dateOfBirthday" class="form-control" />
+              <div *ngIf="f['dateOfBirthday'].touched && f['dateOfBirthday'].errors?.['required']" class="alert alert-danger">
+                Date of birthday is required.
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="nationality">Nationality</label>
-            <input type="text" formControlName="nationality" class="form-control" placeholder="Nationality" />
-            <div *ngIf="f['nationality'].touched && f['nationality'].errors?.['required']" class="alert alert-danger">
-              Nationality is required.
+
+            <div class="form-group">
+              <label for="nationality">Nationality</label>
+              <input type="text" formControlName="nationality" class="form-control" placeholder="Nationality" />
+              <div *ngIf="f['nationality'].touched && f['nationality'].errors?.['required']" class="alert alert-danger">
+                Nationality is required.
+              </div>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="height">Height</label>
-            <input type="text" formControlName="height" class="form-control" placeholder="Height" />
-            <div *ngIf="f['height'].touched && f['height'].errors?.['required']" class="alert alert-danger">
-              Height is required.
+
+            <div class="form-group">
+              <label for="foot">Foot</label>
+              <select formControlName="foot" class="form-select">
+                <option value="" selected>Select Foot</option>
+                <option value="RIGHT">Right</option>
+                <option value="LEFT">Left</option>
+              </select>
+              <div *ngIf="f['foot'].touched && f['foot'].errors?.['required']" class="alert alert-danger">
+                Foot is required.
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="width">Width</label>
-            <input type="text" formControlName="width" class="form-control" placeholder="Width" />
-            <div *ngIf="f['width'].touched && f['width'].errors?.['required']" class="alert alert-danger">
-              Width is required.
+
+            <div class="form-group">
+              <label for="team">Team</label>
+              <select formControlName="team" class="form-select">
+                <option value="" selected>Select Team</option>
+                <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+              </select>
+              <div *ngIf="f['team'].touched && f['team'].errors?.['required']" class="alert alert-danger">
+                Team is required.
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="number">Number</label>
-            <input type="number" formControlName="number" class="form-control" placeholder="Number" />
-            <div *ngIf="f['number'].touched && f['number'].errors?.['required']" class="alert alert-danger">
-              Number is required.
+
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-success py-3 px-5">{{ isUpdateMode ? 'Update Player' : 'Add Player' }}</button>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="foot">Foot</label>
-            <select formControlName="foot" class="form-select">
-              <option value="" selected>Select Foot</option>
-              <option value="RIGHT">Right</option>
-              <option value="LEFT">Left</option>
-            </select>
-            <div *ngIf="f['foot'].touched && f['foot'].errors?.['required']" class="alert alert-danger">
-              Foot is required.
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="team">Team</label>
-            <select formControlName="team" class="form-select">
-              <option value="" selected>Select Team</option>
-              <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
-            </select>
-            <div *ngIf="f['team'].touched && f['team'].errors?.['required']" class="alert alert-danger">
-              Team is required.
-            </div>
-          </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-success py-3 px-5">Add Player</button>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Players List (Shown if currentView is 'all-players') -->
+    <div *ngIf="currentView === 'all-players'" class="row mt-5">
+      <div class="col-lg-12">
+        <table class="table custom-table">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let player of players">
+              <td>{{ player.firstName }}</td>
+              <td>{{ player.lastName }}</td>
+              <td>
+                <button class="btn btn-warning" (click)="startUpdatePlayer(player.id)">Update</button>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="deletePlayer(player.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
