@@ -1,0 +1,90 @@
+<div class="site-section">
+    <div class="container">
+      <!-- Toggle Buttons for Add/Update and List Matches -->
+      <div id="toggleButtons" class="text-center mt-4">
+        <button (click)="switchToAddMatch()" [class.active]="currentView === 'add-match'">Add Match</button>
+        <button (click)="switchView('all-matches')" [class.active]="currentView === 'all-matches'">All Matches</button>
+      </div>
+  
+      <!-- Add/Update Match Form (Shown when currentView is 'add-match') -->
+      <div *ngIf="currentView === 'add-match'" class="row justify-content-center">
+        <div class="col-lg-7">
+          <div class="form-card">
+            <h2 class="text-center">{{ isUpdateMode ? 'Update Match' : 'Add Match' }}</h2>
+            <form [formGroup]="matchForm" (ngSubmit)="submitMatch()">
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input type="datetime-local" id="date" formControlName="date" class="form-control" placeholder="Date">
+                <span *ngIf="matchForm.get('date')?.invalid && matchForm.get('date')?.touched" class="error">Date is required</span>
+              </div>
+  
+              <div class="form-group">
+                <label for="referee">Referee</label>
+                <input type="text" id="referee" formControlName="referee" class="form-control" placeholder="Referee">
+                <span *ngIf="matchForm.get('referee')?.invalid && matchForm.get('referee')?.touched" class="error">Referee is required</span>
+              </div>
+  
+              <div class="form-group">
+                <label for="attendance">Attendance</label>
+                <input type="text" id="attendance" formControlName="attendance" class="form-control" placeholder="Attendance">
+                <span *ngIf="matchForm.get('attendance')?.invalid && matchForm.get('attendance')?.touched" class="error">Attendance is required</span>
+              </div>
+  
+              <div class="form-group">
+                <label for="homeTeam">Home Team</label>
+                <select id="homeTeam" formControlName="homeTeam" class="form-select">
+                  <option value="" selected>Select Home Team</option>
+                  <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+                </select>
+              </div>
+  
+              <div class="form-group">
+                <label for="awayTeam">Away Team</label>
+                <select id="awayTeam" formControlName="awayTeam" class="form-select">
+                  <option value="" selected>Select Away Team</option>
+                  <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+                </select>
+              </div>
+  
+              <div class="form-group">
+                <label for="result">Result</label>
+                <input type="text" id="result" formControlName="result" class="form-control" placeholder="Result">
+                <span *ngIf="matchForm.get('result')?.invalid && matchForm.get('result')?.touched" class="error">Result is required</span>
+              </div>
+  
+              <button type="submit" class="btn btn-success py-3 px-5">{{ isUpdateMode ? 'Update Match' : 'Add Match' }}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- All Matches Table (Shown when currentView is 'all-matches') -->
+      <div *ngIf="currentView === 'all-matches'" class="row mt-5">
+        <div class="col-lg-12">
+          <table class="table custom-table">
+            <thead>
+              <tr>
+                <th>Home Team</th>
+                <th>Away Team</th>
+                <th>Update</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let match of matches">
+                <td>{{ match.homeTeam.name }}</td>
+                <td>{{ match.awayTeam.name }}</td>
+                <td>
+                  <button class="btn btn-warning" (click)="startUpdateMatch(match.id)">Update</button>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="deleteMatch(match.id)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

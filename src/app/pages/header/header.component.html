@@ -18,13 +18,13 @@
         
         <!-- Dropdown list for Action links -->
         <ul *ngIf="actionDropdownVisible" class="action-dropdown-list">
-          <li><a routerLink="/add-team">Add Team</a></li>
-          <li><a routerLink="/all-teams">All Teams</a></li>
-          <li><a routerLink="/add-match">Add Match</a></li>
-          <li><a routerLink="/all-matches">All Matches</a></li>
-          <li><a routerLink="/add-player">Add Player</a></li>
-          <li><a routerLink="/all-players">All Players</a></li>
-          <li><a routerLink="/statistic">Statistic</a></li>
+          <li><a routerLink="team">Add Team</a></li>
+       
+               <li><a routerLink="matchs">Add Match</a></li>
+      
+          <li><a routerLink="add-player">Add Player</a></li>
+        
+          <li><a routerLink="statistic">Statistic</a></li>
         </ul>
       </li>
       
@@ -64,16 +64,15 @@
   <div id="mobile-menu" class="overlay">
     <a href="javascript:void(0)" class="close" (click)="closeNav()">&times;</a>
     <div class="overlay__content">
-      <a routerLink="/classification" (click)="closeNav()">Score</a>
-      <a routerLink="/teams" (click)="closeNav()">Teams</a>
-      <a routerLink="/contact" (click)="closeNav()">Contact</a>
-      <a routerLink="/match" (click)="closeNav()">Matches</a>
-      <a *ngIf="isLoggedIn" routerLink="/add-team" (click)="closeNav()">Add Team</a>
-      <a *ngIf="isLoggedIn" routerLink="/all-teams" (click)="closeNav()">All Teams</a>
-      <a *ngIf="isLoggedIn" routerLink="/add-match" (click)="closeNav()">Add Match</a>
-      <a *ngIf="isLoggedIn" routerLink="/all-matches" (click)="closeNav()">All Matches</a>
-      <a *ngIf="isLoggedIn" routerLink="/add-player" (click)="closeNav()">Add Player</a>
-      <a *ngIf="isLoggedIn" routerLink="/all-players" (click)="closeNav()">All Players</a>
+      <a routerLink="classification" (click)="closeNav()">Score</a>
+   
+      <a routerLink="contact" (click)="closeNav()">Contact</a>
+      <a routerLink="match" (click)="closeNav()">Matches</a>
+      <a *ngIf="isLoggedIn" routerLink="team" (click)="closeNav()">Teams</a>
+  
+      <a *ngIf="isLoggedIn" routerLink="/matches" (click)="closeNav()">Matches</a>
+      <a *ngIf="isLoggedIn" routerLink="/add-player" (click)="closeNav()">Player</a>
+     
       <a *ngIf="isLoggedIn" routerLink="/statistic" (click)="closeNav()">Statistic</a>
       <a *ngIf="isLoggedIn" (click)="logout(); closeNav()">Logout</a>
       <a *ngIf="!isLoggedIn" routerLink="/auth" (click)="closeNav()">Connexion</a>

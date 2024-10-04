@@ -84,6 +84,7 @@ import { RouterModule } from '@angular/router';
 import { ArchivedManagersComponent } from './archived-managers/archived-managers.component';
 import { ArchivedReclamationsComponent } from './archived-reclamations/archived-reclamations.component';
 import { TeamComponent } from './team/team.component';
+import { MatchManagementComponent } from './match-management/match-management.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { TeamComponent } from './team/team.component';
     ArchivedManagersComponent,
     ArchivedReclamationsComponent,
     TeamComponent,
+    MatchManagementComponent,
   ],
   imports: [
     BrowserModule,
