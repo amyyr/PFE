@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService, Profile } from '../profile.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-manager-profile',
@@ -18,17 +19,19 @@ export class ManagerProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackBar: MatSnackBar
   ) {
     this.profileForm = this.fb.group({
-      email: [''],
-      firstName: [''],
-      lastName: [''],
+      email: ['', [Validators.required, Validators.email]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       birthday: [''],
-      sexe: [''],
-      adress: [''],  // Make sure to use "adress" here
+      sexe: ['', Validators.required],
+      adress: [''],
       phone: ['']
     });
+    
   }
 
   ngOnInit(): void {
@@ -167,16 +170,11 @@ export class ManagerProfileComponent implements OnInit {
       }
     );
   }
-
   showMessage(message: string, type: 'success' | 'error'): void {
-    this.message = message;
-    this.messageType = type;
-
-    // Automatically hide the message after 3 seconds
-    setTimeout(() => {
-      this.message = null;
-      this.messageType = null;
-    }, 3000);
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: [type === 'success' ? 'snack-success' : 'snack-error']
+    });
   }
 
   reloadProfileData(): void {

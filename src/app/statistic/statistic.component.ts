@@ -112,10 +112,11 @@ export class StatisticComponent implements OnInit {
     };
   }
 
-  onMatchSelected(): void {
+  onMatchSelected(matchId: string): void {
+    this.selectedMatch = matchId; // Assuming `selectedMatch` holds the ID of the selected match
     if (this.selectedMatch) {
-      const matchId: number = parseInt(this.selectedMatch, 10);
-      this.matchService.getPlayersByIdMatch(matchId).subscribe({
+      const matchIdNumber: number = parseInt(this.selectedMatch, 10); // Convert to number if needed
+      this.matchService.getPlayersByIdMatch(matchIdNumber).subscribe({
         next: (data) => {
           this.teamHome = data.playerTeamHome || [];
           this.teamAway = data.playerTeamAway || [];
@@ -126,6 +127,7 @@ export class StatisticComponent implements OnInit {
       });
     }
   }
+  
 
   fetchPlayerStatistics(playerId: number) {
     if (this.selectedMatch && playerId) {

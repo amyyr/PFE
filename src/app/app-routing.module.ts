@@ -69,7 +69,7 @@ const routes: Routes = [
       { path: 'live-score', component: LiveScoresComponent },
       { path: 'match', component: MatchComponent },
       { path: 'matchDetails', component: MatchDetailsComponent },
-      { path: 'statistic', component: StatisticComponent },
+      { path: 'statistic', component: StatisticComponent  , canActivate: [AuthGuard] },
       { path: 'aa', component: ManagerProfileComponent  , canActivate: [AuthGuard]},
       { path: 'conditions-generales', component: ConditionsGeneralesComponent },
       { path: 'add-team', component: AddTeamComponent  , canActivate: [AuthGuard]},
