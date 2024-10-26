@@ -12,7 +12,7 @@ export interface League {
             "league_name": "UEFA Europa League",
             "country_key": 1,
             "country_name": "Eurocups",
-            "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/",
+            "league_logo": "assets/images/EUROPELEAGUE.png",
             "country_logo": null
         },
         {
@@ -20,7 +20,7 @@ export interface League {
             "league_name": "UEFA Conference League",
             "country_key": 1,
             "country_name": "Eurocups",
-            "league_logo": null,
+            "league_logo": "assets/images/Conference League.png",
             "country_logo": null
         },
         {
@@ -36,7 +36,7 @@ export interface League {
             "league_name": "Premier League",
             "country_key": 44,
             "country_name": "England",
-            "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/152_premier-league.png",
+            "league_logo": "assets/images/pl.png",
             "country_logo": "https://apiv2.allsportsapi.com/logo/logo_country/44_england.png"
         },
         {
@@ -44,7 +44,7 @@ export interface League {
             "league_name": "La Liga",
             "country_key": 6,
             "country_name": "Spain",
-            "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/302_la-liga.png",
+            "league_logo": "assets/images/liga.png",
             "country_logo": "https://apiv2.allsportsapi.com/logo/logo_country/6_spain.png"
         },
         {
@@ -52,7 +52,7 @@ export interface League {
             "league_name": "Serie A",
             "country_key": 5,
             "country_name": "Italy",
-            "league_logo": "https://apiv2.allsportsapi.com/logo/logo_leagues/207_serie-a.png",
+            "league_logo": "assets/images/serieA.webp",
             "country_logo": "https://apiv2.allsportsapi.com/logo/logo_country/5_italy.png"
         },
         {
