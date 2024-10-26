@@ -1,71 +1,75 @@
 <footer class="footer-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-3">
-        <div class="widget mb-3">
-          <h3>conditions-generales </h3>
-          <ul class="list-unstyled links">
-            <li><a href="/conditions-generales">conditions-generales</a></li>
-            <!-- <li><a href="#">Club News</a></li>
-            <li><a href="#">Media Center</a></li>
-            <li><a href="#">Video</a></li>
-            <li><a href="#">RSS</a></li> -->
-          </ul>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="widget mb-3">
-          <h3>Statistic</h3>
-          <ul class="list-unstyled links">
-            <li><a href="teams">Score</a></li>
-            <li><a href="teams">result</a></li>
-            <li><a href="teams">Match &amp; Classification</a></li>
-            <li><a href="teams">teams</a></li>
-            <li><a href="teams">player</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-lg-3">
-        <div class="widget mb-3">
-          <h3>Matches</h3>
-          <ul class="list-unstyled links">
-            <li><a href="match">Player statistics </a></li>
-            <li><a href="statistic">Match Statistics</a></li>
-            <li><a href="teams">Teams Statistics </a></li>
-          
+      <!-- First column for general links -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="widget">
+          <h4>General Information</h4>
+          <ul class="list-unstyled">
+            <li><a [routerLink]="['/conditions-generales']">Terms & Conditions</a></li>
+            <li><a [routerLink]="['/privacy-policy']">Privacy Policy</a></li>
+            <li><a [routerLink]="['/about']">About Us</a></li>
+            <li><a [routerLink]="['/contact']">Contact Us</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="col-lg-3">
-        <div class="widget mb-3">
-          <h3>Drawing</h3>
-          <ul class="list-unstyled links">
-            <li><a href="teams">Edit video</a></li>
-            <li><a href="teams">Streming video</a></li>
-            <li><a href="teams">Update Video</a></li>
-            <li><a href="teams">Youtube</a></li>
+      <!-- Second column for Statistic-related links -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="widget">
+          <h4>Statistics</h4>
+          <ul class="list-unstyled">
+            <li><a [routerLink]="['/teams']">Scores</a></li>
+            <li><a [routerLink]="['/results']">Results</a></li>
+            <li><a [routerLink]="['/classification']">Match Classification</a></li>
+            <li><a [routerLink]="['/teams']">Teams</a></li>
+            <li><a [routerLink]="['/players']">Players</a></li>
           </ul>
         </div>
       </div>
 
+      <!-- Third column for Match Center (Coming Soon) -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="widget">
+          <h4>Match Center <span>(Coming Soon)</span></h4>
+          <ul class="list-unstyled">
+            <li>Player Statistics <span>(Future Feature)</span></li>
+            <li>Match Statistics <span>(Future Feature)</span></li>
+            <li>Team Statistics <span>(Future Feature)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Fourth column for Multimedia (Coming Soon) -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="widget">
+          <h4>Multimedia <span>(Coming Soon)</span></h4>
+          <ul class="list-unstyled">
+            <li>Edit Video <span>(Future Feature)</span></li>
+            <li>Live Streaming <span>(Future Feature)</span></li>
+            <li>Update Video <span>(Future Feature)</span></li>
+            <li><a href="https://youtube.com" target="_blank">YouTube</a> <span>(Future Feature)</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <div class="row text-center">
+    <!-- Contact and Copyright Section -->
+    <div class="row text-center pt-4">
       <div class="col-md-12">
-        <div class=" pt-5">
-          <p>
-            <!-- Link back to Elite Sport can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;
-            <script>
-              document.write(new Date().getFullYear());
-            </script> All rights reserved | This Website is made with  <i class="icon-heart"
-              aria-hidden="true"></i> by <a href="https://elitesportholding.com" target="_blank">Elite Sport</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          </p>
-        </div>
+        <p>
+          Visit us at: 273 South Riverview Rd, New York, NY 10011 <br>
+          Email: <a href="mailto:support&#64;elitesportholding.com">support&#64;elitesportholding.com</a> <br>
+          Call: +1 216-21-12-12-10
+        </p>
+        <p class="mt-3">
+          <img src="assets/images/logo.png" alt="IA Tactical Logo" style="width: 150px; display: block; margin: 0 auto;">
+        </p>
+        <p class="mt-3">
+          Copyright &copy;
+          <script>document.write(new Date().getFullYear());</script> All rights reserved | Designed with ❤️ by <a href="https://elitesportholding.com" target="_blank">Elite Sport</a>
+        </p>
       </div>
-
     </div>
   </div>
 </footer>

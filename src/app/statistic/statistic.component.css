@@ -2,7 +2,18 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  position: relative;
+    width: 99%;
+    height: 100%;
+    background-color: #5aa65a;
+    border: 2px solid white;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 800px;
 }
+
 
 .match-image {
   text-align: center;
@@ -65,4 +76,549 @@
 table.table-striped th,
 table.table-striped td {
   color: black;
+}
+/* General styles */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Center the player card container */
+.player-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: #f4f4f4; /* Light grey background */
+}
+
+/* Styling the player card */
+.player-card {
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Player image and info section */
+.player-header {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.player-image img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.player-info {
+  flex-grow: 1;
+}
+
+/* Player attributes styling */
+.player-attributes {
+  margin-top: 10px;
+}
+
+.player-attributes div {
+  margin-bottom: 5px;
+}
+
+/* Player statistics section */
+.player-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.player-stats div {
+  padding: 10px;
+  background: #e6e6e6;
+  border-radius: 5px;
+
+  .player-stats {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+}  
+.actions-per-day-card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  background-color: #f9f9f9;
+}
+
+.actions-per-day-card h3 {
+  margin-top: 0;
+}
+
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  perspective: 1000px; /* Perspective for 3D effect */
+}
+
+.football-card {
+  width: 900px;
+  height: 600px;
+  position: relative;
+}
+
+.football-card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.football-card-front,
+.football-card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+}
+
+.football-card-front {
+  background-color: #28a745;
+}
+
+.football-card-back {
+  background-color: #28a745;
+  transform: rotateY(180deg);
+}
+
+/* Add rotation in different directions on hover */
+.football-card:hover .football-card-inner {
+  transform: rotateY(180deg) rotateX(180deg) rotateZ(180deg);
+}
+
+/* Centralizing the card */
+.football-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.field-container {
+  width: 90%;
+  height: 80vh;
+  position: relative;
+  margin: auto;
+}
+
+
+
+.field {
+  position: relative;
+  width: 100%;
+  height: 600px; /* Adjust as needed */
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.kit {
+  color: red;
+  font-size: 24px; /* Adjust the font size if needed */
+}
+
+
+.player-details-modal {
+  display: block; /* Hidden by default */
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 50%; 
+  height: 50%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+#soccer-field {
+  position: relative;
+  width: 99%;
+  height: 100%;
+  background-color:#5aa65a;
+  border: 2px solid white;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 800px;
+}
+
+#soccer-field:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  transform: translateY(-50%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.field1 {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background-color: green;
+  overflow: hidden; /* Prevent players from being dragged outside */
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 10%, rgba(0, 128, 0, 1) 10%, rgba(0, 128, 0, 1) 50%, rgba(255, 255, 255, 0.1) 50%);
+  background-size: 10% 100%;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.center-circle {
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -50px;
+}
+
+.center-spot {
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  margin-left: -5px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.penalty-area {
+  position: absolute;
+  width: 120px;
+  height: 240px;
+  border: 2px solid white;
+}
+
+.home-penalty {
+  top: 50%;
+  left: 0;
+  margin-top: -120px;
+}
+
+
+
+.goal-area {
+  position: absolute;
+  width: 40px;
+  height: 100px;
+  border: 2px solid white;
+  background-color: transparent;
+}
+
+.home-goal {
+  top: 50%;
+  left: 0;
+  margin-top: -50px;
+}
+
+.away-goal {
+  top: 50%;
+  right: 0;
+  margin-top: -50px;
+}
+
+.player {
+  position: absolute;
+  cursor: move;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kit {
+  font-size: 24px;
+}
+
+.number {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+/* New CSS for the out lines and corner flags */
+.out-line {
+  position: absolute;
+  background-color: white;
+margin-top: 0.5cm;
+margin-bottom: 0.5;
+}
+
+.horizontal-line {
+  width: 100%;
+  height: 2px;
+}
+
+.vertical-line {
+  width: 2px;
+  height: 100%;
+}
+
+.top-line {
+  top: 0;
+}
+
+.bottom-line {
+  bottom: 0;
+}
+
+.left-line {
+  left: 0;
+}
+
+.right-line {
+  right: 0;
+}
+
+.corner-flag {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+.top-left-flag {
+  top: 0;
+  left: 0;
+  transform: rotate(135deg);
+}
+
+.top-right-flag {
+  top: 0;
+  right: 0;
+  transform: rotate(225deg);
+}
+
+.bottom-left-flag {
+  bottom: 0;
+  left: 0;
+  transform: rotate(45deg);
+}
+
+.bottom-right-flag {
+  bottom: 0;
+  right: 0;
+  transform: rotate(-45deg);
+}
+
+
+.field {
+  position: relative;
+  width: 100%;
+  height: 600px; /* Adjust as needed */
+  background: url('/assets/images/field.png') no-repeat center center;
+  background-size: cover;
+}
+
+.player {
+  position: absolute;
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+.inline-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.player-details-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #5aa65a; /* Light mint green background */
+  border: 2px solid #5aa65a; /* Dark green border */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px; /* Smaller width */
+  max-width: 90%;
+  padding: 20px;
+  z-index: 1000;
+  font-size: 0.9rem; /* Smaller text size */
+}
+
+.modal-content {
+  padding: 10px;
+}
+
+.close {
+  color: #008000; /* Dark green close button */
+  float: right;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.player-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.player-info {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.player-name {
+  font-weight: bold;
+  color: #006400; /* Dark green text */
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.player-attributes div {
+  margin-bottom: 5px;
+}
+
+.player-stats {
+  text-align: left;
+}
+
+.player-stats div {
+  margin-bottom: 5px;
+  color: #004d00; /* Darker green text */
+}
+.player {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  font-size: 14px;
+}
+.player-details-modal {
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.player-header {
+  display: flex;
+}
+
+.player-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.player-info {
+  margin-left: 20px;
+}
+
+.player-attributes, .player-stats {
+  margin-top: 10px;
+}
+
+.player-attributes div, .player-stats div {
+  margin-bottom: 5px;
 }

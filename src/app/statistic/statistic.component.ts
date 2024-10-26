@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatchService } from '../service/match.service';
+import { PlayerService } from '../service/player.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-statistic',
@@ -7,8 +9,14 @@ import { MatchService } from '../service/match.service';
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
-  ActionsTeamHome = ["Tir", "assist", "but", "dribble", "centrage", "passe", "keyPasse", "interceptions", "degagements", "fautes"];
-  ActionsTeamAway = ["Tir", "assist", "but", "dribble", "centrage", "passe", "keyPasse", "interceptions", "degagements", "fautes"];
+
+  @Input() homeTeam: any;
+  @Input() awayTeam: any;
+  @Input() matchData: any;
+  @Input() eventsData: any[] | undefined;
+
+  homePlayers: any[] = [];
+  awayPlayers: any[] = [];
   players: any[] = [];
   matches: { id: string, name: string }[] = [];
   teamHome: any[] = [];
@@ -17,6 +25,11 @@ export class StatisticComponent implements OnInit {
   selectedPlayer: any = null;
   playerStatistics: any = {};
   playerActions: any[] = [];
+  actionCounts: any = {};
+  videoSrc: string | undefined = '';
+
+  ActionsTeamHome = ["Tir", "assist", "but", "dribble", "centrage", "passe", "keyPasse", "interceptions", "degagements", "fautes"];
+  ActionsTeamAway = ["Tir", "assist", "but", "dribble", "centrage", "passe", "keyPasse", "interceptions", "degagements", "fautes"];
 
   actionForm: any = {
     selectedHomePlayer: null,
@@ -24,12 +37,12 @@ export class StatisticComponent implements OnInit {
     homeAction: '',
     homeTime: '',
     awayAction: '',
-    awayTime: ''
+    awayTime: '',
   };
 
   message = '';
 
-  constructor(private matchService: MatchService) {}
+  constructor(private matchService: MatchService, private playerService: PlayerService) {}
 
   ngOnInit(): void {
     this.matchService.getMatchByIdNames().subscribe(
@@ -112,14 +125,14 @@ export class StatisticComponent implements OnInit {
     };
   }
 
-  onMatchSelected(matchId: string): void {
-    this.selectedMatch = matchId; // Assuming `selectedMatch` holds the ID of the selected match
+  onMatchSelected(): void {
     if (this.selectedMatch) {
-      const matchIdNumber: number = parseInt(this.selectedMatch, 10); // Convert to number if needed
-      this.matchService.getPlayersByIdMatch(matchIdNumber).subscribe({
+      const matchId: number = parseInt(this.selectedMatch, 10);
+      this.matchService.getPlayersByIdMatch(matchId).subscribe({
         next: (data) => {
           this.teamHome = data.playerTeamHome || [];
           this.teamAway = data.playerTeamAway || [];
+          this.updatePlayersOnField();
         },
         error: (error) => {
           console.error('Error fetching players', error);
@@ -127,7 +140,6 @@ export class StatisticComponent implements OnInit {
       });
     }
   }
-  
 
   fetchPlayerStatistics(playerId: number) {
     if (this.selectedMatch && playerId) {
@@ -144,13 +156,26 @@ export class StatisticComponent implements OnInit {
     }
   }
 
+  fetchPlayerDetails(playerId: string) {
+    this.playerService.getPlayerById(playerId).subscribe(
+      player => {
+        this.selectedPlayer = player;
+        this.calculateActionCounts();
+        console.log('Selected Player:', this.selectedPlayer);
+      },
+      error => {
+        console.error('Error fetching player details', error);
+      }
+    );
+  }
+
   onPlayerSelected(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    const playerId = parseInt(selectElement.value, 10);
-    if (!isNaN(playerId)) {
-      this.selectedPlayer = { id: playerId };
-      this.fetchPlayerStatistics(playerId);
-      this.fetchPlayerActions(playerId);
+    const playerId = selectElement.value;
+    if (playerId) {
+      this.fetchPlayerStatistics(Number(playerId));
+      this.fetchPlayerActions(Number(playerId));
+      this.fetchPlayerDetails(playerId);
     }
   }
 
@@ -159,11 +184,19 @@ export class StatisticComponent implements OnInit {
       actions => {
         this.playerActions = actions;
         console.log('Player Actions:', this.playerActions);
+        this.calculateActionCounts();
       },
       error => {
         console.error('Error fetching player actions:', error);
       }
     );
+  }
+
+  calculateActionCounts() {
+    this.actionCounts = this.playerActions.reduce((counts, action) => {
+      counts[action.type] = (counts[action.type] || 0) + 1;
+      return counts;
+    }, {});
   }
 
   deleteStatistic(actionId: number) {
@@ -189,8 +222,80 @@ export class StatisticComponent implements OnInit {
       );
     }
   }
-  
+
   getObjectKeys(obj: any): string[] {
     return Object.keys(obj);
   }
+
+  closePlayerDetails() {
+    this.selectedPlayer = null;
+  }
+
+  onDragStart(event: DragEvent, player: any) {
+    event.dataTransfer?.setData('text/plain', JSON.stringify(player));
+  }
+
+  allowDrop(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    const player = JSON.parse(event.dataTransfer!.getData('text/plain'));
+    const fieldRect = (event.target as HTMLElement).closest('#soccer-field')!.getBoundingClientRect();
+    player.top = event.clientY - fieldRect.top - 25; // Adjust for half the player size
+    player.left = event.clientX - fieldRect.left - 25; // Adjust for half the player size
+
+    this.updatePlayerPosition(player);
+  }
+
+  onDragEnd(event: DragEvent, player: any) {
+    const fieldRect = (event.target as HTMLElement).closest('#soccer-field')!.getBoundingClientRect();
+    player.top = event.clientY - fieldRect.top - 25; // Adjust for half the player size
+    player.left = event.clientX - fieldRect.left - 25; // Adjust for half the player size
+
+    this.updatePlayerPosition(player);
+  }
+
+  updatePlayerPosition(updatedPlayer: any) {
+    const updateList = (list: any[]) => list.map(player => player.id === updatedPlayer.id ? updatedPlayer : player);
+
+    this.homePlayers = updateList(this.homePlayers);
+    this.awayPlayers = updateList(this.awayPlayers);
+  }
+
+  onPlayerIconClick(playerId: number): void {
+    this.fetchPlayerDetails(playerId.toString());
+    this.fetchPlayerStatistics(playerId);
+    this.fetchPlayerActions(playerId);
+  }
+
+  updatePlayersOnField() {
+    this.homePlayers = this.teamHome.map((player, index) => ({
+      ...player,
+      id: player.id,
+      number: index + 1,
+      top: Math.random() * 400,
+      left: Math.random() * 400
+    }));
+
+    this.awayPlayers = this.teamAway.map((player, index) => ({
+      ...player,
+      id: player.id,
+      number: index + 1,
+      top: Math.random() * 400,
+      left: Math.random() * 400
+    }));
+  }
+  onVideoSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.videoSrc = e.target.result; // Set the video source
+      };
+      reader.readAsDataURL(file); // Convert the file to a data URL for playback
+    }
+  }
+  
 }
