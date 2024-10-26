@@ -1,20 +1,24 @@
+/* Updated Static Page CSS to Match the League Page */
+
+/* General container for the page */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
   position: relative;
-    width: 99%;
-    height: 100%;
-    background-color: #5aa65a;
-    border: 2px solid white;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    perspective: 800px;
+  width: 99%;
+  height: 100%;
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background with slight transparency */
+  border-radius: 10px;
+  color: white;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto; /* Enable scrolling if content is too large */
 }
 
-
+/* Match Image Section */
 .match-image {
   text-align: center;
   margin-bottom: 20px;
@@ -24,86 +28,125 @@
   max-width: 100%;
   height: auto;
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Similar to league page */
 }
 
+/* Form Styling */
 .form-group {
   margin-bottom: 20px;
+  width: 100%;
 }
 
+label {
+  font-weight: 500;
+  color: #cccccc;
+}
+
+/* Team Container */
 .team-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .team-block {
   width: 48%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #333; /* Darker border */
+  border-radius: 10px;
+  background-color: rgba(50, 50, 50, 0.8); /* Dark background with transparency */
+  transition: background-color 0.3s;
+}
+
+.team-block:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
 }
 
 .team-block h3 {
   margin-top: 0;
   text-align: center;
+  color: #cccccc;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
+/* Action Section */
 .action-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .action-block {
   width: 48%;
 }
 
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  background-color: #444; /* Darker background for input fields */
+  color: #fff;
+  border: 1px solid #555; /* Darker border for inputs */
+  border-radius: 5px;
+}
+
+input:focus,
+select:focus {
+  border-color: #007aff; /* Blue border on focus to match active buttons */
+  outline: none;
+}
+
+button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0088a9; /* Match hover color with toggle buttons */
+}
+
+/* Message Container Styling */
 .message-container {
   margin-top: 20px;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #4caf50;
-  border-radius: 5px;
-  background-color: #d4edda;
-  color: #155724;
-}
-.team-block h3,
-.player-statistics h3 {
-  color: black;
+  border-radius: 10px;
+  background-color: rgba(0, 136, 169, 0.2); /* Light green with slight transparency for readability */
+  color: #cccccc;
 }
 
-.player-statistics div,
-table.table-striped th,
-table.table-striped td {
-  color: black;
-}
-/* General styles */
-body, html {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-/* Center the player card container */
+/* Player Card Styling */
 .player-card-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  background: #f4f4f4; /* Light grey background */
-}
-
-/* Styling the player card */
-.player-card {
-  width: 90%;
-  max-width: 600px;
-  background: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: rgba(50, 50, 50, 0.9); /* Dark gray background with slight transparency */
+  width: 100%;
+  margin-top: 20px;
   padding: 20px;
   border-radius: 10px;
 }
 
-/* Player image and info section */
+.player-card {
+  width: 90%;
+  max-width: 600px;
+  background: rgba(50, 50, 50, 0.8); /* Match sidebar background */
+  border-radius: 10px;
+  padding: 20px;
+  color: #fff;
+}
+
+/* Player Image and Info Section */
 .player-header {
   display: flex;
   margin-bottom: 20px;
@@ -112,416 +155,54 @@ body, html {
 .player-image img {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 10px;
   margin-right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Consistent shadow effect */
 }
 
 .player-info {
   flex-grow: 1;
 }
 
-/* Player attributes styling */
+/* Player Attributes Styling */
 .player-attributes {
   margin-top: 10px;
 }
 
 .player-attributes div {
   margin-bottom: 5px;
+  color: #cccccc; /* Lighter font color for attributes */
 }
 
-/* Player statistics section */
+/* Player Statistics Section */
 .player-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  width: 100%;
 }
 
 .player-stats div {
   padding: 10px;
-  background: #e6e6e6;
+  background: rgba(50, 50, 50, 0.8); /* Background similar to other sections */
   border-radius: 5px;
-
-  .player-stats {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-}  
-.actions-per-day-card {
-  border: 1px solid #ccc;
-  padding: 16px;
-  border-radius: 8px;
-  margin-top: 16px;
-  background-color: #f9f9f9;
+  color: #fff;
 }
 
-.actions-per-day-card h3 {
-  margin-top: 0;
-}
-
-
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  perspective: 1000px; /* Perspective for 3D effect */
-}
-
-.football-card {
-  width: 900px;
-  height: 600px;
-  position: relative;
-}
-
-.football-card-inner {
-  width: 100%;
-  height: 100%;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-  position: relative;
-}
-
-.football-card-front,
-.football-card-back {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  backface-visibility: hidden;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: white;
-}
-
-.football-card-front {
-  background-color: #28a745;
-}
-
-.football-card-back {
-  background-color: #28a745;
-  transform: rotateY(180deg);
-}
-
-/* Add rotation in different directions on hover */
-.football-card:hover .football-card-inner {
-  transform: rotateY(180deg) rotateX(180deg) rotateZ(180deg);
-}
-
-/* Centralizing the card */
-.football-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.field-container {
-  width: 90%;
-  height: 80vh;
-  position: relative;
-  margin: auto;
-}
-
-
-
-.field {
-  position: relative;
-  width: 100%;
-  height: 600px; /* Adjust as needed */
-}
-
-.background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-.kit {
-  color: red;
-  font-size: 24px; /* Adjust the font size if needed */
-}
-
-
-.player-details-modal {
-  display: block; /* Hidden by default */
-  position: fixed; 
-  z-index: 1; 
-  left: 0;
-  top: 0;
-  width: 50%; 
-  height: 50%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; 
-  padding: 20px;
-  border: 1px solid #888;
-
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-
-
-#soccer-field {
-  position: relative;
-  width: 99%;
-  height: 100%;
-  background-color:#5aa65a;
-  border: 2px solid white;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 800px;
-}
-
-#soccer-field:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  background-color: white;
-  transform: translateY(-50%);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.field1 {
-  position: relative;
-  width: 100%;
-  height: 600px;
-  background-color: green;
-  overflow: hidden; /* Prevent players from being dragged outside */
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 10%, rgba(0, 128, 0, 1) 10%, rgba(0, 128, 0, 1) 50%, rgba(255, 255, 255, 0.1) 50%);
-  background-size: 10% 100%;
-}
-
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-.center-circle {
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  margin-top: -50px;
-  margin-left: -50px;
-}
-
-.center-spot {
-  top: 50%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  margin-top: -5px;
-  margin-left: -5px;
-  background-color: white;
-  border-radius: 50%;
-}
-
-.penalty-area {
-  position: absolute;
-  width: 120px;
-  height: 240px;
-  border: 2px solid white;
-}
-
-.home-penalty {
-  top: 50%;
-  left: 0;
-  margin-top: -120px;
-}
-
-
-
-.goal-area {
-  position: absolute;
-  width: 40px;
-  height: 100px;
-  border: 2px solid white;
-  background-color: transparent;
-}
-
-.home-goal {
-  top: 50%;
-  left: 0;
-  margin-top: -50px;
-}
-
-.away-goal {
-  top: 50%;
-  right: 0;
-  margin-top: -50px;
-}
-
-.player {
-  position: absolute;
-  cursor: move;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.kit {
-  font-size: 24px;
-}
-
-.number {
-  margin-top: 5px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-}
-
-
-/* New CSS for the out lines and corner flags */
-.out-line {
-  position: absolute;
-  background-color: white;
-margin-top: 0.5cm;
-margin-bottom: 0.5;
-}
-
-.horizontal-line {
-  width: 100%;
-  height: 2px;
-}
-
-.vertical-line {
-  width: 2px;
-  height: 100%;
-}
-
-.top-line {
-  top: 0;
-}
-
-.bottom-line {
-  bottom: 0;
-}
-
-.left-line {
-  left: 0;
-}
-
-.right-line {
-  right: 0;
-}
-
-.corner-flag {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 10px 10px 0;
-  border-color: transparent white transparent transparent;
-}
-
-.top-left-flag {
-  top: 0;
-  left: 0;
-  transform: rotate(135deg);
-}
-
-.top-right-flag {
-  top: 0;
-  right: 0;
-  transform: rotate(225deg);
-}
-
-.bottom-left-flag {
-  bottom: 0;
-  left: 0;
-  transform: rotate(45deg);
-}
-
-.bottom-right-flag {
-  bottom: 0;
-  right: 0;
-  transform: rotate(-45deg);
-}
-
-
-.field {
-  position: relative;
-  width: 100%;
-  height: 600px; /* Adjust as needed */
-  background: url('/assets/images/field.png') no-repeat center center;
-  background-size: cover;
-}
-
-.player {
-  position: absolute;
-  width: 50px; /* Adjust size as needed */
-  height: 50px; /* Adjust size as needed */
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
-
-.inline-image {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
+/* Player Details Modal Styling */
 .player-details-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #5aa65a; /* Light mint green background */
-  border: 2px solid #5aa65a; /* Dark green border */
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background with transparency */
+  border: 2px solid #5aa65a; /* Dark green border for contrast */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300px; /* Smaller width */
+  width: 300px;
   max-width: 90%;
   padding: 20px;
   z-index: 1000;
-  font-size: 0.9rem; /* Smaller text size */
+  color: #fff;
 }
 
 .modal-content {
@@ -529,96 +210,60 @@ margin-bottom: 0.5;
 }
 
 .close {
-  color: #008000; /* Dark green close button */
+  color: #cccccc;
   float: right;
   font-size: 1.2rem;
   cursor: pointer;
 }
 
-.player-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.close:hover {
+  color: #fff;
 }
 
-.player-info {
-  text-align: left;
-  margin-bottom: 10px;
-}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .team-block {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 
-.player-name {
-  font-weight: bold;
-  color: #006400; /* Dark green text */
-  text-align: center;
-  margin-bottom: 10px;
-}
+  .player-card-container,
+  .action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-.player-attributes div {
-  margin-bottom: 5px;
-}
+  .action-block {
+    width: 100%;
+  }
 
-.player-stats {
-  text-align: left;
+  input,
+  select,
+  button {
+    width: 100%;
+  }
 }
-
-.player-stats div {
-  margin-bottom: 5px;
-  color: #004d00; /* Darker green text */
-}
-.player {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  color: white;
-  text-align: center;
-  line-height: 30px;
-  border-radius: 50%;
-  font-size: 14px;
-}
-.player-details-modal {
-  position: fixed;
-  z-index: 1000;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  box-shadow: 0 5px 15px rgba(0,0,0,.5);
-  width: 80%;
-  max-width: 600px;
-  padding: 20px;
-}
-
-.modal-content {
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 24px;
-}
-
-.player-header {
+.button-group {
   display: flex;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
-.player-image img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+.button-group button {
+  background-color: #444; /* Dark background color for buttons */
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
 }
 
-.player-info {
-  margin-left: 20px;
+.button-group button.active {
+  background-color: #007aff; /* Bright blue when active */
 }
 
-.player-attributes, .player-stats {
-  margin-top: 10px;
-}
-
-.player-attributes div, .player-stats div {
-  margin-bottom: 5px;
+.button-group button:hover {
+  background-color: #0088a9; /* Lighter blue on hover */
 }

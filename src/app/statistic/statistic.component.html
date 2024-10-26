@@ -1,61 +1,127 @@
 <app-banner title="Add Contact"></app-banner>
 
-
-
 <form>
+  <!-- Match Selection Dropdown -->
   <div class="form-group">
-    <label for="Matches">Match:</label>
+    <label for="Matches">Select Match:</label>
     <select id="Matches" name="Matches" class="form-control" [(ngModel)]="selectedMatch" (change)="onMatchSelected()">
       <option *ngFor="let match of matches" [value]="match.id">{{ match.name }}</option>
     </select>
   </div>
-  
 
-  <div *ngIf="selectedMatch">
-    <div class="action-form">
-      <div class="team-container">
-        <div class="team-block">
-          <h3>Team Home</h3>
-          <select id="homeTeamSelect" name="homeTeamSelect" class="form-control" [(ngModel)]="actionForm.selectedHomePlayer">
-            <option value="">Select Player</option>
-            <option *ngFor="let player of teamHome" [ngValue]="player">{{ player?.firstName }} {{ player?.lastName }}</option>
-          </select>
-          <div *ngIf="actionForm.selectedHomePlayer">
-            <label for="homeAction">Action:</label>
-            <select id="homeAction" name="homeAction" class="form-control" [(ngModel)]="actionForm.homeAction">
-              <option *ngFor="let action of ActionsTeamHome" [value]="action">{{ action }}</option>
-            </select>
-            <label for="homeTime">Time:</label>
-            <input type="datetime-local" id="homeTime" name="homeTime" class="form-control" [(ngModel)]="actionForm.homeTime">
-          </div>
-        </div>
-        <div class="team-block">
-          <h3>Team Away</h3>
-          <select id="awayTeamSelect" name="awayTeamSelect" class="form-control" [(ngModel)]="actionForm.selectedAwayPlayer">
-            <option value="">Select Player</option>
-            <option *ngFor="let player of teamAway" [ngValue]="player">{{ player?.firstName }} {{ player?.lastName }}</option>
-          </select>
-          <div *ngIf="actionForm.selectedAwayPlayer">
-            <label for="awayAction">Action:</label>
-            <select id="awayAction" name="awayAction" class="form-control" [(ngModel)]="actionForm.awayAction">
-              <option *ngFor="let action of ActionsTeamAway" [value]="action">{{ action }}</option>
-            </select>
-            <label for="awayTime">Time:</label>
-            <input type="datetime-local" id="awayTime" name="awayTime" class="form-control" [(ngModel)]="actionForm.awayTime">
-          </div>
-        </div>
+  <!-- Video Upload Section -->
+  <div *ngIf="!videoSrc" class="flex items-center justify-center w-full">
+    <label
+      for="dropzone-file"
+      class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
+    >
+      <div class="flex flex-col items-center justify-center pt-5 pb-6">
+        <svg
+          class="w-8 h-8 mb-4 text-gray-500"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 16"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+          />
+        </svg>
+        <p class="mb-2 text-sm text-gray-500">
+          <span *ngIf="!selectedFileName">Click to upload</span>
+          <span class="font-semibold" *ngIf="selectedFileName">{{ selectedFileName }}</span>
+        </p>
+        <p class="text-xs text-gray-500">MP4, AVI, MOV (Max 200MB)</p>
       </div>
-    </div>
+      <input
+        id="dropzone-file"
+        type="file"
+        class="hidden"
+        (change)="onFileSelected($event)"
+        accept="video/*"
+      />
+    </label>
   </div>
 
-  <button type="button" class="btn btn-primary" (click)="addActions()">Add Actions</button>
-  <button type="button" class="btn btn-success" (click)="updateMessage()">Afficher le message</button>
+  <!-- Video Preview and Team Controls -->
+  <div *ngIf="videoSrc" class="flex flex-col md:flex-row items-start mt-4">
+    <!-- Video Preview -->
+    <div class="text-center md:w-1/2">
+      <video [src]="videoSrc" controls class="w-full max-w-md mx-auto rounded-lg"></video>
+      <button
+        class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        (click)="resetVideo()"
+      >
+        Reupload
+      </button>
+    </div>
 
-  <div *ngIf="message" class="message-container">
-    <p>{{ message }}</p>
+    <!-- Team Selection Toggle -->
+    <div class="button-group mt-4">
+      <button (click)="selectTeamView('home')" [ngClass]="{'active': selectedTeamView === 'home'}">Home</button>
+      <button (click)="selectTeamView('away')" [ngClass]="{'active': selectedTeamView === 'away'}">Away</button>
+    </div>
+
+    <!-- Team Block -->
+    <div *ngIf="selectedTeamView === 'home'" class="mt-4 p-4 border rounded-lg shadow-sm">
+      <h3>Team Home</h3>
+      <!-- Player Selection Dropdown -->
+      <select id="homeTeamSelect" class="form-control" [(ngModel)]="actionForm.selectedHomePlayer" name="selectedHomePlayer">
+        <option value="">Select Player</option>
+        <option *ngFor="let player of teamHome" [ngValue]="player">{{ player?.firstName }} {{ player?.lastName }}</option>
+      </select>
+    
+      <!-- Action and Minute Inputs -->
+      <div *ngIf="actionForm.selectedHomePlayer" class="mt-3">
+        <label for="homeActionSelect">Action:</label>
+        <select id="homeActionSelect" class="form-control" [(ngModel)]="actionForm.homeAction" name="homeAction">
+          <option value="">Select Action</option>
+          <option *ngFor="let action of ActionsTeamHome" [value]="action">{{ action }}</option>
+        </select>
+    
+        <label for="homeMinuteInput" class="mt-2">Minute:</label>
+        <input type="number" id="homeMinuteInput" class="form-control" [(ngModel)]="actionForm.homeMinute" name="homeMinute" placeholder="Enter minute" />
+    
+        <button class="mt-3 btn btn-primary" (click)="addHomeAction()">Add Home Action</button>
+      </div>
+    </div>
+    
+    
+
+    <div *ngIf="selectedTeamView === 'away'" class="mt-4 p-4 border rounded-lg shadow-sm">
+      <h3>Team Away</h3>
+      <!-- Player Selection Dropdown -->
+      <select id="awayTeamSelect" class="form-control" [(ngModel)]="actionForm.selectedAwayPlayer" name="selectedAwayPlayer">
+        <option value="">Select Player</option>
+        <option *ngFor="let player of teamAway" [ngValue]="player">{{ player?.firstName }} {{ player?.lastName }}</option>
+      </select>
+    
+      <!-- Action and Minute Inputs -->
+      <div *ngIf="actionForm.selectedAwayPlayer" class="mt-3">
+        <label for="awayActionSelect">Action:</label>
+        <select id="awayActionSelect" class="form-control" [(ngModel)]="actionForm.awayAction" name="awayAction">
+          <option value="">Select Action</option>
+          <option *ngFor="let action of ActionsTeamAway" [value]="action">{{ action }}</option>
+        </select>
+    
+        <label for="awayMinuteInput" class="mt-2">Minute:</label>
+        <input type="number" id="awayMinuteInput" class="form-control" [(ngModel)]="actionForm.awayMinute" name="awayMinute" placeholder="Enter minute" />
+    
+        <button class="mt-3 btn btn-primary" (click)="addAwayAction()">Add Away Action</button>
+      </div>
+    </div>
+    
+    
   </div>
 </form>
 
+
+
+
+<!-- Player Selection -->
 <div class="form-group" *ngIf="selectedMatch">
   <label for="PlayerSelect">Player:</label>
   <select id="PlayerSelect" name="PlayerSelect" class="form-control" [(ngModel)]="selectedPlayer" (change)="onPlayerSelected($event)">
@@ -90,34 +156,39 @@
   </tbody>
 </table>
 
+<!-- Soccer Field with Player Positions -->
 <div class="card">
   <div class="field" id="soccer-field" (dragover)="allowDrop($event)" (drop)="onDrop($event)">
     <img src="assets/images/wass.jpg" width="61%" height="60%" alt="centrage">
     <div>
       <!-- Home Players -->
-      <div class="player home draggable" 
-           *ngFor="let player of homePlayers" 
-           [style.top.px]="player.top" 
-           [style.left.px]="player.left"
-           [attr.data-id]="player.id"
-           draggable="true"
-           (dragstart)="onDragStart($event, player)"
-           (dragend)="onDragEnd($event, player)"
-           (click)="onPlayerIconClick(player.id)">
+      <div
+        class="player home draggable"
+        *ngFor="let player of homePlayers"
+        [style.top.px]="player.top"
+        [style.left.px]="player.left"
+        [attr.data-id]="player.id"
+        draggable="true"
+        (dragstart)="onDragStart($event, player)"
+        (dragend)="onDragEnd($event, player)"
+        (click)="onPlayerIconClick(player.id)"
+      >
         <img src="assets/images/sa.png" class="inline-image" alt="home player">
         <div class="number">{{ player.number }}</div>
       </div>
 
       <!-- Away Players -->
-      <div class="player away draggable" 
-           *ngFor="let player of awayPlayers" 
-           [style.top.px]="player.top" 
-           [style.left.px]="player.left"
-           [attr.data-id]="player.id"
-           draggable="true"
-           (dragstart)="onDragStart($event, player)"
-           (dragend)="onDragEnd($event, player)"
-           (click)="onPlayerIconClick(player.id)">
+      <div
+        class="player away draggable"
+        *ngFor="let player of awayPlayers"
+        [style.top.px]="player.top"
+        [style.left.px]="player.left"
+        [attr.data-id]="player.id"
+        draggable="true"
+        (dragstart)="onDragStart($event, player)"
+        (dragend)="onDragEnd($event, player)"
+        (click)="onPlayerIconClick(player.id)"
+      >
         <img src="assets/images/wa.png" class="inline-image" alt="away player">
         <div class="number">{{ player.number }}</div>
       </div>
@@ -125,6 +196,7 @@
   </div>
 </div>
 
+<!-- Player Details Modal -->
 <div *ngIf="selectedPlayer" class="player-details-modal">
   <div class="modal-content">
     <span class="close" (click)="closePlayerDetails()">&times;</span>
