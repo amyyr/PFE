@@ -115,11 +115,13 @@ export class ForgotPasswordComponent {
         },
         error: (error) => {
           console.error('Error verifying code:', error);
-          this.verificationError = 'Verification failed. Please try again.';
+          // Display exact error message from backend for troubleshooting
+          this.verificationError = error?.error || 'Verification failed. Please try again.';
         }
       });
     }
   }
+  
 
   // Submit the new password and navigate to login
   onSubmitPassword() {
@@ -128,7 +130,7 @@ export class ForgotPasswordComponent {
       this.forgotPasswordService.resetPassword(this.codeForm.value.code, password).subscribe({
         next: (response: string) => {
           console.log('Password reset response:', response);
-          this.router.navigate(['/login']); // Redirect to login page after successful password reset
+          this.router.navigate(['']); // Redirect to login page after successful password reset
         },
         error: (error) => {
           console.error('Error resetting password:', error);
