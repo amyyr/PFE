@@ -9,42 +9,38 @@
     </select>
   </div>
 
-  <!-- Video Upload Section -->
-  <div *ngIf="!videoSrc" class="flex items-center justify-center w-full">
-    <label
-      for="dropzone-file"
-      class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
-    >
-      <div class="flex flex-col items-center justify-center pt-5 pb-6">
-        <svg
-          class="w-8 h-8 mb-4 text-gray-500"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 20 16"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-          />
-        </svg>
-        <p class="mb-2 text-sm text-gray-500">
-          <span *ngIf="!selectedFileName">Click to upload</span>
-          <span class="font-semibold" *ngIf="selectedFileName">{{ selectedFileName }}</span>
-        </p>
-        <p class="text-xs text-gray-500">MP4, AVI, MOV (Max 200MB)</p>
-      </div>
-      <input
-        id="dropzone-file"
-        type="file"
-        class="hidden"
-        (change)="onFileSelected($event)"
-        accept="video/*"
-      />
-    </label>
-  </div>
+ <!-- Conditional display based on whether videoSrc is set -->
+<div *ngIf="!videoSrc" class="video-upload-container" (click)="triggerFileUpload()">
+  <svg
+    class="w-8 h-8 mb-4"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 20 16"
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+    />
+  </svg>
+  <p class="upload-text">
+    <span *ngIf="!selectedFileName">Click to upload</span>
+    <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+  </p>
+  <p class="upload-subtext">MP4, AVI, MOV (Max 200MB)</p>
+  <input
+    id="dropzone-file"
+    type="file"
+    (change)="onFileSelected($event)"
+    accept="video/*"
+    hidden
+  />
+</div>
+
+
+  
 
   <!-- Video Preview and Team Controls -->
   <div *ngIf="videoSrc" class="flex flex-col md:flex-row items-start mt-4">
@@ -59,60 +55,84 @@
       </button>
     </div>
 
-    <!-- Team Selection Toggle -->
-    <div class="button-group mt-4">
-      <button (click)="selectTeamView('home')" [ngClass]="{'active': selectedTeamView === 'home'}">Home</button>
-      <button (click)="selectTeamView('away')" [ngClass]="{'active': selectedTeamView === 'away'}">Away</button>
-    </div>
-
-    <!-- Team Block -->
-    <div *ngIf="selectedTeamView === 'home'" class="mt-4 p-4 border rounded-lg shadow-sm">
-      <h3>Team Home</h3>
-      <!-- Player Selection Dropdown -->
-      <select id="homeTeamSelect" class="form-control" [(ngModel)]="actionForm.selectedHomePlayer" name="selectedHomePlayer">
-        <option value="">Select Player</option>
-        <option *ngFor="let player of teamHome" [ngValue]="player">{{ player?.firstName }} {{ player?.lastName }}</option>
-      </select>
+    <div class="team-selection-container">
+      <!-- Button Group for Home and Away Selection -->
+      <div class="button-group">
+        <button (click)="selectTeamView('home')" [ngClass]="{'active': selectedTeamView === 'home'}">Home</button>
+        <button (click)="selectTeamView('away')" [ngClass]="{'active': selectedTeamView === 'away'}">Away</button>
+      </div>
     
-      <!-- Action and Minute Inputs -->
-      <div *ngIf="actionForm.selectedHomePlayer" class="mt-3">
-        <label for="homeActionSelect">Action:</label>
-        <select id="homeActionSelect" class="form-control" [(ngModel)]="actionForm.homeAction" name="homeAction">
-          <option value="">Select Action</option>
-          <option *ngFor="let action of ActionsTeamHome" [value]="action">{{ action }}</option>
-        </select>
+      <!-- Home Team Section -->
+      <div *ngIf="selectedTeamView === 'home'" class="team-section">
+        <h3>Team Home</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Player Number</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Select</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let player of teamHome">
+              <td>{{ player.number }}</td>
+              <td>{{ player.firstName }}</td>
+              <td>{{ player.lastName }}</td>
+              <td>
+                <button (click)="selectHomePlayer(player)" class="btn btn-primary btn-sm">Select</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="actionForm.selectedHomePlayer" class="mt-3">
+          <label for="homeActionSelect">Action:</label>
+          <select id="homeActionSelect" class="form-control" [(ngModel)]="actionForm.homeAction" name="homeAction">
+            <option value="">Select Action</option>
+            <option *ngFor="let action of ActionsTeamHome" [value]="action">{{ action }}</option>
+          </select>
+          <label for="homeMinuteInput" class="mt-2">Minute:</label>
+          <input type="number" id="homeMinuteInput" class="form-control" [(ngModel)]="actionForm.homeMinute" name="homeMinute" placeholder="Enter minute" />
+          <button class="mt-3 btn btn-primary" (click)="addHomeAction()">Add Home Action</button>
+        </div>
+      </div>
     
-        <label for="homeMinuteInput" class="mt-2">Minute:</label>
-        <input type="number" id="homeMinuteInput" class="form-control" [(ngModel)]="actionForm.homeMinute" name="homeMinute" placeholder="Enter minute" />
-    
-        <button class="mt-3 btn btn-primary" (click)="addHomeAction()">Add Home Action</button>
+      <!-- Away Team Section -->
+      <div *ngIf="selectedTeamView === 'away'" class="team-section">
+        <h3>Team Away</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Player Number</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Select</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let player of teamAway">
+              <td>{{ player.number }}</td>
+              <td>{{ player.firstName }}</td>
+              <td>{{ player.lastName }}</td>
+              <td>
+                <button (click)="selectAwayPlayer(player)" class="btn btn-primary btn-sm">Select</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="actionForm.selectedAwayPlayer" class="mt-3">
+          <label for="awayActionSelect">Action:</label>
+          <select id="awayActionSelect" class="form-control" [(ngModel)]="actionForm.awayAction" name="awayAction">
+            <option value="">Select Action</option>
+            <option *ngFor="let action of ActionsTeamAway" [value]="action">{{ action }}</option>
+          </select>
+          <label for="awayMinuteInput" class="mt-2">Minute:</label>
+          <input type="number" id="awayMinuteInput" class="form-control" [(ngModel)]="actionForm.awayMinute" name="awayMinute" placeholder="Enter minute" />
+          <button class="mt-3 btn btn-primary" (click)="addAwayAction()">Add Away Action</button>
+        </div>
       </div>
     </div>
     
-    
-
-    <div *ngIf="selectedTeamView === 'away'" class="mt-4 p-4 border rounded-lg shadow-sm">
-      <h3>Team Away</h3>
-      <!-- Player Selection Dropdown -->
-      <select id="awayTeamSelect" class="form-control" [(ngModel)]="actionForm.selectedAwayPlayer" name="selectedAwayPlayer">
-        <option value="">Select Player</option>
-        <option *ngFor="let player of teamAway" [ngValue]="player">{{ player?.firstName }} {{ player?.lastName }}</option>
-      </select>
-    
-      <!-- Action and Minute Inputs -->
-      <div *ngIf="actionForm.selectedAwayPlayer" class="mt-3">
-        <label for="awayActionSelect">Action:</label>
-        <select id="awayActionSelect" class="form-control" [(ngModel)]="actionForm.awayAction" name="awayAction">
-          <option value="">Select Action</option>
-          <option *ngFor="let action of ActionsTeamAway" [value]="action">{{ action }}</option>
-        </select>
-    
-        <label for="awayMinuteInput" class="mt-2">Minute:</label>
-        <input type="number" id="awayMinuteInput" class="form-control" [(ngModel)]="actionForm.awayMinute" name="awayMinute" placeholder="Enter minute" />
-    
-        <button class="mt-3 btn btn-primary" (click)="addAwayAction()">Add Away Action</button>
-      </div>
-    </div>
     
        
   </div>
@@ -147,7 +167,7 @@
       <td>{{ action.id }}</td>
       <td>{{ action.type }}</td>
       <td>{{ action.description }}</td>
-      <td>{{ action.time }}</td>
+      <td>{{ action.min }}</td>
       <td>{{ action.player.team.name }}</td>
       <td>
         <button class="btn btn-danger btn-sm" (click)="deleteStatistic(action.id)">Delete</button>
@@ -197,40 +217,57 @@
 </div>
 
 <!-- Player Details Modal -->
-<div *ngIf="selectedPlayer" class="player-details-modal">
-  <div class="modal-content">
+<div *ngIf="selectedPlayer" class="player-details-modal" (click)="closePlayerDetails()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
     <span class="close" (click)="closePlayerDetails()">&times;</span>
+    
     <div class="player-header">
+      <!-- Ensure the default image shows up, with alignment adjustments -->
       <div class="player-image">
-        <img src="assets/images/person_5.jpg" alt="Player Image">
+        <img src="assets/images/default-profile.jpg" alt="Player Image" />
       </div>
+      
       <div class="player-info">
         <div class="player-name">{{ selectedPlayer?.firstName }} {{ selectedPlayer?.lastName }}</div>
+        
+        <!-- Split Information into Two Columns -->
         <div class="player-attributes">
-          <div><strong>First Name:</strong> {{ selectedPlayer?.firstName }}</div>
-          <div><strong>Last Name:</strong> {{ selectedPlayer?.lastName }}</div>
-          <div><strong>Date Of Birth:</strong> {{ selectedPlayer?.dateOfBirth }}</div>
-          <div><strong>Position:</strong> {{ selectedPlayer?.position }}</div>
-          <div><strong>Foot:</strong> {{ selectedPlayer?.foot }}</div>
-          <div><strong>Number:</strong> {{ selectedPlayer?.number }}</div>
-          <div><strong>Height:</strong> {{ selectedPlayer?.height }}</div>
-          <div><strong>Weight:</strong> {{ selectedPlayer?.weight }}</div>
-          <div><strong>Nationality:</strong> {{ selectedPlayer?.nationality }}</div>
+          <div class="column">
+            <div><strong>Date of Birth:</strong> <span>{{ selectedPlayer?.dateOfBirthday || 'N/A' }}</span></div>
+            <div><strong>Position:</strong> {{ selectedPlayer?.position || 'N/A' }}</div>
+            <div><strong>Foot:</strong> {{ selectedPlayer?.foot || 'N/A' }}</div>
+            <div><strong>Number:</strong> {{ selectedPlayer?.number }}</div>
+          </div>
+          <div class="column">
+            <div><strong>Height:</strong> {{ selectedPlayer?.height || 'N/A' }}</div>
+            <div><strong>Weight:</strong> {{ selectedPlayer?.weight || 'N/A' }}</div>
+            <div><strong>Nationality:</strong> {{ selectedPlayer?.nationality || 'Unknown' }}</div>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Horizontal Line to Separate Sections -->
+    <hr class="section-divider" />
+
+    <!-- Player Actions and Stats Section -->
     <div class="player-stats">
-      <div><strong>Goals:</strong> {{ actionCounts.but || 0 }}</div>
-      <div><strong>Assists:</strong> {{ actionCounts.assist || 0 }}</div>
-      <div><strong>Shots:</strong> {{ actionCounts.Tir || 0 }}</div>
-      <div><strong>Dribbles:</strong> {{ actionCounts.dribble || 0 }}</div>
-      <div><strong>Crosses:</strong> {{ actionCounts.centrage || 0 }}</div>
-      <div><strong>Passes:</strong> {{ actionCounts.passe || 0 }}</div>
-      <div><strong>Key Passes:</strong> {{ actionCounts.keyPasse || 0 }}</div>
-      <div><strong>Interceptions:</strong> {{ actionCounts.interceptions || 0 }}</div>
-      <div><strong>Clearances:</strong> {{ actionCounts.degagements || 0 }}</div>
-      <div><strong>Fouls:</strong> {{ actionCounts.fautes || 0 }}</div>
+      <div class="stats-column">
+        <div><strong>Goals:</strong> {{ actionCounts.but || 0 }}</div>
+        <div><strong>Assists:</strong> {{ actionCounts.assist || 0 }}</div>
+        <div><strong>Shots:</strong> {{ actionCounts.Tir || 0 }}</div>
+        <div><strong>Dribbles:</strong> {{ actionCounts.dribble || 0 }}</div>
+        <div><strong>Crosses:</strong> {{ actionCounts.centrage || 0 }}</div>
+      </div>
+      <div class="stats-column">
+        <div><strong>Passes:</strong> {{ actionCounts.passe || 0 }}</div>
+        <div><strong>Key Passes:</strong> {{ actionCounts.keyPasse || 0 }}</div>
+        <div><strong>Interceptions:</strong> {{ actionCounts.interceptions || 0 }}</div>
+        <div><strong>Clearances:</strong> {{ actionCounts.degagements || 0 }}</div>
+        <div><strong>Fouls:</strong> {{ actionCounts.fautes || 0 }}</div>
+      </div>
     </div>
   </div>
 </div>
+
+

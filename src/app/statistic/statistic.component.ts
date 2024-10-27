@@ -22,7 +22,7 @@ export class StatisticComponent implements OnInit {
   teamAway: any[] = [];
   selectedMatch = '';
   selectedPlayer: any = null;
-  playerStatistics: any = {};  // <-- Added this declaration to resolve the error
+  playerStatistics: any = {};
   playerActions: any[] = [];
   actionCounts: any = {};
   videoSrc: SafeUrl | undefined = '';
@@ -69,6 +69,7 @@ export class StatisticComponent implements OnInit {
     }
   }
 
+  // Handles file selection and video preview
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
@@ -81,9 +82,25 @@ export class StatisticComponent implements OnInit {
     }
   }
 
+  // Reset the video preview
   resetVideo(): void {
     this.videoSrc = undefined;
     this.selectedFileName = '';
+  }
+
+  // Trigger file upload when the container is clicked
+  triggerFileUpload(): void {
+    const fileInput = document.getElementById('dropzone-file') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  // Optional hover effect handlers
+  highlight(): void {
+    // Add any specific styles or logic on hover
+  }
+
+  removeHighlight(): void {
+    // Remove or reset styles when hover ends
   }
 
   selectTeamView(view: string): void {
@@ -230,5 +247,12 @@ export class StatisticComponent implements OnInit {
     this.fetchPlayerDetails(playerId.toString());
     this.fetchPlayerStatistics(playerId);
     this.fetchPlayerActions(playerId);
+  }
+  selectHomePlayer(player: any): void {
+    this.actionForm.selectedHomePlayer = player;
+  }
+  
+  selectAwayPlayer(player: any): void {
+    this.actionForm.selectedAwayPlayer = player;
   }
 }
