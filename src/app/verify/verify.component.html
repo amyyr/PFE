@@ -17,6 +17,7 @@
     <div *ngIf="timeLeft > 0">
       <p>You can resend the code in {{ timeLeft }} seconds.</p>
     </div>
-    <button *ngIf="timeLeft === 0" (click)="resendCode()">Resend Code</button>
+    <button *ngIf="timeLeft === 0" (click)="resendCode()" class="resend-button">Resend Code</button>
+
   </div>
   

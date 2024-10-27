@@ -32,8 +32,14 @@ export class ForgotPasswordComponent {
       email: ['', [Validators.required, Validators.email]],
     });
 
+    // Combined codeForm initialization with separate controls for each digit
     this.codeForm = this.fb.group({
-      code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+      digit1: ['', [Validators.required, Validators.pattern(/[0-9]/)]],
+      digit2: ['', [Validators.required, Validators.pattern(/[0-9]/)]],
+      digit3: ['', [Validators.required, Validators.pattern(/[0-9]/)]],
+      digit4: ['', [Validators.required, Validators.pattern(/[0-9]/)]],
+      digit5: ['', [Validators.required, Validators.pattern(/[0-9]/)]],
+      digit6: ['', [Validators.required, Validators.pattern(/[0-9]/)]]
     });
 
     this.passwordForm = this.fb.group({
@@ -72,7 +78,7 @@ export class ForgotPasswordComponent {
 
   startResendTimer() {
     this.resendAvailable = false;
-    this.countdown = 5 // Reset countdown
+    this.countdown = 5; // Reset countdown
     if (this.countdownSubscription) {
       this.countdownSubscription.unsubscribe(); // Clear any existing countdown
     }
@@ -101,7 +107,7 @@ export class ForgotPasswordComponent {
   // Verify the code and proceed to the next step
   onSubmitCode() {
     if (this.codeForm.valid) {
-      const code = this.codeForm.value.code;
+      const code = Object.values(this.codeForm.value).join(''); // Join the digits to form the complete code
       this.forgotPasswordService.verifyCode(this.email, code).subscribe({
         next: (response: string) => {
           console.log("Verification response:", response);
@@ -127,7 +133,8 @@ export class ForgotPasswordComponent {
   onSubmitPassword() {
     if (this.passwordForm.valid) {
       const password = this.passwordForm.value.password;
-      this.forgotPasswordService.resetPassword(this.codeForm.value.code, password).subscribe({
+      const code = Object.values(this.codeForm.value).join(''); // Concatenate the 6-digit code
+      this.forgotPasswordService.resetPassword(code, password).subscribe({
         next: (response: string) => {
           console.log('Password reset response:', response);
           this.router.navigate(['']); // Redirect to login page after successful password reset
@@ -146,5 +153,33 @@ export class ForgotPasswordComponent {
 
   ngOnDestroy() {
     this.countdownSubscription?.unsubscribe(); // Clean up the subscription when component is destroyed
+  }
+
+  // Method to handle focus move to next input
+  onInput(event: Event, nextInput: string): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value && nextInput) {
+      const nextElement = document.querySelector(`input[formControlName="${nextInput}"]`) as HTMLInputElement;
+      if (nextElement) {
+        nextElement.focus();
+      }
+    }
+  }
+
+  // Method to handle paste event for autofilling
+  onPaste(event: ClipboardEvent): void {
+    event.preventDefault();
+    const pastedData = event.clipboardData?.getData('text') || '';
+    const digits = pastedData.slice(0, 6).split('');
+
+    digits.forEach((digit, index) => {
+      const inputControl = `digit${index + 1}`;
+      this.codeForm.get(inputControl)?.setValue(digit);
+    });
+    // Move focus to the last filled input
+    const lastElement = document.querySelector(`input[formControlName="digit${digits.length}"]`) as HTMLInputElement;
+    if (lastElement) {
+      lastElement.focus();
+    }
   }
 }

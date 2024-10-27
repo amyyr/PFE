@@ -12,7 +12,7 @@ export class VerifyComponent implements OnInit {
   verifyForm: FormGroup;
   verificationError: string | null = null;
   email: string;
-  timeLeft: number = 60;
+  timeLeft: number = 10;
   interval: any;
 
   constructor(
