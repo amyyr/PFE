@@ -137,7 +137,7 @@ header {
 
   /* Resize the logo on mobile */
   .logo {
-    width: 90px; /* Scale down the logo */
+    width: 10px; /* Scale down the logo */
   }
 
   /* Adjust the font size for the overlay menu */

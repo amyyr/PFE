@@ -38,7 +38,6 @@ export class AuthComponent implements OnInit {
     });
 
     this.registerForm = this.fb.group({
-    
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
@@ -78,6 +77,7 @@ export class AuthComponent implements OnInit {
           localStorage.setItem('token', response.accessToken);
           this.dialogRef.close();
           this.snackBar.open('Logged in successfully!', 'Close', { duration: 3000 });
+          window.location.reload(); // Reload the page after successful login
         },
         error: () => {
           this.loginError = 'Invalid email or password. Please try again.';
@@ -112,7 +112,6 @@ export class AuthComponent implements OnInit {
     }
   }
   
-
   get lf() {
     return this.loginForm.controls;
   }
@@ -126,6 +125,7 @@ export class AuthComponent implements OnInit {
   }
 }
 
+// Validator function to check if password and confirm password match
 function passwordMatchValidator(control: AbstractControl) {
   const password = control.get('password')?.value;
   const confirmPassword = control.get('confirmPassword')?.value;

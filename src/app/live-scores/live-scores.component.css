@@ -141,4 +141,18 @@
 .highlight .score-item {
   background-color: #ffeb3b; /* Yellow background */
   transition: background-color 1s ease;
+}   
+.halftime-score {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+
+.scorer-highlight {
+  color: #FFD700; /* Yellow color */
+  font-weight: bold;
+  margin-left: 10px; /* Space from the team score */
 }

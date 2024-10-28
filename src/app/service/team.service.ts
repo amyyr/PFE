@@ -56,12 +56,12 @@ export class TeamService {
   // }
   deleteTeam(id: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.delete<any>(`${this.apiUrl}/api/team/${id}`, { headers });
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
   }
 
   updateTeam(body: any, id: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.put<any>(`${this.apiUrl}/api/team/${id}`, body, { headers });
+    return this.http.put<any>(`${this.apiUrl}/${id}`, body, { headers });
   }
   getPlayersByTeam(teamId: number): Observable<any[]> {
     const headers = this.getHeaders();

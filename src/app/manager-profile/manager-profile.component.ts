@@ -101,6 +101,8 @@ export class ManagerProfileComponent implements OnInit {
           console.log('Profile updated successfully', response);
           this.showMessage('Profile updated successfully!', 'success');
           this.reloadProfileData();  // Reload the updated profile data
+          window.location.reload(); // Reload the page after image upload
+
         },
         error => {
           console.error('Error updating profile:', error);
@@ -139,6 +141,8 @@ export class ManagerProfileComponent implements OnInit {
           console.log('Image uploaded successfully', response);
           this.showMessage('Image uploaded successfully!', 'success');
           this.loadLatestImage();  // This will update the image in the UI
+          window.location.reload(); // Reload the page after image upload
+
         },
         error => {
           console.error('Error uploading image:', error);

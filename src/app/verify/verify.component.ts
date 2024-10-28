@@ -43,7 +43,7 @@ export class VerifyComponent implements OnInit {
       this.registerService.verifyEmail(code, this.email).subscribe({
         next: (response) => {
           if (response === 'Email verified successfully!') {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['']);
           } else {
             this.verificationError = 'Verification failed. Please try again.';
           }

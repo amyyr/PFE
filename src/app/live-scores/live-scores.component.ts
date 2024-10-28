@@ -22,7 +22,7 @@ export class LiveScoresComponent implements OnInit, OnDestroy {
     this.fetchScores();
 
     // Poll for updates every 10 seconds
-    this.pollingSubscription = interval(10000) // 10-second interval
+    this.pollingSubscription = interval(300000) // 10-second interval
       .pipe(switchMap(() => this.liveScoreService.getLiveScores())) // fetches scores on each interval
       .subscribe(data => {
         if (data.success === 1) {
@@ -93,4 +93,18 @@ export class LiveScoresComponent implements OnInit, OnDestroy {
   isNumber(value: any): boolean {
     return !isNaN(Number(value));
   }
+  getChronologicalGoalscorers(score: any): any[] {
+    if (score && score.goalscorers) {
+      // Sort the goals by time
+      return score.goalscorers.sort((a: any, b: any) => {
+        const parseTime = (time: string) => {
+          const parts = time.split('+');
+          return parseInt(parts[0]) + (parts[1] ? parseInt(parts[1]) : 0);
+        };
+        return parseTime(a.time) - parseTime(b.time);
+      });
+    }
+    return [];
+  }
+  
 }

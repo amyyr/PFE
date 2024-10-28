@@ -11,14 +11,13 @@
       </div>
       <span>or use your email for registration</span>
 
-    
       <input type="email" placeholder="Email" formControlName="email" />
       <input type="password" placeholder="Password" formControlName="password" />
       <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
       
       <div *ngIf="registerError" class="error">{{ registerError }}</div>
       <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
-      <button type="submit">Sign Up</button>
+      <button type="submit" [disabled]="registerForm.invalid">Sign Up</button>
     </form>
   </div>
 
@@ -38,7 +37,7 @@
       
       <div *ngIf="loginError" class="error">{{ loginError }}</div>
       <a href="/forgot-password">Forget Your Password?</a>
-      <button type="submit">Sign In</button>
+      <button type="submit" [disabled]="loginForm.invalid">Sign In</button>
     </form>
   </div>
 

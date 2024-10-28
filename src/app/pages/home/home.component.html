@@ -7,8 +7,6 @@
 
   <!-- FontAwesome CSS for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-
 </head>
 <body>
   <div class="home-container">
@@ -95,75 +93,80 @@
         </div>
       </div>
 
-      <!-- Match Details Sidebar (Appears only when a match is selected) -->
+      <!-- Match Details Sidebar -->
       <div class="match-details-sidebar" [ngClass]="{ 'active': selectedMatch }">
-
-        <!-- Header with Team Logos and Final Score -->
-        <div class="match-details-header">
-          <img [src]="selectedMatch?.home_team_logo" alt="{{ selectedMatch?.event_home_team }}" class="team-logo">
-          <span class="final-result">{{ selectedMatch?.event_final_result }}</span> <!-- FINAL RESULT -->
-          <img [src]="selectedMatch?.away_team_logo" alt="{{ selectedMatch?.event_away_team }}" class="team-logo">
+        <!-- Display placeholder if no match is selected -->
+        <div *ngIf="!selectedMatch">
+          <p>Please select a match to see details.</p>
         </div>
 
-        <!-- Match Status (e.g., Finished, Live) -->
-        <p class="match-status">{{ getMatchStatus(selectedMatch?.event_status) }}</p>
-
-        <!-- Half-Time Result -->
-        <p class="halftime-score">Half-Time: {{ selectedMatch?.event_halftime_result }}</p>
-
-        <!-- Goal Scorers -->
-        <div *ngFor="let goal of selectedMatch?.goalscorers" class="scorers">
-          <p>
-            <span class="goal-time">{{ goal.time }}'</span> - 
-            <span *ngIf="goal.home_scorer">{{ goal.home_scorer }}</span>
-            <span *ngIf="goal.away_scorer">{{ goal.away_scorer }}</span>
-          </p>
-        </div>
-
-        <!-- Classement Button -->
-        <button class="see-more-button" [routerLink]="['/classification']" [queryParams]="{ leagueId: selectedMatch?.league_key }">Classement</button>
-
-        <!-- Match Tabs -->
-        <div class="match-tabs">
-          <a href="#" class="tab" [ngClass]="{ 'active-tab': selectedTab === 'details' }" (click)="setTab('details')">Détails</a>
-          <a href="#" class="tab" [ngClass]="{ 'active-tab': selectedTab === 'stats' }" (click)="setTab('stats')">Statistiques</a>
-          <a href="#" class="tab" [ngClass]="{ 'active-tab': selectedTab === 'comments' }" (click)="setTab('comments')">Commentaires</a>
-        </div>
-
-        <!-- Match Details (When 'Détails' is Active) -->
-        <div *ngIf="selectedTab === 'details'" class="details-tab">
-          <p><i class="fa fa-futbol location-icon"></i><strong>Stade:</strong> {{ selectedMatch?.event_stadium }}</p>
-          <p><i class="fa fa-whistle referee-icon"></i><strong>Arbitre:</strong> {{ selectedMatch?.event_referee }}</p>
-          <p><i class="fa fa-map-marker location-icon"></i><strong>Localisation:</strong> <img [src]="selectedMatch?.country_logo" alt="{{ selectedMatch?.country_name }}" class="country-logo">
-            {{ selectedMatch?.country_name }}
-          </p>
-
-          <!-- Goalscorers Section -->
-          <div *ngIf="selectedMatch?.goalscorers.length > 0">
-            <h4>Buts</h4>
-            <div *ngFor="let goal of selectedMatch?.goalscorers">
-              <p>
-                <strong>{{ goal.time }}'</strong> - 
-                <span *ngIf="goal.home_scorer">{{ goal.home_scorer }} (Home)</span>
-                <span *ngIf="goal.away_scorer">{{ goal.away_scorer }} (Away)</span>
-                <span *ngIf="goal.info"> - {{ goal.info }}</span>
-              </p>
-            </div>
+        <!-- Match Details if a match is selected -->
+        <div *ngIf="selectedMatch">
+          <!-- Header with Team Logos and Final Score -->
+          <div class="match-details-header">
+            <img [src]="selectedMatch.home_team_logo" alt="{{ selectedMatch.event_home_team }}" class="team-logo">
+            <span class="final-result">{{ selectedMatch.event_final_result }}</span> <!-- FINAL RESULT -->
+            <img [src]="selectedMatch.away_team_logo" alt="{{ selectedMatch.event_away_team }}" class="team-logo">
           </div>
-        </div>
 
-        <!-- Match Statistics (When 'Statistiques' is Active) -->
-        <div *ngIf="selectedTab === 'stats'" class="stats-tab">
-          <p>Contenu des statistiques sera affiché ici.</p>
-        </div>
+          <!-- Match Status (e.g., Finished, Live) -->
+          <p class="match-status">{{ getMatchStatus(selectedMatch.event_status) }}</p>
 
-        <!-- Match Comments (When 'Commentaires' is Active) -->
-        <div *ngIf="selectedTab === 'comments'" class="comments-tab">
-          <p>Contenu des commentaires sera affiché ici.</p>
+          <!-- Half-Time Result -->
+          <p class="halftime-score">Half-Time: {{ selectedMatch.event_halftime_result }}</p>
+
+     <!-- Goalscorers Section -->
+<div *ngIf="selectedMatch.goalscorers.length > 0">
+  <h4>Buts</h4>
+  <div class="goalscorers-grid-chronological">
+    <ng-container *ngFor="let goal of getChronologicalGoalscorers()">
+      <div class="goal-entry" [ngClass]="{'home-goal': goal.home_scorer, 'away-goal': goal.away_scorer}">
+        <span class="goal-time">{{ goal.time }}'</span>
+        <span *ngIf="goal.home_scorer" class="home-scorer">{{ goal.home_scorer }} (Home)</span>
+        <span *ngIf="goal.away_scorer" class="away-scorer">{{ goal.away_scorer }} (Away)</span>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+
+          <!-- Classement Button -->
+          <button class="see-more-button" [routerLink]="['/classification']" [queryParams]="{ leagueId: selectedMatch.league_key }">Classement</button>
+
+          <!-- Match Tabs -->
+          <div class="match-tabs">
+            <a href="#" class="tab" [ngClass]="{ 'active-tab': selectedTab === 'details' }" (click)="setTab('details')">Détails</a>
+            <a href="#" class="tab" [ngClass]="{ 'active-tab': selectedTab === 'stats' }" (click)="setTab('stats')">Statistiques</a>
+            <a href="#" class="tab" [ngClass]="{ 'active-tab': selectedTab === 'comments' }" (click)="setTab('comments')">Commentaires</a>
+          </div>
+
+          <!-- Match Details (When 'Détails' is Active) -->
+          <div *ngIf="selectedTab === 'details'" class="details-tab">
+            <p><i class="fa fa-futbol location-icon"></i><strong>Stade:</strong> {{ selectedMatch.event_stadium }}</p>
+            <p><i class="fa fa-whistle referee-icon"></i><strong>Arbitre:</strong> {{ selectedMatch.event_referee }}</p>
+            <p><i class="fa fa-map-marker location-icon"></i><strong>Localisation:</strong> 
+              <img [src]="selectedMatch.country_logo" alt="{{ selectedMatch.country_name }}" class="country-logo">
+              {{ selectedMatch.country_name }}
+            </p>
+
+      
+ 
+
+
+          </div>
+
+          <!-- Match Statistics (When 'Statistiques' is Active) -->
+          <div *ngIf="selectedTab === 'stats'" class="stats-tab">
+            <p>Contenu des statistiques sera affiché ici.</p>
+          </div>
+
+          <!-- Match Comments (When 'Commentaires' is Active) -->
+          <div *ngIf="selectedTab === 'comments'" class="comments-tab">
+            <p>Contenu des commentaires sera affiché ici.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 </body>
 </html>
