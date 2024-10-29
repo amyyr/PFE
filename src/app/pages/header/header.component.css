@@ -19,7 +19,7 @@ header {
 /* Logo styling */
 .logo {
   cursor: pointer;
-  width: 120px; /* Set a fixed width for the logo */
+  width: 5%; /* Set a fixed width for the logo */
   height: auto; /* Ensure the logo scales proportionally */
 }
 
