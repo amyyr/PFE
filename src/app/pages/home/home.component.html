@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Match Details</title>
-
   <!-- FontAwesome CSS for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -104,9 +103,20 @@
         <div *ngIf="selectedMatch">
           <!-- Header with Team Logos and Final Score -->
           <div class="match-details-header">
-            <img [src]="selectedMatch.home_team_logo" alt="{{ selectedMatch.event_home_team }}" class="team-logo">
-            <span class="final-result">{{ selectedMatch.event_final_result }}</span> <!-- FINAL RESULT -->
-            <img [src]="selectedMatch.away_team_logo" alt="{{ selectedMatch.event_away_team }}" class="team-logo">
+            <!-- Home Team Logo and Name (Clickable to Navigate to Team Details) -->
+            <div class="team" (click)="navigateToTeamDetails(selectedMatch.home_team_key)">
+              <img [src]="selectedMatch.home_team_logo" alt="{{ selectedMatch.event_home_team }}" class="team-logo">
+              <span class="team-name">{{ selectedMatch.event_home_team }}</span>
+            </div>
+
+            <!-- Final Score -->
+            <span class="final-result">{{ selectedMatch.event_final_result }}</span> 
+
+            <!-- Away Team Logo and Name (Clickable to Navigate to Team Details) -->
+            <div class="team" (click)="navigateToTeamDetails(selectedMatch.away_team_key)">
+              <img [src]="selectedMatch.away_team_logo" alt="{{ selectedMatch.event_away_team }}" class="team-logo">
+              <span class="team-name">{{ selectedMatch.event_away_team }}</span>
+            </div>
           </div>
 
           <!-- Match Status (e.g., Finished, Live) -->
@@ -115,20 +125,19 @@
           <!-- Half-Time Result -->
           <p class="halftime-score">Half-Time: {{ selectedMatch.event_halftime_result }}</p>
 
-     <!-- Goalscorers Section -->
-<div *ngIf="selectedMatch.goalscorers.length > 0">
-  <h4>Buts</h4>
-  <div class="goalscorers-grid-chronological">
-    <ng-container *ngFor="let goal of getChronologicalGoalscorers()">
-      <div class="goal-entry" [ngClass]="{'home-goal': goal.home_scorer, 'away-goal': goal.away_scorer}">
-        <span class="goal-time">{{ goal.time }}'</span>
-        <span *ngIf="goal.home_scorer" class="home-scorer">{{ goal.home_scorer }} (Home)</span>
-        <span *ngIf="goal.away_scorer" class="away-scorer">{{ goal.away_scorer }} (Away)</span>
-      </div>
-    </ng-container>
-  </div>
-</div>
-
+          <!-- Goalscorers Section -->
+          <div *ngIf="selectedMatch.goalscorers.length > 0">
+            <h4>Buts</h4>
+            <div class="goalscorers-grid-chronological">
+              <ng-container *ngFor="let goal of getChronologicalGoalscorers()">
+                <div class="goal-entry" [ngClass]="{'home-goal': goal.home_scorer, 'away-goal': goal.away_scorer}">
+                  <span class="goal-time">{{ goal.time }}'</span>
+                  <span *ngIf="goal.home_scorer" class="home-scorer">{{ goal.home_scorer }} (Home)</span>
+                  <span *ngIf="goal.away_scorer" class="away-scorer">{{ goal.away_scorer }} (Away)</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
 
           <!-- Classement Button -->
           <button class="see-more-button" [routerLink]="['/classification']" [queryParams]="{ leagueId: selectedMatch.league_key }">Classement</button>
@@ -148,16 +157,33 @@
               <img [src]="selectedMatch.country_logo" alt="{{ selectedMatch.country_name }}" class="country-logo">
               {{ selectedMatch.country_name }}
             </p>
-
-      
- 
-
-
           </div>
 
           <!-- Match Statistics (When 'Statistiques' is Active) -->
           <div *ngIf="selectedTab === 'stats'" class="stats-tab">
-            <p>Contenu des statistiques sera affiché ici.</p>
+            <h4>Statistiques du Match</h4>
+            <div *ngIf="statistics.length > 0; else noStats">
+              <div *ngFor="let stat of statistics | slice:0:5" class="stat-item">
+                <div class="stat-title">
+                  <h5>{{ stat.type }}</h5>
+                </div>
+                <div class="progress-container">
+                  <div class="progress-wrapper">
+                    <div class="progress-bar home" [style.width.%]="calculatePercentage(stat.home, stat.away)">
+                    </div>
+                    <span class="progress-label home-label">{{ stat.home }}</span>
+                  </div>
+                  <div class="progress-wrapper">
+                    <div class="progress-bar away" [style.width.%]="calculatePercentage(stat.away, stat.home)">
+                    </div>
+                    <span class="progress-label away-label">{{ stat.away }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #noStats>
+              <p>Aucune statistique disponible pour ce match.</p>
+            </ng-template>
           </div>
 
           <!-- Match Comments (When 'Commentaires' is Active) -->

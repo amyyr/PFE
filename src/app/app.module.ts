@@ -85,6 +85,7 @@ import { ArchivedManagersComponent } from './archived-managers/archived-managers
 import { ArchivedReclamationsComponent } from './archived-reclamations/archived-reclamations.component';
 import { TeamComponent } from './team/team.component';
 import { MatchManagementComponent } from './match-management/match-management.component';
+import { TeamDetailsComponent } from './team-details/team-details.component';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { MatchManagementComponent } from './match-management/match-management.co
     ArchivedReclamationsComponent,
     TeamComponent,
     MatchManagementComponent,
+    TeamDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -47,6 +47,7 @@ import { ArchivedManagersComponent } from './archived-managers/archived-managers
 import { ArchivedReclamationsComponent } from './archived-reclamations/archived-reclamations.component';
 import { TeamComponent } from './team/team.component';
 import { MatchManagementComponent } from './match-management/match-management.component';
+import { TeamDetailsComponent } from './team-details/team-details.component';
 
 
 
@@ -84,7 +85,8 @@ const routes: Routes = [
       { path: 'manager', component: ManagerComponent  , canActivate: [AuthGuard]},
       { path: 'add-manager', component: AddManagerComponent  , canActivate: [AuthGuard]},
       { path: 'update-manager/:id', component: UpdateManagerComponent , canActivate: [AuthGuard] },
-      { path: 'svg', component: SvgComponent  , canActivate: [AuthGuard]}
+      { path: 'svg', component: SvgComponent  , canActivate: [AuthGuard]},
+      { path: 'team/:teamKey', component: TeamDetailsComponent },
     ]
   },
 

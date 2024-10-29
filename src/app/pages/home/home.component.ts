@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   isLoading: boolean = false;       // To handle loading state
   selectedMatch: any = null;        // To store the selected match
   selectedTab: string = 'details';  // Default to 'details' tab
-
+  statistics: any[] = [];
   // Calendar Data
   currentYear: number = moment().year();
   currentMonth: number = moment().month();
@@ -25,12 +26,14 @@ export class HomeComponent implements OnInit {
   homeGoalscorers: any[] = [];
 awayGoalscorers: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchMatches(this.selectedDate);  // Fetch matches when the component initializes
   }
-
+  navigateToTeamDetails(teamKey: number): void {
+    this.router.navigate(['/team', teamKey]);
+  }
   // Fetch live scores (not currently called on init)
   fetchLiveScores(): void {
     this.isLoading = true;  // Set loading to true
@@ -47,6 +50,26 @@ awayGoalscorers: any[] = [];
       }
     );
   }
+  // Fetch match statistics based on the selected match
+  fetchMatchStatistics(matchId: string): void {
+    const apiUrl = `http://localhost:8080/api/fixture/all?from=${this.selectedDate}&to=${this.selectedDate}`;
+    this.http.get(apiUrl).subscribe(
+        (response: any) => {
+            console.log('Fetched Statistics:', response); // Log the entire response
+            if (response.success && response.result) {
+                // Assuming the statistics are in the result array
+                this.statistics = response.result; // Assign the statistics
+            } else {
+                this.statistics = []; // Ensure it's an empty array if no statistics found
+            }
+        },
+        (error) => {
+            console.error('Error fetching match statistics:', error);
+        }
+    );
+}
+
+
 
 // Method to fetch matches for the given date, now with goalScorers parameter
 fetchMatches(date: string): void {
@@ -112,8 +135,10 @@ fetchMatches(date: string): void {
 
   // Method to handle match selection
   selectMatch(match: any): void {
-    this.selectedMatch = match;  // Set the selected match
-  }
+    this.selectedMatch = match; // Set the selected match
+    this.fetchMatchStatistics(match.event_key); // Fetch statistics for the selected match
+}
+
 
   // Get the match status (dynamic based on match state)
   getMatchStatus(status: string): string {
@@ -162,6 +187,14 @@ getChronologicalGoalscorers(): any[] {
   }
   return [];
 }
+calculatePercentage(home: string | number, away: string | number): number {
+  const homeValue = Number(home);
+  const awayValue = Number(away);
+  const total = homeValue + awayValue;
+
+  return total === 0 ? 50 : (homeValue / total) * 100;
+}
+
 
     
 }

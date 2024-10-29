@@ -411,3 +411,44 @@ body {
 }
 
 
+.stats-tab {
+  padding: 10px;
+  color: white;
+}
+
+.stat-item {
+  margin-bottom: 15px;
+}
+
+.stat-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF; /* Force white color */
+  background-color: rgba(0, 0, 0, 0.5); /* Background to ensure visibility */
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+}
+
+.progress-wrapper {
+  width: 100%;
+  position: relative;
+  margin: 0 5px;
+}
+
+.progress-bar {
+  height: 10px;
+  border-radius: 5px;
+}
+
+.progress-bar.home {
+  background-color: #4CAF50;
+}
+
+.progress-bar.away {
+  background-color: #2196F3;
+}

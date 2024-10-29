@@ -156,3 +156,22 @@
   font-weight: bold;
   margin-left: 10px; /* Space from the team score */
 }
+.scorer-list {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px; /* Adjust as necessary */
+}
+
+.goal-entry {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.home-goal {
+  color: #4CAF50; /* Green for home goals */
+}
+
+.away-goal {
+  color: #F44336; /* Red for away goals */
+}

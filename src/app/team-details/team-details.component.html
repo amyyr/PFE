@@ -1,0 +1,53 @@
+<div class="main-container">
+    <div *ngIf="teamDetails; else noTeamData" class="team-details-container">
+        <!-- Team Header Section -->
+        <div class="team-header">
+            <img [src]="teamDetails.team_logo" alt="{{ teamDetails.team_name }} logo" class="team-logo">
+            <div class="team-info">
+                <h2 class="team-name">{{ teamDetails.team_name }} <span class="favorite-icon">⭐</span></h2>
+                <div *ngIf="teamDetails.coaches.length > 0" class="coach-info">
+                    <p><strong>Coach:</strong> {{ teamDetails.coaches[0].coach_name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Horizontal Line and Players Section -->
+        <hr class="section-divider">
+        <h3 class="players-title">Players</h3>
+        <hr class="section-divider">
+
+        <div class="players-section">
+            <div *ngFor="let player of teamDetails.players" class="player-card">
+                <a href="#" class="player-link">
+                    <div class="player-header">
+                        <img [src]="player.player_image" alt="{{ player.player_name }}" class="player-image">
+                        <div class="player-info">
+                            <p><strong>Name:</strong> {{ player.player_name }}</p>
+                            <p><strong>Position:</strong> {{ player.player_type }}</p>
+                            <p><strong>Number:</strong> {{ player.player_number }}</p>
+                            <p *ngIf="player.player_country"><strong>Country:</strong> {{ player.player_country }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Player Stats -->
+                    <div class="player-stats">
+                        <p><strong>Age:</strong> {{ player.player_age }}</p>
+                        <p><strong>Matches Played:</strong> {{ player.player_match_played }}</p>
+                        <p><strong>Goals:</strong> {{ player.player_goals }}</p>
+                        <p><strong>Assists:</strong> {{ player.player_assists }}</p>
+                        <p><strong>Yellow Cards:</strong> {{ player.player_yellow_cards }}</p>
+                        <p><strong>Red Cards:</strong> {{ player.player_red_cards }}</p>
+                        <p><strong>Injured:</strong> {{ player.player_injured }}</p>
+                        <p><strong>Passes:</strong> {{ player.player_passes }} (Accuracy: {{ player.player_passes_accuracy }})</p>
+                        <p *ngIf="player.player_is_captain === '1'"><strong>Captain:</strong> Yes</p>
+                        <p><strong>Rating:</strong> {{ player.player_rating }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noTeamData>
+        <p>No team details available.</p>
+    </ng-template>
+</div>
