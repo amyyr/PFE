@@ -86,7 +86,7 @@ const routes: Routes = [
       { path: 'add-manager', component: AddManagerComponent  , canActivate: [AuthGuard]},
       { path: 'update-manager/:id', component: UpdateManagerComponent , canActivate: [AuthGuard] },
       { path: 'svg', component: SvgComponent  , canActivate: [AuthGuard]},
-      { path: 'team/:teamKey', component: TeamDetailsComponent },
+      { path: 'teamm/:teamKey', component: TeamDetailsComponent },
     ]
   },
 

@@ -31,9 +31,11 @@ awayGoalscorers: any[] = [];
   ngOnInit(): void {
     this.fetchMatches(this.selectedDate);  // Fetch matches when the component initializes
   }
-  navigateToTeamDetails(teamKey: number): void {
-    this.router.navigate(['/team', teamKey]);
-  }
+ // HomeComponent.ts
+ navigateToTeamDetails(teamKey: number, leagueKey: number): void {
+  this.router.navigate(['/teamm', teamKey], { queryParams: { leagueId: leagueKey } });
+}
+
   // Fetch live scores (not currently called on init)
   fetchLiveScores(): void {
     this.isLoading = true;  // Set loading to true
