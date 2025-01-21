@@ -137,11 +137,16 @@
 .score-item:hover {
   background-color: rgba(255, 255, 255, 0.1); /* Optional: change background on hover */
 }
-/* Highlight for score change */
-.highlight .score-item {
-  background-color: #ffeb3b; /* Yellow background */
-  transition: background-color 1s ease;
-}   
+/* Corrected for the anchor link directly */
+.score-item-link.highlight {
+  background-color: #ffeb3b; /* Yellow highlight */
+  transition: background-color 1s ease-in-out;
+}
+/* Remove highlight when match is not live */
+.score-item-link:not(.highlight) {
+  background-color: rgba(30, 30, 30, 0.9); /* Default dark */
+}
+  
 .halftime-score {
   font-size: 14px;
   color: #ffffff;

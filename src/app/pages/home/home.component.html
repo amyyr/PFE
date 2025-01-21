@@ -100,31 +100,36 @@
         </div>
 
         <!-- Match Details if a match is selected -->
+        
         <div *ngIf="selectedMatch">
           <!-- Header with Team Logos and Final Score -->
-          <div class="match-details-header">
+          <div class="match-details-header-side">
             <!-- Home Team Logo and Name (Clickable to Navigate to Team Details) -->
-          <div class="team" (click)="navigateToTeamDetails(selectedMatch.home_team_key, selectedMatch.league_key)">
-              <img [src]="selectedMatch.home_team_logo" alt="{{ selectedMatch.event_home_team }}" class="team-logo">
-              <span class="team-name">{{ selectedMatch.event_home_team }}</span>
+            <div class="team-side" (click)="navigateToTeamDetails(selectedMatch.home_team_key, selectedMatch.league_key)">
+              <div class="team-logo-container-side">
+                <img [src]="selectedMatch.home_team_logo" alt="{{ selectedMatch.event_home_team }}" class="team-logo-side">
+                <span class="team-name-side">{{ selectedMatch.event_home_team }}</span>
+              </div>
             </div>
-
             <!-- Final Score -->
-            <span class="final-result">{{ selectedMatch.event_final_result }}</span> 
-
+            <div class="score-side">
+              <span class="final-result-side">{{ selectedMatch.event_final_result }}</span>
+            </div>
             <!-- Away Team Logo and Name (Clickable to Navigate to Team Details) -->
-          <div class="team" (click)="navigateToTeamDetails(selectedMatch.home_team_key, selectedMatch.league_key)">
-              <img [src]="selectedMatch.away_team_logo" alt="{{ selectedMatch.event_away_team }}" class="team-logo">
-              <span class="team-name">{{ selectedMatch.event_away_team }}</span>
+            <div class="team" (click)="navigateToTeamDetails(selectedMatch.away_team_key, selectedMatch.league_key)">
+              <div class="team-logo-container">
+                <img [src]="selectedMatch.away_team_logo" alt="{{ selectedMatch.event_away_team }}" class="team-logo-side">
+                <span class="team-name-side">{{ selectedMatch.event_away_team }}</span>
+              </div>
             </div>
           </div>
-
+        
           <!-- Match Status (e.g., Finished, Live) -->
           <p class="match-status">{{ getMatchStatus(selectedMatch.event_status) }}</p>
-
+        
           <!-- Half-Time Result -->
           <p class="halftime-score">Half-Time: {{ selectedMatch.event_halftime_result }}</p>
-
+        
           <!-- Goalscorers Section -->
           <div *ngIf="selectedMatch.goalscorers.length > 0">
             <h4>Buts</h4>
@@ -138,7 +143,8 @@
               </ng-container>
             </div>
           </div>
-
+        
+      
           <!-- Classement Button -->
           <button class="see-more-button" [routerLink]="['/classification']" [queryParams]="{ leagueId: selectedMatch.league_key }">Classement</button>
 

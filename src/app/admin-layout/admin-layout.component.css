@@ -32,7 +32,6 @@
   margin-left: 80px;
 }
 
-/* Sidebar Header Section */
 .logo-section {
   display: flex;
   align-items: center;
@@ -43,9 +42,12 @@
 }
 
 .logo img {
-  width: 40px;
-  height: 40px;
+  width: 80px; /* Increase the size */
+  height: 80px; /* Increase the size */
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Ensures the image scales properly inside the circle */
 }
+
 
 .btn-toggle-sidebar {
   border: none;

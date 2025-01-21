@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
 export class LiveScoresComponent implements OnInit, OnDestroy {
   scores: any[] = [];
   displayScores: any[] = [];
-  itemsToShow = 10;
+  itemsToShow = 100;
   showButton = true;
   private pollingSubscription: Subscription | null = null;
 
@@ -22,7 +22,8 @@ export class LiveScoresComponent implements OnInit, OnDestroy {
     this.fetchScores();
 
     // Poll for updates every 10 seconds
-    this.pollingSubscription = interval(300000) // 10-second interval
+    this.pollingSubscription = interval(10000) // 10-second interval
+
       .pipe(switchMap(() => this.liveScoreService.getLiveScores())) // fetches scores on each interval
       .subscribe(data => {
         if (data.success === 1) {
@@ -53,25 +54,45 @@ export class LiveScoresComponent implements OnInit, OnDestroy {
   }
 
   updateScores(newScores: any[]): void {
-    newScores.forEach((newScore, index) => {
-      const oldScore = this.scores[index];
-      const [newHomeScore, newAwayScore] = (newScore.event_final_result || '0 - 0').split(' - ').map(Number);
-
-      // Check if the score has changed
-      if (oldScore && (newHomeScore !== oldScore.homeScore || newAwayScore !== oldScore.awayScore)) {
-        oldScore.previousHomeScore = oldScore.homeScore;
-        oldScore.previousAwayScore = oldScore.awayScore;
-        oldScore.homeScore = newHomeScore;
-        oldScore.awayScore = newAwayScore;
-        oldScore.highlight = true; // Set highlight to true for changed score
-
-        // Remove highlight after 10 seconds
-        setTimeout(() => {
-          oldScore.highlight = false;
-        }, 10000);
+    newScores.forEach(newScore => {
+      const oldScore = this.scores.find(score => score.event_id === newScore.event_id);
+  
+      if (oldScore) {
+        const [newHomeScore, newAwayScore] = (newScore.event_final_result || '0 - 0').split(' - ').map(Number);
+  
+        // Check if the match is live
+        const isLiveMatch = this.isNumber(newScore.event_status); 
+        const homeGoalScored = newHomeScore > oldScore.homeScore;
+        const awayGoalScored = newAwayScore > oldScore.awayScore;
+  
+        if (isLiveMatch && (homeGoalScored || awayGoalScored)) {
+          // Update scores and trigger highlight
+          oldScore.previousHomeScore = oldScore.homeScore;
+          oldScore.previousAwayScore = oldScore.awayScore;
+          oldScore.homeScore = newHomeScore;
+          oldScore.awayScore = newAwayScore;
+          oldScore.highlight = true;
+  
+          // Clear highlight after 10 seconds
+          setTimeout(() => {
+            oldScore.highlight = false;
+            this.scores = [...this.scores]; // Force UI refresh
+          }, 10000);
+        }
+      } else {
+        // Add new matches
+        this.scores.push(this.parseScore(newScore));
       }
     });
+  
+    // Refresh UI data binding
+    this.scores = [...this.scores]; // Ensure changes are detected
+    this.updateDisplayScores();
   }
+  
+  
+  
+  
 
   updateDisplayScores(): void {
     this.displayScores = this.scores.slice(0, this.itemsToShow);
@@ -93,6 +114,7 @@ export class LiveScoresComponent implements OnInit, OnDestroy {
   isNumber(value: any): boolean {
     return !isNaN(Number(value));
   }
+  
   getChronologicalGoalscorers(score: any): any[] {
     if (score && score.goalscorers) {
       // Sort the goals by time

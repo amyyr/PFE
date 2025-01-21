@@ -102,7 +102,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AdminAuthGuard], // AdminAuthGuard applied to all children routes
+   canActivate: [AdminAuthGuard], // AdminAuthGuard applied to all children routes
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'profile', component: AdminProfileComponent },

@@ -1,51 +1,87 @@
 <div class="live-scores-container">
-  <a *ngFor="let score of displayScores" [routerLink]="['/match-details', score.event_key]" 
-     class="score-item-link" [ngClass]="{'highlight': score.highlight}">
+  <a 
+    *ngFor="let score of displayScores" 
+    [routerLink]="['/match-details', score.event_key]" 
+    class="score-item-link" 
+    [ngClass]="{'highlight': score.highlight}" 
+    [attr.aria-label]="'Match details for ' + score.event_home_team + ' vs ' + score.event_away_team"
+  >
+    <!-- Main Score Item -->
     <div class="score-item">
+
+      <!-- League Info Section -->
       <div class="league-info">
-        <img [src]="score.league_logo" class="league-logo" alt="League Logo" />
-        <div class="league-name">{{ score.league_name }}</div>
+        <img 
+          [src]="score.league_logo || 'assets/default-league-logo.png'" 
+          class="league-logo" 
+          alt="{{ score.league_name || 'League Logo' }}" 
+        />
+        <div class="league-name">
+          {{ score.league_name || 'Unknown League' }}
+        </div>
       </div>
+
+      <!-- Match Information Section -->
       <div class="match-info">
+
+        <!-- Match Time Display -->
         <div class="match-time">
           <ng-container *ngIf="isNumber(score.event_status); else otherStatus">
-            {{ score.event_status }}' - Live
+            {{ score.event_status }}' - <strong>Live</strong>
           </ng-container>
           <ng-template #otherStatus>
             <ng-container *ngIf="score.event_status === 'Upcoming'; else finished">
-              {{ score.event_time }} - Upcoming
+              {{ score.event_time || 'TBA' }} - <strong>Upcoming</strong>
             </ng-container>
             <ng-template #finished>
-              {{ score.event_time }} - Finished
+              {{ score.event_time || 'Unknown Time' }} - <strong>Finished</strong>
             </ng-template>
           </ng-template>
         </div>
+
+        <!-- Teams and Scores -->
         <div class="teams">
-          <div class="team">
-            <img [src]="score.home_team_logo" class="team-logo" alt="Home Team Logo" />
-            <div class="team-name">{{ score.event_home_team }}</div>
-            <div class="home-score">{{ score.homeScore !== undefined ? score.homeScore : 0 }}</div>
+
+          <!-- Home Team -->
+          <div class="team home-team">
+            <img 
+              [src]="score.home_team_logo || 'assets/default-team-logo.png'" 
+              class="team-logo" 
+              alt="{{ score.event_home_team || 'Home Team' }} Logo" 
+            />
+            <div class="team-name">{{ score.event_home_team || 'Home Team' }}</div>
+            <div class="team-score">{{ score.homeScore ?? 0 }}</div>
           </div>
-          <div class="team">
-            <img [src]="score.away_team_logo" class="team-logo" alt="Away Team Logo" />
-            <div class="team-name">{{ score.event_away_team }}</div>
-            <div class="away-score">{{ score.awayScore !== undefined ? score.awayScore : 0 }}</div>
+
+          <!-- Away Team -->
+          <div class="team away-team">
+            <img 
+              [src]="score.away_team_logo || 'assets/default-team-logo.png'" 
+              class="team-logo" 
+              alt="{{ score.event_away_team || 'Away Team' }} Logo" 
+            />
+            <div class="team-name">{{ score.event_away_team || 'Away Team' }}</div>
+            <div class="team-score">{{ score.awayScore ?? 0 }}</div>
           </div>
+
         </div>
       </div>
+
+      <!-- Match Status Section -->
       <div class="match-status">
         <ng-container *ngIf="isNumber(score.event_status); else notLiveStatus">
-          Live
+          <span class="live-status" aria-label="Live Match">🔥 Live</span>
         </ng-container>
         <ng-template #notLiveStatus>
           <ng-container *ngIf="score.event_status === 'Upcoming'; else finishedStatus">
-            Upcoming
+            <span class="upcoming-status" aria-label="Upcoming Match">📅 Upcoming</span>
           </ng-container>
           <ng-template #finishedStatus>
-            Finished
+            <span class="finished-status" aria-label="Finished Match">✔️ Finished</span>
           </ng-template>
         </ng-template>
       </div>
+
     </div>
   </a>
 </div>
